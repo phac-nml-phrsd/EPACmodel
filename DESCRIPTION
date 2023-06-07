@@ -1,13 +1,11 @@
 Package: EPACmodel
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Use the Early Pandemic Age-structured Compartmental (EPAC) Model
+Version: 0.0.0.9000
+Authors@R: c( 
+    person("Irena", "Papst", , "irena.papst@phac-aspc.gc.ca", role = c("aut", "cre")),
+    person("Michael", "WZ Li", , role = c("aut"))) 
+Description: Simulate and calibrate the EPAC model, as well as visualise its outputs. 
+License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
-URL: https://github.com/papsti/EPACmodel
-BugReports: https://github.com/papsti/EPACmodel/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
