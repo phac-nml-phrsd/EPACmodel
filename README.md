@@ -17,7 +17,7 @@ outputs.
 
 ## Installation
 
-You can install the development version of EPACmodel like so:
+You can install the development version of `EPACmodel` like so:
 
 ``` r
 # FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?

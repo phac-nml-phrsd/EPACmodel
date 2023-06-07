@@ -34,7 +34,7 @@ You can install the development version of EPACmodel like so:
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r example, eval = FALSE}
 library(EPACmodel)
 ## basic example code
 ```
