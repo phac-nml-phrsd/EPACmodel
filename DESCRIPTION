@@ -9,3 +9,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Imports: 
+    macpan2,
+    fs
+Suggests: 
+    testthat (>= 3.0.0)
+Remotes: canmod/macpan2
+Config/testthat/edition: 3
