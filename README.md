@@ -197,3 +197,25 @@ plot_output(sim_output)
 ```
 
 <img src="man/figures/README-sim-output-1-1.png" width="100%" />
+
+### Model interventions
+
+Here is an example of modifying the base model to include interventions:
+
+``` r
+# interventions_simulator = modify_simulator(
+#   model_simulator = model_simulator,
+#   mods_name = "interventions",
+#   model_name = model_name
+# )
+
+interventions_simulator = model_simulator
+source(fs::path_package(
+  file.path("models", model_name, "model-mods",
+            "interventions.R"), package = "EPACmodel"))
+```
+
+``` r
+sim_output2 = simulate(interventions_simulator)
+plot_output(sim_output2)
+```
