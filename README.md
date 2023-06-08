@@ -133,12 +133,12 @@ This output will include the value of each state at the given time
  |> head()
 )
 #>   time state_name value_type        value
-#> 1   10        S_y      state 3.139991e+07
-#> 2   10        R_y      state 5.872536e+01
-#> 3   10        E_y      state 1.982570e+01
-#> 4   10        I_y      state 4.165669e+00
-#> 5   10        H_y      state 6.247906e+00
-#> 6   10        D_y      state 6.247906e-01
+#> 1   10        S_y      state 3.139988e+07
+#> 2   10        E_y      state 7.888172e+01
+#> 3   10        I_y      state 2.644023e+01
+#> 4   10        H_y      state 5.068467e+00
+#> 5   10        R_y      state 7.329988e+00
+#> 6   10        D_y      state 7.329988e-01
 ```
 
 as well as the inflow into each compartment at a given time
@@ -150,35 +150,36 @@ for instance:
  |> dplyr::filter(value_type == 'total_inflow', time == 10)
  |> head()
 )
-#>   time state_name   value_type     value
-#> 1   10        S_y total_inflow  0.000000
-#> 2   10        R_y total_inflow 24.561870
-#> 3   10        E_y total_inflow  8.540873
-#> 4   10        I_y total_inflow  1.428459
-#> 5   10        H_y total_inflow  1.736010
-#> 6   10        D_y total_inflow  0.173601
+#>   time state_name   value_type      value
+#> 1   10        S_y total_inflow  0.0000000
+#> 2   10        R_y total_inflow 33.1027030
+#> 3   10        E_y total_inflow 11.4447547
+#> 4   10        I_y total_inflow  1.8981620
+#> 5   10        H_y total_inflow  2.2543761
+#> 6   10        D_y total_inflow  0.2254376
 ```
 
 We can plot the results using standard data manipulation and plotting
 tools:
 
 ``` r
-(sim_output
+plot_output <- function(output){
+  (output
  # parse state names
  |> dplyr::mutate(
    epi_state = gsub("_(y|o)", "", state_name),
    age = ifelse(grepl("_y", state_name),"young","old")
  )
- |> dplyr::filter(value_type == 'state', epi_state == 'I')
+ |> dplyr::filter(value_type == 'total_inflow', epi_state == 'I')
  |> ggplot2::ggplot()
  + ggplot2::geom_line(ggplot2::aes(x = time, y = value, colour = age),
-                      size = 1.25)
+                      linewidth = 1.25)
  + ggplot2::scale_y_continuous(
    labels = scales::label_number(scale_cut = scales::cut_short_scale())
  )
  + ggplot2::labs(
    x = "day",
-   title = "Prevalence over time by age group"
+   title = "Incidence over time by age group"
  )
  + ggplot2::theme_bw()
  + ggplot2::theme(
@@ -188,12 +189,11 @@ tools:
    legend.background = ggplot2::element_rect(fill = NA)
   )
 )
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
+}
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+``` r
+plot_output(sim_output)
+```
 
-### Model interventions
-
-Here is an example of modifying the base model to include interventions:
+<img src="man/figures/README-sim-output-1-1.png" width="100%" />

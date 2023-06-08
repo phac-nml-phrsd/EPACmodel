@@ -113,22 +113,23 @@ as well as the inflow into each compartment at a given time (`value_type == 'tot
 We can plot the results using standard data manipulation and plotting tools:
 
 ```{r}
-(sim_output
+plot_output <- function(output){
+  (output
  # parse state names
  |> dplyr::mutate(
    epi_state = gsub("_(y|o)", "", state_name),
    age = ifelse(grepl("_y", state_name),"young","old")
  )
- |> dplyr::filter(value_type == 'state', epi_state == 'I')
+ |> dplyr::filter(value_type == 'total_inflow', epi_state == 'I')
  |> ggplot2::ggplot()
  + ggplot2::geom_line(ggplot2::aes(x = time, y = value, colour = age),
-                      size = 1.25)
+                      linewidth = 1.25)
  + ggplot2::scale_y_continuous(
    labels = scales::label_number(scale_cut = scales::cut_short_scale())
  )
  + ggplot2::labs(
    x = "day",
-   title = "Prevalence over time by age group"
+   title = "Incidence over time by age group"
  )
  + ggplot2::theme_bw()
  + ggplot2::theme(
@@ -138,8 +139,13 @@ We can plot the results using standard data manipulation and plotting tools:
    legend.background = ggplot2::element_rect(fill = NA)
   )
 )
+}
 ```
 
-### Model interventions
+```{r sim-output-1}
+plot_output(sim_output)
+```
 
-Here is an example of modifying the base model to include interventions:
+
+
+
