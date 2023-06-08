@@ -25,37 +25,39 @@ You can install the development version of EPACmodel like so:
 # FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## Getting started
 
 ``` r
 library(EPACmodel)
-## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+First, load a model. You can list the available model names here:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+list_models()
+#> [1] "two-age-groups"
 ```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
 
 ``` r
-plot(pressure)
+model_name = "two-age-groups"
+model = get_model(model_name)
 ```
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+This object encodes only the model *structure*. In order to simulate
+from this model, we need to attach parameters, as well as an initial
+state.
+
+The default parameters and initial state for each model can be loaded
+with:
+
+``` r
+params = get_params(model_name)
+state = get_state(model_name)
+```
+
+Once these vectors are loaded, you can modify manually in-session if you
+like before constructing the model simulator.
+
+Once we have the model pieces, we need to put them together to construct
+a **simulator**, which is an object that we can use to numerically
+simulate the model:
