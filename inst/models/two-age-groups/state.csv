@@ -1,0 +1,13 @@
+Variable,Default,Verbose Type,Notes
+S_y,3.14E+07,initial value of state variable,approximate population of Canada
+R_y,0,initial value of state variable,
+E_y,1,initial value of state variable,initial exposed individual
+I_y,1,initial value of state variable,
+H_y,0,initial value of state variable,
+D_y,0,initial value of state variable,
+S_o,6.9E+06,initial value of state variable,approximate population of Canada
+R_o,0,initial value of state variable,
+E_o,1,initial value of state variable,initial exposed individual
+I_o,1,initial value of state variable,
+H_o,0,initial value of state variable,
+D_o,0,initial value of state variable,

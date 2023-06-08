@@ -11,7 +11,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
     macpan2,
-    fs
+    fs,
+    readr
 Suggests: 
     testthat (>= 3.0.0)
 Remotes: canmod/macpan2

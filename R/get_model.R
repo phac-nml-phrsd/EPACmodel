@@ -1,11 +1,11 @@
-#' Get read macpan2 model from standard model-definition files
+#' Get a macpan2 model from package models
 #'
-#' @param name name of the model (see [list_models()] for options)
+#' @template model_name
 #'
 #' @return a [macpan2::Model()] object
 #' @export
-get_model <- function(name){
+get_model <- function(model_name){
   macpan2::Model(macpan2::ModelFiles(
-    fs::path_package(file.path("models", name), package = "EPACmodel")
+    fs::path_package(file.path("models", model_name), package = "EPACmodel")
   ))
 }
