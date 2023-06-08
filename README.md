@@ -13,9 +13,9 @@ This package implements the Early Pandemic Age-Structured Compartmental
 [`macpan2`](https://github.com/canmod/macpan2) modelling software.
 **This package is still in development.**
 
-The goals of this package are to document the model, provide tools for
-simulating and calibrating the model, as well as visualizing model
-outputs.
+The goal of this package is to document the models being used under this
+framework. It is more a software record rather than a package to help
+one run the model.
 
 ## Installation
 
@@ -29,35 +29,171 @@ You can install the development version of EPACmodel like so:
 
 ``` r
 library(EPACmodel)
+#> 
+#> Attaching package: 'EPACmodel'
+#> The following object is masked from 'package:stats':
+#> 
+#>     simulate
 ```
 
-First, load a model. You can list the available model names here:
+### Set up model simulator
+
+To work with a model, we need to load its simulator. A simulator in
+`macpan2` is an object that includes model structure (state names,
+flows, etc.) along with parameter values and initial states.
+
+This package includes several models whose simulators can quickly and
+easily be retrieved. Available models include:
 
 ``` r
 list_models()
 #> [1] "two-age-groups"
 ```
 
-``` r
-model_name = "two-age-groups"
-model = get_model(model_name)
-```
-
-This object encodes only the model *structure*. In order to simulate
-from this model, we need to attach parameters, as well as an initial
-state.
-
-The default parameters and initial state for each model can be loaded
-with:
+To get this model’s simulator, we simply call:
 
 ``` r
-params = get_params(model_name)
-state = get_state(model_name)
+model_name <- "two-age-groups"
+model_simulator <- make_simulator(
+  model_name = model_name
+)
 ```
 
-Once these vectors are loaded, you can modify manually in-session if you
-like before constructing the model simulator.
+By default, `make_simulator()` will attach a set of default parameters
+and initial states to the model structure. It will also set a default
+number of time steps. Any of these can be changed by passing additional,
+optional, arguments to `make_simulator()`. We recommend first loading
+the default parameters and/or states, and then editing the values in
+these lists in-session, to ensure the format of each object is
+compatible with the model definition and `macpan2`:
 
-Once we have the model pieces, we need to put them together to construct
-a **simulator**, which is an object that we can use to numerically
-simulate the model:
+``` r
+default_params = get_params(model_name)
+print("default params:")
+#> [1] "default params:"
+print(default_params)
+#>    transmission_y       infection_y     progression_y        recovery_y 
+#>              1.50              0.20              0.20              0.10 
+#> hospitalization_y       discharge_y          deathH_y          deathI_y 
+#>              0.10              0.10              0.01              0.01 
+#>    transmission_o       infection_o     progression_o        recovery_o 
+#>              1.50              0.20              0.20              0.10 
+#> hospitalization_o       discharge_o          deathH_o          deathI_o 
+#>              0.10              0.10              0.01              0.01 
+#>              c_yy              c_yo              c_oy              c_oo 
+#>              0.80              0.20              0.20              0.80
+
+default_state = get_state(model_name)
+print("default state:")
+#> [1] "default state:"
+print(default_state)
+#>      S_y      R_y      E_y      I_y      H_y      D_y      S_o      R_o 
+#> 31400000        0        1        1        0        0  6900000        0 
+#>      E_o      I_o      H_o      D_o 
+#>        1        1        0        0
+
+# move some young susceptibles to the recovered class
+new_state = default_state
+new_state["R_y"] = 1000
+new_state["S_y"] = default_state["S_y"] - new_state["R_y"]
+print("new state:")
+#> [1] "new state:"
+print(new_state)
+#>      S_y      R_y      E_y      I_y      H_y      D_y      S_o      R_o 
+#> 31399000     1000        1        1        0        0  6900000        0 
+#>      E_o      I_o      H_o      D_o 
+#>        1        1        0        0
+```
+
+Then you can pass the modified params and/or state to
+`make_simulator()`:
+
+``` r
+new_model_simulator = make_simulator(
+  model_name = model_name,
+  state = new_state,
+  time_steps = 200
+)
+```
+
+### Simulate model
+
+To run the simulation:
+
+``` r
+sim_output = simulate(model_simulator)
+```
+
+This output will include the value of each state at the given time
+(`value_type == 'state')`:
+
+``` r
+(sim_output
+ |> dplyr::filter(value_type == 'state', time == 10)
+ |> head()
+)
+#>   time state_name value_type        value
+#> 1   10        S_y      state 3.139991e+07
+#> 2   10        R_y      state 5.872536e+01
+#> 3   10        E_y      state 1.982570e+01
+#> 4   10        I_y      state 4.165669e+00
+#> 5   10        H_y      state 6.247906e+00
+#> 6   10        D_y      state 6.247906e-01
+```
+
+as well as the inflow into each compartment at a given time
+(`value_type == 'total_inflow')`, so that one could look at incidence,
+for instance:
+
+``` r
+(sim_output
+ |> dplyr::filter(value_type == 'total_inflow', time == 10)
+ |> head()
+)
+#>   time state_name   value_type     value
+#> 1   10        S_y total_inflow  0.000000
+#> 2   10        R_y total_inflow 24.561870
+#> 3   10        E_y total_inflow  8.540873
+#> 4   10        I_y total_inflow  1.428459
+#> 5   10        H_y total_inflow  1.736010
+#> 6   10        D_y total_inflow  0.173601
+```
+
+We can plot the results using standard data manipulation and plotting
+tools:
+
+``` r
+(sim_output
+ # parse state names
+ |> dplyr::mutate(
+   epi_state = gsub("_(y|o)", "", state_name),
+   age = ifelse(grepl("_y", state_name),"young","old")
+ )
+ |> dplyr::filter(value_type == 'state', epi_state == 'I')
+ |> ggplot2::ggplot()
+ + ggplot2::geom_line(ggplot2::aes(x = time, y = value, colour = age),
+                      size = 1.25)
+ + ggplot2::scale_y_continuous(
+   labels = scales::label_number(scale_cut = scales::cut_short_scale())
+ )
+ + ggplot2::labs(
+   x = "day",
+   title = "Prevalence over time by age group"
+ )
+ + ggplot2::theme_bw()
+ + ggplot2::theme(
+   axis.title.y = ggplot2::element_blank(),
+   legend.position = c(1,1),
+   legend.justification = c(1,1),
+   legend.background = ggplot2::element_rect(fill = NA)
+  )
+)
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+
+### Model interventions
+
+Here is an example of modifying the base model to include interventions:
