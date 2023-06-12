@@ -47,7 +47,7 @@ easily be retrieved. Available models include:
 
 ``` r
 list_models()
-#> [1] "two-age-groups"
+#> [1] "two-age-groups"               "two-age-groups_interventions"
 ```
 
 To get this model’s simulator, we simply call:
@@ -116,7 +116,7 @@ new_model_simulator = make_simulator(
 )
 ```
 
-### Simulate model
+### Simulate base model
 
 To run the simulation:
 
@@ -198,24 +198,37 @@ plot_output(sim_output)
 
 <img src="man/figures/README-sim-output-1-1.png" width="100%" />
 
-### Model interventions
+### Model with interventions
 
-Here is an example of modifying the base model to include interventions:
-
-``` r
-# interventions_simulator = modify_simulator(
-#   model_simulator = model_simulator,
-#   mods_name = "interventions",
-#   model_name = model_name
-# )
-
-interventions_simulator = model_simulator
-source(fs::path_package(
-  file.path("models", model_name, "model-mods",
-            "interventions.R"), package = "EPACmodel"))
-```
+Here is the base model with interventions to reduce the transmission
+rate twice over the course of the simulation:
 
 ``` r
-sim_output2 = simulate(interventions_simulator)
-plot_output(sim_output2)
+# simulate and create base plot
+p <- ("two-age-groups_interventions"
+  |> make_simulator()
+  |> simulate()
+  |> plot_output()
+)
+
+# annotate base plot with intervention timing
+interventions <- data.frame(
+  time = c(40, 50),
+  y = 2.5e5,
+  label = "intervention implemented"
+)
+
+(p
+  + geom_vline(
+    data = interventions,
+    mapping = aes(xintercept = time),
+    linetype = "dashed"
+  )
+  + geom_text(
+    data = interventions,
+    mapping = aes(x = time - 1, y = y, label = label),
+    angle = 90,
+    vjust = "inward"
+  )
+)
 ```
