@@ -24,7 +24,17 @@ make_simulator <- function(
   if(is.null(state)) state = get_state(model_name)
 
   # load in simulator expression and evaluate
-  eval(parse(text = readLines(
+  model_simulator = eval(parse(text = readLines(
     fs::path_package(file.path("models", model_name, "simulator-expression.R"), package = "EPACmodel")
   )))
+
+  # process model modifications, if present
+  mods_filename = system.file(file.path("models", model_name, "model-modifications.R"), package = "EPACmodel")
+  if(file.exists(mods_filename)){
+    eval(parse(text = readLines(
+      mods_filename
+    )))
+  }
+
+  return(model_simulator)
 }

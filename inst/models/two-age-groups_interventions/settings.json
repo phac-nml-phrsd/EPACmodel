@@ -1,0 +1,12 @@
+{
+  "required_partitions" : ["Epi"],
+  "null_partition" : "Null",
+  "state_variables" : ["S_y", "E_y", "I_y", "H_y","R_y", "D_y"
+  	,"S_o", "E_o", "I_o", "H_o","R_o", "D_o"],
+  "flow_variables" : [
+		"infection_y", "progression_y","hospitalization_y"
+		, "recovery_y", "discharge_y", "deathH_y","deathI_y"
+		, "infection_o", "progression_o","hospitalization_o"
+		, "recovery_o", "discharge_o", "deathH_o","deathI_o"
+  ]
+}
