@@ -198,41 +198,6 @@ plot_output(sim_output)
 
 <img src="man/figures/README-sim-output-1-1.png" width="100%" />
 
-### Model with interventions
-
-Here is the base model with interventions to reduce the transmission
-rate twice over the course of the simulation:
-
-``` r
-# simulate and create base plot
-p <- ("two-age-groups_interventions"
-  |> make_simulator()
-  |> simulate()
-  |> plot_output()
-)
-
-# annotate base plot with intervention timing
-interventions <- data.frame(
-  time = c(40, 50),
-  y = 2.5e5,
-  label = "intervention implemented"
-)
-
-(p
-  + geom_vline(
-    data = interventions,
-    mapping = aes(xintercept = time),
-    linetype = "dashed"
-  )
-  + geom_text(
-    data = interventions,
-    mapping = aes(x = time - 1, y = y, label = label),
-    angle = 90,
-    vjust = "inward"
-  )
-)
-```
-
 ## Available models
 
 ### “two-age-group” model
@@ -251,8 +216,6 @@ compartments are:
 The flows within each age group are as follows:
 
 ![](man/figures/README-two-age-groups_flow-diagram.png)
-
-<img src="README-figs/flow-diagram.png" width="100%" />
 
 The solid lines indicate flows between compartments and the dashed lines
 indicate when a compartment is involved in calculating a flow rate.
