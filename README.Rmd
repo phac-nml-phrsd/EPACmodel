@@ -181,3 +181,16 @@ interventions <- data.frame(
 )
 ```
 
+## Available models
+
+```{r, echo = FALSE}
+model_readmes <- c()
+for (mod in list_models()){
+  model_readmes <- c(model_readmes,
+                     fs::path_package("models", mod, "README.Rmd",
+                                      package = "EPACmodel"))
+}
+```
+
+```{r, child = model_readmes, echo = FALSE}
+```

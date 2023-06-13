@@ -232,3 +232,35 @@ interventions <- data.frame(
   )
 )
 ```
+
+## Available models
+
+### “two-age-group” model
+
+This version of the model features a basic epidemiological structure
+stratified with two age groups: young and old. The epidemiological
+compartments are:
+
+- $S$: susceptible
+- $E$: exposed
+- $I$: infected
+- $H$: hospitalized
+- $R$: recovered
+- $D$: dead
+
+The flows within each age group are as follows:
+
+![](man/figures/README-two-age-groups_flow-diagram.png)
+
+<img src="README-figs/flow-diagram.png" width="100%" />
+
+The solid lines indicate flows between compartments and the dashed lines
+indicate when a compartment is involved in calculating a flow rate.
+
+### “two-age-group_interventions” model
+
+This version of the model builds on the “two-age-group” model by
+incorporating two time-based interventions that reduce the transmission
+rate. The reductions occur on time steps 40 and 50 of the simulation,
+and reduce the transmission rate by 50% and 30% of its original value,
+respectively.
