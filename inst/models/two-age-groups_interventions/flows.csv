@@ -1,0 +1,15 @@
+from,to,flow,type
+S_y,E_y,infection_y,per_capita
+E_y,I_y,progression_y,per_capita
+I_y,H_y,hospitalization_y,per_capita
+H_y,R_y,discharge_y,per_capita
+I_y,R_y,recovery_y,per_capita
+H_y,D_y,deathH_y,per_capita
+I_y,D_y,deathI_y,per_capita
+S_o,E_o,infection_o,per_capita
+E_o,I_o,progression_o,per_capita
+I_o,H_o,hospitalization_o,per_capita
+H_o,R_o,discharge_o,per_capita
+I_o,R_o,recovery_o,per_capita
+H_o,D_o,deathH_o,per_capita
+I_o,D_o,deathI_o,per_capita
