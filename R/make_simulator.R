@@ -5,10 +5,8 @@
 #' @param state Optional. If NULL, load a default set of initial states
 #' @param time_steps Number of time steps for which to run a simulation
 #'
-#' @return
+#' @return a [macpan2::TMBSimulator()] object
 #' @export
-#'
-#' @example make_simulator(model_name = "two-age-groups")
 make_simulator <- function(
   model_name,
   params = NULL,

@@ -15,7 +15,7 @@ get_values <- function(model_name, values_file){
 #'
 #' @template model_name
 #'
-#' @return
+#' @return Named numeric vector
 #' @export
 get_params <- function(model_name){
   get_values(model_name, "params.csv")
@@ -25,7 +25,7 @@ get_params <- function(model_name){
 #'
 #' @template model_name
 #'
-#' @return
+#' @return Named numeric vector
 #' @export
 get_state <- function(model_name){
   get_values(model_name, "state.csv")
