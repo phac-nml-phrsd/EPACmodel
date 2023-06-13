@@ -146,38 +146,16 @@ plot_output <- function(output){
 plot_output(sim_output)
 ```
 
+## Available models
 
-### Model with interventions
-
-Here is the base model with interventions to reduce the transmission rate twice over the course of the simulation:
-  
-```{r, eval = FALSE}
-# simulate and create base plot
-p <- ("two-age-groups_interventions"
-  |> make_simulator()
-  |> simulate()
-  |> plot_output()
-)
-
-# annotate base plot with intervention timing
-interventions <- data.frame(
-  time = c(40, 50),
-  y = 2.5e5,
-  label = "intervention implemented"
-)
-
-(p
-  + geom_vline(
-    data = interventions,
-    mapping = aes(xintercept = time),
-    linetype = "dashed"
-  )
-  + geom_text(
-    data = interventions,
-    mapping = aes(x = time - 1, y = y, label = label),
-    angle = 90,
-    vjust = "inward"
-  )
-)
+```{r, echo = FALSE}
+model_readmes <- c()
+for (mod in list_models()){
+  model_readmes <- c(model_readmes,
+                     fs::path_package("models", mod, "README.Rmd",
+                                      package = "EPACmodel"))
+}
 ```
 
+```{r, child = model_readmes, echo = FALSE}
+```

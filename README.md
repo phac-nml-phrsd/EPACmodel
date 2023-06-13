@@ -198,37 +198,32 @@ plot_output(sim_output)
 
 <img src="man/figures/README-sim-output-1-1.png" width="100%" />
 
-### Model with interventions
+## Available models
 
-Here is the base model with interventions to reduce the transmission
-rate twice over the course of the simulation:
+### “two-age-group” model
 
-``` r
-# simulate and create base plot
-p <- ("two-age-groups_interventions"
-  |> make_simulator()
-  |> simulate()
-  |> plot_output()
-)
+This version of the model features a basic epidemiological structure
+stratified with two age groups: young and old. The epidemiological
+compartments are:
 
-# annotate base plot with intervention timing
-interventions <- data.frame(
-  time = c(40, 50),
-  y = 2.5e5,
-  label = "intervention implemented"
-)
+- $S$: susceptible
+- $E$: exposed
+- $I$: infected
+- $H$: hospitalized
+- $R$: recovered
+- $D$: dead
 
-(p
-  + geom_vline(
-    data = interventions,
-    mapping = aes(xintercept = time),
-    linetype = "dashed"
-  )
-  + geom_text(
-    data = interventions,
-    mapping = aes(x = time - 1, y = y, label = label),
-    angle = 90,
-    vjust = "inward"
-  )
-)
-```
+The flows within each age group are as follows:
+
+![](man/figures/README-two-age-groups_flow-diagram.png)
+
+The solid lines indicate flows between compartments and the dashed lines
+indicate when a compartment is involved in calculating a flow rate.
+
+### “two-age-group_interventions” model
+
+This version of the model builds on the “two-age-group” model by
+incorporating two time-based interventions that reduce the transmission
+rate. The reductions occur on time steps 40 and 50 of the simulation,
+and reduce the transmission rate by 50% and 30% of its original value,
+respectively.

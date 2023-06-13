@@ -1,0 +1,16 @@
+### "two-age-group" model
+
+This version of the model features a basic epidemiological structure stratified with two age groups: young and old. The epidemiological compartments are:
+
+- $S$: susceptible
+- $E$: exposed
+- $I$: infected
+- $H$: hospitalized
+- $R$: recovered
+- $D$: dead
+
+The flows within each age group are as follows:
+
+![](man/figures/README-two-age-groups_flow-diagram.png)
+
+The solid lines indicate flows between compartments and the dashed lines indicate when a compartment is involved in calculating a flow rate.
