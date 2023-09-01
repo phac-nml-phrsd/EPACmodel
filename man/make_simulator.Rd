@@ -4,16 +4,12 @@
 \alias{make_simulator}
 \title{Construct a simulator for a package model}
 \usage{
-make_simulator(model_name, params = NULL, state = NULL, time_steps = 100)
+make_simulator(model.name, updated_values = NULL)
 }
 \arguments{
-\item{model_name}{name of the model (see \code{\link[=list_models]{list_models()}} for options)}
+\item{model.name}{name of the model (see \code{\link[=list_models]{list_models()}} for options)}
 
-\item{params}{Optional. If NULL, load a default set of parameters}
-
-\item{state}{Optional. If NULL, load a default set of initial states}
-
-\item{time_steps}{Number of time steps for which to run a simulation}
+\item{updated_values}{Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.}
 }
 \value{
 a \code{\link[macpan2:TMBSimulator]{macpan2::TMBSimulator()}} object

@@ -1,5 +1,5 @@
 model$simulators$tmb(
-  time_steps = 100,
+  time_steps = time_steps,
   state = state,
   flow = c(
     infection_y = params[["infection_y"]],

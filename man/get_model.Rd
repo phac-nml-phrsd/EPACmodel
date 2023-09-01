@@ -2,16 +2,16 @@
 % Please edit documentation in R/get_model.R
 \name{get_model}
 \alias{get_model}
-\title{Get a macpan2 model from package models}
+\title{Get a \link{macpan2} model from package models}
 \usage{
-get_model(model_name)
+get_model(model.name)
 }
 \arguments{
-\item{model_name}{name of the model (see \code{\link[=list_models]{list_models()}} for options)}
+\item{model.name}{name of the model (see \code{\link[=list_models]{list_models()}} for options)}
 }
 \value{
 a \code{\link[macpan2:Model]{macpan2::Model()}} object
 }
 \description{
-Get a macpan2 model from package models
+Get a \link{macpan2} model from package models
 }
