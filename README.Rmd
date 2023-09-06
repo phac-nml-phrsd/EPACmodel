@@ -6,6 +6,7 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  # eval = FALSE,
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(
 
 This package implements the Early Pandemic Age-Structured Compartmental (EPAC) model developed by [@wzmli](https://github.com/wzmli) and [@papsti](https://github.com/papsti) at [@phac-nml-phrsd](https://github.com/phac-nml-phrsd) using  [`macpan2`](https://github.com/canmod/macpan2) modelling software. **This package is still in development.**
 
-The goal of this package is to document the models being used under this framework. It is more a software record rather than a package to help one run the model. 
+The goal of this package is to document the iterations of this model, so that they can be pulled into project-specific pipelines to produce modelling outputs. 
 
 ## Installation
 
@@ -43,44 +44,41 @@ To work with a model, we need to load its simulator. A simulator in `macpan2` is
 This package includes several models whose simulators can quickly and easily be retrieved. Available models include:
 
 ```{r}
-list_models()
+EPACmodel::list_models()
 ```
 
 To get this model's simulator, we simply call:
 
 ```{r}
-model_name <- "two-age-groups"
+model.name <- "two-age-groups"
 model_simulator <- make_simulator(
-  model_name = model_name
+  model.name = model.name
 )
 ```
 
-By default, `make_simulator()` will attach a set of default parameters and initial states to the model structure. It will also set a default number of time steps. Any of these can be changed by passing additional, optional, arguments to `make_simulator()`. We recommend first loading the default parameters and/or states, and then editing the values in these lists in-session, to ensure the format of each object is compatible with the model definition and `macpan2`:
+By default, `make_simulator()` will attach a set of default parameters and initial states to the model structure. It will also set a default number of time steps. Any of these can be changed by passing the optional `update.values` argument to `make_simulator()`. We recommend first loading the default parameters and/or states, and then editing the values in these lists in-session, to ensure the format of each object is compatible with the model definition and `macpan2`:
 
 ```{r}
-default_params = get_params(model_name)
-print("default params:")
-print(default_params)
-
-default_state = get_state(model_name)
+# load default values (inital state, params, etc.)
+default.values = get_default_values(model.name)
+default.state = default.values$state
 print("default state:")
-print(default_state)
+print(default.state)
 
 # move some young susceptibles to the recovered class
-new_state = default_state
-new_state["R_y"] = 1000
-new_state["S_y"] = default_state["S_y"] - new_state["R_y"]
+new.state = default.state
+new.state["R_y"] = 1000
+new.state["S_y"] = default.state["S_y"] - new.state["R_y"]
 print("new state:")
-print(new_state)
+print(new.state)
 ```
 
-Then you can pass the modified params and/or state to `make_simulator()`:
+Now we pass the modified params and/or state to `make_simulator()`:
 
 ```{r}
 new_model_simulator = make_simulator(
-  model_name = model_name,
-  state = new_state,
-  time_steps = 200
+  model.name = model.name,
+  updated.values = list(state = new.state)
 )
 ```
 

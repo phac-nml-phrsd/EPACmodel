@@ -2,8 +2,7 @@
 % Please edit documentation in R/list_models.R
 \name{list_models}
 \alias{list_models}
-\title{List models available in the EPACmodel package
-(these are the names available for use in \code{\link[=get_model]{get_model()}})}
+\title{List models available in the \link{EPACmodel} package}
 \usage{
 list_models()
 }
@@ -11,6 +10,5 @@ list_models()
 character vector of model names
 }
 \description{
-List models available in the EPACmodel package
-(these are the names available for use in \code{\link[=get_model]{get_model()}})
+These are the names available for use in \code{\link[=get_model]{get_model()}}
 }
