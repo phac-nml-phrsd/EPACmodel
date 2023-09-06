@@ -1,13 +1,13 @@
 #' Construct a simulator for a package model
 #'
 #' @template param_model.name
-#' @param updated_values Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.
+#' @param updated.values Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.
 #'
 #' @return a [macpan2::TMBSimulator()] object
 #' @export
 make_simulator <- function(
   model.name,
-  updated_values = NULL
+  updated.values = NULL
 ){
 
   # load model
@@ -27,11 +27,11 @@ make_simulator <- function(
   values = get_default_values(model.name)
 
   # update values from default, as requested
-  if(!is.null(updated_values)){
-    names_to_replace = intersect(names(updated_values), names(values))
+  if(!is.null(updated.values)){
+    names.to.replace = intersect(names(updated.values), names(values))
 
-    for(name in names_to_replace){
-      values[[name]] = updated_values[[name]]
+    for(name in names.to.replace){
+      values[[name]] = updated.values[[name]]
     }
   }
 

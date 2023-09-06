@@ -3,14 +3,14 @@ test_that("simulator is initialized", {
 })
 
 test_that("value gets updated from default", {
-  updated_values = list(
+  updated.values = list(
     transmissibility = 0
   )
 
   expect_true(
     all(
     make_simulator("five-year-age-groups",
-                   updated_values = updated_values)$tmb_model$data_arg()$mats[[3]] == 0
+                   updated.values = updated.values)$tmb_model$data_arg()$mats[[3]] == 0
     )
   )
 })
