@@ -29,6 +29,11 @@ You can install the development version of EPACmodel like so:
 
 ``` r
 library(EPACmodel)
+#> 
+#> Attaching package: 'EPACmodel'
+#> The following object is masked from 'package:stats':
+#> 
+#>     simulate
 ```
 
 ### Set up model simulator
@@ -41,7 +46,9 @@ This package includes several models whose simulators can quickly and
 easily be retrieved. Available models include:
 
 ``` r
-list_models()
+EPACmodel::list_models()
+#> [1] "five-year-age-groups"         "two-age-groups"              
+#> [3] "two-age-groups_interventions"
 ```
 
 To get this model’s simulator, we simply call:
@@ -55,37 +62,43 @@ model_simulator <- make_simulator(
 
 By default, `make_simulator()` will attach a set of default parameters
 and initial states to the model structure. It will also set a default
-number of time steps. Any of these can be changed by passing additional,
-optional, arguments to `make_simulator()`. We recommend first loading
-the default parameters and/or states, and then editing the values in
-these lists in-session, to ensure the format of each object is
+number of time steps. Any of these can be changed by passing the
+optional `update.values` argument to `make_simulator()`. We recommend
+first loading the default parameters and/or states, and then editing the
+values in these lists in-session, to ensure the format of each object is
 compatible with the model definition and `macpan2`:
 
 ``` r
-default_params = get_params(model.name)
-print("default params:")
-print(default_params)
-
-default_state = get_state(model.name)
+# load default values (inital state, params, etc.)
+default.values = get_default_values(model.name)
+default.state = default.values$state
 print("default state:")
-print(default_state)
+#> [1] "default state:"
+print(default.state)
+#>      S_y      R_y      E_y      I_y      H_y      D_y      S_o      R_o 
+#> 31400000        0        1        1        0        0  6900000        0 
+#>      E_o      I_o      H_o      D_o 
+#>        1        1        0        0
 
 # move some young susceptibles to the recovered class
-new_state = default_state
-new_state["R_y"] = 1000
-new_state["S_y"] = default_state["S_y"] - new_state["R_y"]
+new.state = default.state
+new.state["R_y"] = 1000
+new.state["S_y"] = default.state["S_y"] - new.state["R_y"]
 print("new state:")
-print(new_state)
+#> [1] "new state:"
+print(new.state)
+#>      S_y      R_y      E_y      I_y      H_y      D_y      S_o      R_o 
+#> 31399000     1000        1        1        0        0  6900000        0 
+#>      E_o      I_o      H_o      D_o 
+#>        1        1        0        0
 ```
 
-Then you can pass the modified params and/or state to
-`make_simulator()`:
+Now we pass the modified params and/or state to `make_simulator()`:
 
 ``` r
 new_model_simulator = make_simulator(
   model.name = model.name,
-  state = new_state,
-  time_steps = 200
+  updated.values = list(state = new.state)
 )
 ```
 
@@ -105,6 +118,13 @@ This output will include the value of each state at the given time
  |> dplyr::filter(value_type == 'state', time == 10)
  |> head()
 )
+#>   time state_name value_type        value
+#> 1   10        S_y      state 3.139988e+07
+#> 2   10        E_y      state 7.888172e+01
+#> 3   10        I_y      state 2.644023e+01
+#> 4   10        H_y      state 5.068467e+00
+#> 5   10        R_y      state 7.329988e+00
+#> 6   10        D_y      state 7.329988e-01
 ```
 
 as well as the inflow into each compartment at a given time
@@ -116,6 +136,13 @@ for instance:
  |> dplyr::filter(value_type == 'total_inflow', time == 10)
  |> head()
 )
+#>   time state_name   value_type      value
+#> 1   10        S_y total_inflow  0.0000000
+#> 2   10        R_y total_inflow 33.1027030
+#> 3   10        E_y total_inflow 11.4447547
+#> 4   10        I_y total_inflow  1.8981620
+#> 5   10        H_y total_inflow  2.2543761
+#> 6   10        D_y total_inflow  0.2254376
 ```
 
 We can plot the results using standard data manipulation and plotting
@@ -155,6 +182,58 @@ plot_output <- function(output){
 plot_output(sim_output)
 ```
 
+<img src="man/figures/README-sim-output-1-1.png" width="100%" />
+
 ## Available models
 
-# `{r, child = model_readmes, echo = FALSE} #`
+### “five-year-age-group” model
+
+This version of the model features a basic epidemiological structure
+stratified with five-year age groups up to age 80. The epidemiological
+compartments are:
+
+- $S$: susceptible
+- $E$: exposed
+- $I$: infected
+- $H$: hospitalized
+- $R$: recovered
+- $D$: dead
+
+The flows within each age group are as follows:
+
+![](man/figures/README-two-age-groups_flow-diagram.png)
+
+The solid lines indicate flows between compartments and the dashed lines
+indicate when a compartment is involved in calculating a flow rate.
+
+Contact matrices are from Mistry et al.
+
+(TODO: discuss contact matrices further)
+
+### “two-age-group” model
+
+This version of the model features a basic epidemiological structure
+stratified with two age groups: young and old. The epidemiological
+compartments are:
+
+- $S$: susceptible
+- $E$: exposed
+- $I$: infected
+- $H$: hospitalized
+- $R$: recovered
+- $D$: dead
+
+The flows within each age group are as follows:
+
+![](man/figures/README-two-age-groups_flow-diagram.png)
+
+The solid lines indicate flows between compartments and the dashed lines
+indicate when a compartment is involved in calculating a flow rate.
+
+### “two-age-group_interventions” model
+
+This version of the model builds on the “two-age-group” model by
+incorporating two time-based interventions that reduce the transmission
+rate. The reductions occur on time steps 40 and 50 of the simulation,
+and reduce the transmission rate by 50% and 30% of its original value,
+respectively.
