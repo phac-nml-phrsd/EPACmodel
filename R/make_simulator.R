@@ -12,6 +12,10 @@ make_simulator <- function(
   updated.values = NULL
 ){
 
+  # convert NULL scenario.name to empty string to make
+  # if statements cleaner
+  if(is.null(scenario.name)) scenario.name = ""
+
   # load model
   model = get_model(model.name)
 
