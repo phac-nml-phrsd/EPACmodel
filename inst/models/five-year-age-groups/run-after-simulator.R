@@ -9,7 +9,7 @@ if(scenario.name == "change-contacts"){
       values$transmissibility*contact.pars.initial$c.hat,
       values$trans.factor*values$transmissibility*contact.pars.new$c.hat
     )
-    , n.age.group = length(values$age.group.lower)
+    , n.age.group = length(age.group.lower)
     , .mats_to_save = c("contact.", "transmission.")
     , .mats_to_return = c("contact.", "transmission.")
   )$insert$expressions(
