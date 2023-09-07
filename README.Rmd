@@ -96,7 +96,18 @@ To simulate a model, just use the `simulate()` function:
 sim_output = simulate(model_simulator)
 ```
 
-Since the model simulator already has all required values attached, all required calculations can be performed to produce the simulation results. Simulation outputs may include several items, such as the count of individuals in each state (`value_type == "state"`) or the total inflow into each compartment (`value_type == "total inflow"`) at each time. 
+Since the model simulator already has all required values attached, all required calculations can be performed to produce the simulation results. 
+
+For all models, simulation outputs are stored in a data frame with columns
+
+```
+time | state_name | value_type | value
+```
+
+The output `value_types` are
+
+- `state`: the number of individuals in given state at a given time,
+- `total_inflow`: the total inflow into a given compartment at a given time.
 
 For instance, here is the number of individuals in each state, stratified by the two age groups `y` (young) and `o` (old), at time 10:
 
@@ -106,7 +117,7 @@ For instance, here is the number of individuals in each state, stratified by the
 )
 ```
 
-The total inflow can be used to extract disease incidence over time:
+The total inflow into $I$ compartments can be used to extract disease incidence by age over time:
 
 ```{r}
 (sim_output
@@ -117,8 +128,6 @@ The total inflow can be used to extract disease incidence over time:
  |> head()
 )
 ```
-
-Simulation outputs are documented in each model's README (appended below in the [Available models](#available-models) section). 
 
 We can plot the results using standard data manipulation and plotting tools, like `dplyr` and `ggplot2`:
 

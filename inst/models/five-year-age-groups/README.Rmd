@@ -1,4 +1,4 @@
-### `"five-year-age-group"` model
+### `five-year-age-group` model
 
 This version of the model features a basic epidemiological structure stratified with five-year age groups up to age 80. The epidemiological compartments are:
 

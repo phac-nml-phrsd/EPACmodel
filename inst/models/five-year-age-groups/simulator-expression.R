@@ -26,7 +26,7 @@ model$simulators$tmb(
   infection. = macpan2::empty_matrix,
   infected. = macpan2::empty_matrix,
   dummy. = macpan2::empty_matrix
-  , .mats_to_return = c("state", "total_inflow", "contact.")
+  , .mats_to_return = c("state", "total_inflow")
   , .dimnames = list(total_inflow = list(names(values$state), ""))
 
   ## This is a hack. It is only necessary because I have not moved the
