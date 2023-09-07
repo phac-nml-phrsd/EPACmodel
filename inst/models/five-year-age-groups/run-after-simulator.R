@@ -1,4 +1,4 @@
-if(scenario.name == "contact-intervention"){
+if(scenario.name == "change-contacts"){
   model_simulator$add$matrices(
     contact_changepoints = c(0, values$intervention.day)
     # need to have "changepoint" for initial set of pars at t = 0
