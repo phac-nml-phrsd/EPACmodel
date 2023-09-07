@@ -25,13 +25,13 @@ The goal of this package is to document the iterations of this model, so that th
 
 ## Installation
 
-You can install the development version of EPACmodel like so:
+You can install the development version of `EPACmodel` like so:
 
-``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+```{r eval = FALSE}
+remotes::install_github("papsti/EPACmodel")
 ```
 
-## Getting started
+## Getting started guide
 
 ```{r}
 library(EPACmodel)
@@ -39,7 +39,7 @@ library(EPACmodel)
 
 ### Set up model simulator
 
-To work with a model, we need to load its simulator. A simulator in `macpan2` is an object that includes model structure (state names, flows, etc.) along with parameter values and initial states. 
+To work with a model, we need to load its simulator. A simulator in `macpan2` is an object that includes model structure (state names, flow expressions, etc.) along with a set of variable values (such as components of flow rates, initial states). 
 
 This package includes several models whose simulators can quickly and easily be retrieved. Available models include:
 
@@ -56,61 +56,72 @@ model_simulator <- make_simulator(
 )
 ```
 
-By default, `make_simulator()` will attach a set of default parameters and initial states to the model structure. It will also set a default number of time steps. Any of these can be changed by passing the optional `update.values` argument to `make_simulator()`. We recommend first loading the default parameters and/or states, and then editing the values in these lists in-session, to ensure the format of each object is compatible with the model definition and `macpan2`:
+By default, `make_simulator()` will attach a set of default values for variables in the model (components of flow rates, initial states, etc.) to the model structure. It will also set a default number of time steps. You can see all default values easily as follows:
 
 ```{r}
-# load default values (inital state, params, etc.)
+# load default values (initial state, params, etc.)
 default.values = get_default_values(model.name)
+```
+
+The definition of each default value is documented in each model's README (appended below in the [Available models](#available-models) section).
+
+Any of these values can be changed by passing the optional `update.values` argument to `make_simulator()`. We recommend first loading the entire list of default values and extracting the specific value (list element) that you want to update, editing the numeric quantity as desired, and then passing the modified list element to `make_simulator()` via the `update.values` argument, to ensure that format of value is preserved to remain compatible with the model definition and `macpan2`:
+
+```{r}
+# get default initial state
 default.state = default.values$state
 print("default state:")
 print(default.state)
 
 # move some young susceptibles to the recovered class
-new.state = default.state
-new.state["R_y"] = 1000
-new.state["S_y"] = default.state["S_y"] - new.state["R_y"]
+new.state = default.state # copy over default value to preserve format
+new.state["R_y"] = 1000 # modify specific elements
+new.state["S_y"] = new.state["S_y"] - new.state["R_y"] # modify specific elements
 print("new state:")
 print(new.state)
-```
 
-Now we pass the modified params and/or state to `make_simulator()`:
-
-```{r}
+# use updated state to make a new simulator 
 new_model_simulator = make_simulator(
   model.name = model.name,
   updated.values = list(state = new.state)
 )
 ```
 
-### Simulate base model
+### Simulate a model
 
-To run the simulation:
+To simulate a model, just use the `simulate()` function:
 
 ```{r}
 sim_output = simulate(model_simulator)
 ```
 
-This output will include the value of each state at the given time (`value_type == 'state')`:
+Since the model simulator already has all required values attached, all required calculations can be performed to produce the simulation results. Simulation outputs may include several items, such as the count of individuals in each state (`value_type == "state"`) or the total inflow into each compartment (`value_type == "total inflow"`) at each time. 
+
+For instance, here is the number of individuals in each state, stratified by the two age groups `y` (young) and `o` (old), at time 10:
 
 ```{r}
 (sim_output
  |> dplyr::filter(value_type == 'state', time == 10)
- |> head()
 )
 ```
 
-as well as the inflow into each compartment at a given time (`value_type == 'total_inflow')`, so that one could look at incidence, for instance:
+The total inflow can be used to extract disease incidence over time:
 
 ```{r}
 (sim_output
- |> dplyr::filter(value_type == 'total_inflow', time == 10)
+ |> dplyr::filter(
+   stringr::str_detect(state_name, "^I"),
+   value_type == 'total_inflow'
+ )
  |> head()
 )
 ```
 
-We can plot the results using standard data manipulation and plotting tools:
+Simulation outputs are documented in each model's README (appended below in the [Available models](#available-models) section). 
 
-```{r}
+We can plot the results using standard data manipulation and plotting tools, like `dplyr` and `ggplot2`:
+
+```{r sim-output-1, echo = FALSE}
 tidy_output = function(output){
    age.lookup = tibble::tibble(
     age_label = c("y", "o"),
@@ -155,10 +166,9 @@ plot_output <- function(df){
       )
   )
 }
-```
 
-```{r sim-output-1}
 (sim_output
+  # these are not package functions, defined just for this doc
  |> tidy_output()
  |> plot_output()
 )
@@ -168,7 +178,7 @@ plot_output <- function(df){
 
 By default, `make_simulator()` will initialize a base model. Some model definitions include optional scenarios on top of the base model, such as interventions modelled through time-varying model parameters. For instance, one could simulate a stay-at-home order by reducing the transmission rate on a given date by some amount. 
 
-One can specify the `scenario.name` argument in `make_simulator()` to attach the required model structure to simulate a given scenario type. Scenario options are catalogued in each model's README (appended below in the [Available models](#available-models) section.
+One can specify the `scenario.name` argument in `make_simulator()` to attach the required model structure to simulate a given scenario type. Scenario options and descriptions are catalogued in each model's README (appended below in the [Available models](#available-models) section).
 
 Here we demonstrate the `two-age-groups` model with the `transmission-intervention` scenario. By default, this scenario reduces the transmission rate in each age group to 50% then 10% of its original value on days 30 and 40, respectively:
 
@@ -180,14 +190,18 @@ values[
 ]
 ```
 
-```{r sim-output-2}
+We specify that we want to use the `change-transmission` scenario in the call to `make_simulator()`:
+
+```{r}
 model_simulator <- make_simulator(
   model.name = "two-age-groups",
   scenario.name = "change-transmission"
 )
 
 sim_output = simulate(model_simulator)
+```
 
+```{r sim-output-2, echo = FALSE}
 annotation = tibble::tibble(
   x = values$intervention.day,
   y = c(1.5e5, 7.5e4),
@@ -215,12 +229,11 @@ annotation = tibble::tibble(
 )
 ```
 
-
 ## Available models {#available-models}
 
 ```{r, echo = FALSE}
 model_readmes <- c()
-for (mod in list_models()){
+for (mod in rev(list_models())){
   model_readmes <- c(model_readmes,
                      fs::path_package("models", mod, "README.Rmd",
                                       package = "EPACmodel"))
