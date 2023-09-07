@@ -1,4 +1,4 @@
-### `"two-age-group"` model
+### `two-age-group` model
 
 This version of the model features a basic epidemiological structure stratified with two age groups: young and old. The epidemiological compartments are:
 
@@ -15,6 +15,8 @@ The flows within each age group are as follows:
 
 The solid lines indicate flows between compartments and the dashed lines indicate when a compartment is involved in calculating a flow rate.
 
+#### Age-based transmission
+
 The force of infection for age group $i$, $\lambda_i$, which is the per-capita rate of flow of age $i$ susceptibles into the exposed class (of the same age), is modelled as
 
 $$
@@ -28,13 +30,29 @@ where
 - $I_j$ is the number of infectious individuals in age group $j$,
 - $N_j$ is the population size of age group $j$.
 
-The contact rates, $c_{ij}$, and the transmission rates, $\beta_j$ are specified for each age group with the `params` value (a named list), in the entries whose names start with `c_` and `transmission_`, respectively. 
+#### Input values
 
-The current number of infectious individuals of each age group, $I_j$, is computed over the course of the simulation. The population size of each age group, $N_j$, is calculated internally from the initial state vector, specified by the `state` value. 
+There are several input values for the base model. Some inputs are stratified by age group (with suffix `_y` for young and `_o` for old). We use the generic suffix `_j` to denote inputs for age group `j` in the list below:
 
-#### Available scenarios
+- `state`: a named list of the initial state for the simulation, where the name of each state follows the pattern `[epi-state]_j`
+- `params`: a named list of model parameters used to compute flow rates, including
+  - `transmission_j`: transmission rate, denoted by $\beta_j$ in the force of infection above,
+  - `c_ij`: contact rate, denoted by $c_{ij}$ in the force of infection above,
+  - `progression_j`: rate of flow from exposed to infectious,
+  - `recovery_j`: rate of flow from infectious to recovered,
+  - `hospitalization_j`: rate of flow from infectious to hospitalized,
+  - `discharge_j`: rate of from from hospitalized to recovered,
+  - `deathH_j`: rate of flow from hospitalized to dead,
+  - `deathI_j`: rate of flow from infectious to dead.
 
-- `change-transmission`: 
-  - This scenario simulates two changes in the age-dependent transmission rates on specific days. 
-  - Intervention days are specified through the `intervention.day` value. The default values yield changes on days 40 and 50.
-  - Scalar multiples of the original transmission rates are specified via the `trans.factor.young` and `trans.factor.old` values, for the young and old, respectively. The default values reduce the transmission rate to 50% then 10% of the original value across both age groups.
+Optional (scenario-specific) input values are documented in the [next section](#available-scenarios-tagm).
+
+#### Available scenarios {#available-scenarios-tagm}
+
+##### `change-transmission` scenario
+
+This scenario simulates two changes in the age-dependent transmission rates on specific days. 
+
+Intervention days are specified through the `intervention.day` input value. The default values yield changes on days 40 and 50.
+
+Scalar multiples of the original transmission rates are specified via the `trans.factor.young` and `trans.factor.old` input values, for the young and old, respectively. The default values reduce the transmission rate to 50% then 10% of the original value across both age groups.
