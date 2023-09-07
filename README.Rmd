@@ -10,7 +10,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "50%"
+  fig.align = "center",
+  out.width = "75%"
 )
 ```
 
@@ -145,19 +146,23 @@ tidy_output = function(output){
    )
 }
 
-plot_output <- function(df){
+plot_output <- function(df, ylim = NULL){
   (df
      |> ggplot2::ggplot()
      + ggplot2::geom_line(ggplot2::aes(x = time, y = value, colour = age),
                           linewidth = 1.25)
      + ggplot2::scale_y_continuous(
+       limits = ylim,
        labels = scales::label_number(scale_cut = scales::cut_short_scale())
      )
      + ggplot2::labs(
        x = "Days since start of outbreak",
-       title = "Incidence over time by age group"
+       title = "Disease incidence over time",
+       colour = "Age group"
      )
-     + ggplot2::theme_bw()
+     + ggplot2::theme_bw(
+       base_size = 16
+     )
      + ggplot2::theme(
        axis.title.y = ggplot2::element_blank(),
        legend.position = c(1,1),
@@ -204,7 +209,7 @@ sim_output = simulate(model_simulator)
 ```{r sim-output-2, echo = FALSE}
 annotation = tibble::tibble(
   x = values$intervention.day,
-  y = c(1.5e5, 7.5e4),
+  y = c(2.45e5, 2e5),
   label = paste0("Change transmission to\n",
                  values$trans.factor.young*100
                  ,"% original value")
@@ -212,19 +217,19 @@ annotation = tibble::tibble(
 
 (sim_output
  |> tidy_output()
- |> plot_output()
+ |> plot_output(
+   ylim = c(0, 2.6e5)
+ )
   # add annotations for interventions
   + ggplot2::geom_vline(
       data = annotation,
       mapping = ggplot2::aes(xintercept = x),
-      linetype = "dashed",
-      alpha = 0.5
+      linewidth = 1.1,
+      alpha = 0.25
     )
   + ggplot2::geom_label(
       data = annotation,
-      mapping = ggplot2::aes(x = x, y = y, label = label),
-      alpha = 0.5,
-      size = 2.5
+      mapping = ggplot2::aes(x = x, y = y, label = label)
     )
 )
 ```

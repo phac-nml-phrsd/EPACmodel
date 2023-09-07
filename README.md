@@ -175,7 +175,7 @@ in the [Available models](#available-models) section).
 We can plot the results using standard data manipulation and plotting
 tools, like `dplyr` and `ggplot2`:
 
-<img src="man/figures/README-sim-output-1-1.png" width="50%" />
+<img src="man/figures/README-sim-output-1-1.png" width="75%" style="display: block; margin: auto;" />
 
 ### Scenarios
 
@@ -223,7 +223,7 @@ model_simulator <- make_simulator(
 sim_output = simulate(model_simulator)
 ```
 
-<img src="man/figures/README-sim-output-2-1.png" width="50%" />
+<img src="man/figures/README-sim-output-2-1.png" width="75%" style="display: block; margin: auto;" />
 
 ## Available models
 
