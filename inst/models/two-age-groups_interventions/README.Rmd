@@ -1,3 +1,0 @@
-### "two-age-group_interventions" model
-
-This version of the model builds on the "two-age-group" model by incorporating two time-based interventions that reduce the transmission rate. The reductions occur on time steps 40 and 50 of the simulation, and reduce the transmission rate by 50% and 30% of its original value, respectively.
