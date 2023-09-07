@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package implements the Early Pandemic Age-Structured Compartmental
+This package implements various versions of the Early Pandemic Age-Structured Compartmental
 (EPAC) model developed by [@wzmli](https://github.com/wzmli) and
 [@papsti](https://github.com/papsti) at
 [@phac-nml-phrsd](https://github.com/phac-nml-phrsd) using
