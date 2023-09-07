@@ -46,9 +46,8 @@ This package includes several models whose simulators can quickly and
 easily be retrieved. Available models include:
 
 ``` r
-EPACmodel::list_models()
-#> [1] "five-year-age-groups"         "two-age-groups"              
-#> [3] "two-age-groups_interventions"
+list_models()
+#> [1] "five-year-age-groups" "two-age-groups"
 ```
 
 To get this model’s simulator, we simply call:
@@ -149,48 +148,146 @@ We can plot the results using standard data manipulation and plotting
 tools:
 
 ``` r
-plot_output <- function(output){
-  (output
- # parse state names
- |> dplyr::mutate(
-   epi_state = gsub("_(y|o)", "", state_name),
-   age = ifelse(grepl("_y", state_name),"young","old")
- )
- |> dplyr::filter(value_type == 'total_inflow', epi_state == 'I')
- |> ggplot2::ggplot()
- + ggplot2::geom_line(ggplot2::aes(x = time, y = value, colour = age),
-                      linewidth = 1.25)
- + ggplot2::scale_y_continuous(
-   labels = scales::label_number(scale_cut = scales::cut_short_scale())
- )
- + ggplot2::labs(
-   x = "day",
-   title = "Incidence over time by age group"
- )
- + ggplot2::theme_bw()
- + ggplot2::theme(
-   axis.title.y = ggplot2::element_blank(),
-   legend.position = c(1,1),
-   legend.justification = c(1,1),
-   legend.background = ggplot2::element_rect(fill = NA)
+tidy_output = function(output){
+   age.lookup = tibble::tibble(
+    age_label = c("y", "o"),
+    age = c("young", "old")
   )
-)
+   sep.state = "_"
+  
+  (output
+    # parse state names
+     |> tidyr::separate(
+       state_name,
+       into = c("epi_state", "age_label"),
+       sep = sep.state
+     )
+     |> dplyr::left_join(
+       age.lookup,
+       by = dplyr::join_by(age_label)
+     )
+     |> dplyr::select(-age_label)
+     |> dplyr::filter(value_type == 'total_inflow', epi_state == 'I')
+   )
+}
+
+plot_output <- function(df){
+  (df
+     |> ggplot2::ggplot()
+     + ggplot2::geom_line(ggplot2::aes(x = time, y = value, colour = age),
+                          linewidth = 1.25)
+     + ggplot2::scale_y_continuous(
+       labels = scales::label_number(scale_cut = scales::cut_short_scale())
+     )
+     + ggplot2::labs(
+       x = "Days since start of outbreak",
+       title = "Incidence over time by age group"
+     )
+     + ggplot2::theme_bw()
+     + ggplot2::theme(
+       axis.title.y = ggplot2::element_blank(),
+       legend.position = c(1,1),
+       legend.justification = c(1,1),
+       legend.background = ggplot2::element_rect(fill = NA)
+      )
+  )
 }
 ```
 
 ``` r
-plot_output(sim_output)
+(sim_output
+ |> tidy_output()
+ |> plot_output()
+)
 ```
 
 <img src="man/figures/README-sim-output-1-1.png" width="100%" />
+
+### Scenarios
+
+By default, `make_simulator()` will initialize a base model. Some model
+definitions include optional scenarios on top of the base model, such as
+interventions modelled through time-varying model parameters. For
+instance, one could simulate a stay-at-home order by reducing the
+transmission rate on a given date by some amount.
+
+One can specify the `scenario.name` argument in `make_simulator()` to
+attach the required model structure to simulate a given scenario type.
+Scenario options are catalogued in each model’s README (appended below
+in the [Available models](#available-models) section.
+
+Here we demonstrate the `two-age-groups` model with the
+`transmission-intervention` scenario. By default, this scenario reduces
+the transmission rate in each age group to 50% then 10% of its original
+value on days 30 and 40, respectively:
+
+``` r
+values = get_default_values("two-age-groups")
+
+values[
+  c("intervention.day", "trans.factor.young", "trans.factor.old")
+]
+#> $intervention.day
+#> [1] 40 50
+#> 
+#> $trans.factor.young
+#> [1] 0.5 0.1
+#> 
+#> $trans.factor.old
+#> [1] 0.5 0.1
+```
+
+``` r
+model_simulator <- make_simulator(
+  model.name = "two-age-groups",
+  scenario.name = "change-transmission"
+)
+
+sim_output = simulate(model_simulator)
+
+annotation = tibble::tibble(
+  x = values$intervention.day,
+  y = c(1.5e5, 7.5e4),
+  label = paste0("Change transmission to\n",
+                 values$trans.factor.young*100
+                 ,"% original value")
+)
+
+(sim_output
+ |> tidy_output()
+ |> plot_output()
+  # add annotations for interventions
+  + ggplot2::geom_vline(
+      data = annotation,
+      mapping = ggplot2::aes(xintercept = x),
+      linetype = "dashed",
+      alpha = 0.5
+    )
+  + ggplot2::geom_label(
+      data = annotation,
+      mapping = ggplot2::aes(x = x, y = y, label = label),
+      alpha = 0.5,
+      size = 2.5
+    )
+)
+```
+
+<img src="man/figures/README-sim-output-2-1.png" width="100%" />
 
 ## Available models
 
 ### “five-year-age-group” model
 
 This version of the model features a basic epidemiological structure
-stratified with five-year age groups up to age 80. The epidemiological
-compartments are:
+stratified with five-year age groups up to age 80.
+
+The lower bound of each age group is captured in the `age.group.lower`
+value. This age-structure is currently hard-coded into the model
+definition, though future versions of the model will flexibly generate
+age groupings on request (once product models are fully implemented in
+[`macpan2`](https://github.com/canmod/macpan2)).
+
+The epidemiological compartments of this model are:
 
 - $S$: susceptible
 - $E$: exposed
@@ -206,9 +303,60 @@ The flows within each age group are as follows:
 The solid lines indicate flows between compartments and the dashed lines
 indicate when a compartment is involved in calculating a flow rate.
 
-Contact matrices are from Mistry et al.
+#### Age-based transmission
 
-(TODO: discuss contact matrices further)
+Transmission occurs in an age-based way, as a proxy for population
+heterogeneity. The transmission rate for susceptibles of age `i` and
+infectious individuals of age `j` is calculated as
+
+$$
+\tau \cdot \hat{c}_i \cdot p_{ij}
+$$
+
+where
+
+- $\tau$ is the transmissibility of the pathogen, as quantified as the
+  proportion of contacts between a susceptible and an infectious
+  individual that yield transmission (independent of age),
+- $\hat{c}_i$ is the average contact rate for individuals of age $i$
+  (with all ages),
+- $p_{ij}$ is the proportion of age group $i$’s contacts that occur with
+  age group $j$.
+
+The average contact rate vector ($\hat{c}$) and the contact proportion
+matrix ($\[p_{ij}\]$) are both generated using a weighted average of
+four setting-based component contact matrices, derived by [Mistry et al
+(2021)](https://www.nature.com/articles/s41467-020-20544-y), which
+reflect contacts in households, workplaces, schools, and community (all
+other contacts outside of the three previous settings). A vector of
+weights, indicating the average overall contact rate per setting is
+specified by the `setting.weight` value. The weighted average generates
+an overall contact matrix. The row sums of this matrix give the average
+contact rate vector, $\hat{c}$, and the row-normalized version of this
+matrix is the contact proportion matrix ($\[p_{ij}\]$).
+
+The transmissibility of the disease is specified with the
+`transmissibility` value.
+
+#### Available scenarios
+
+- `"contact-intervention"`:
+  - This scenario enables the simulation of an intervention that affects
+    the age-based contact patterns starting on a specified day from the
+    start of the simulation (“intervention day”).
+  - The intervention day is specified in the `intervention.day` value.
+    The default value simulates a stay-at-home order starting on day 25.
+  - In intervention involves using a new contact matrix starting on the
+    intervention day, which is generated with new setting weights,
+    specified in the `setting.weight.new` value. The default values
+    reflect closing all schools, 50% of workplaces, and reducing
+    community contacts by 75% from the default values for the
+    `setting.weight`s.
+  - The user can also change overall transmissibility of the pathogen
+    starting on the intervention day to some scalar multiple of the
+    original value via the `trans.factor` value. The default values
+    include `trans.factor = 1`, so no change to underlying
+    transmissibility.
 
 ### “two-age-group” model
 
@@ -230,10 +378,31 @@ The flows within each age group are as follows:
 The solid lines indicate flows between compartments and the dashed lines
 indicate when a compartment is involved in calculating a flow rate.
 
-### “two-age-group_interventions” model
+The force of infection for age group $i$, $\lambda_i$, which is the
+per-capita rate of flow of age $i$ susceptibles into the exposed class,
+is modelled as
 
-This version of the model builds on the “two-age-group” model by
-incorporating two time-based interventions that reduce the transmission
-rate. The reductions occur on time steps 40 and 50 of the simulation,
-and reduce the transmission rate by 50% and 30% of its original value,
-respectively.
+$$
+\lambda_i = \sum_{j} c_{ij} \beta_j \frac{I_j}{N_j}
+$$
+
+where
+
+- $c_{ij}$ is the contact rate of a susceptible in age group $i$ with an
+  infected in age group $j$,
+- $\beta_j$ is the transmission rate for age group $j$,
+- $I_j$ is the number of infectious individuals in age group $j$,
+- $N_j$ is the population size of age group $j$.
+
+#### Available scenarios
+
+- `transmission-intervention`:
+  - This scenario simulates two changes in the age-dependent
+    transmission rates on specific days.
+  - Intervention days are specified through the `intervention.day`
+    value. The default values yield changes on days 40 and 50.
+  - Scalar multiples of the original transmission rates are specified
+    via the `trans.factor.young` and `trans.factor.old` values, for the
+    young and old, respectively. The default values reduce the
+    transmission rate to 50% then 30% of the original value across both
+    age groups.

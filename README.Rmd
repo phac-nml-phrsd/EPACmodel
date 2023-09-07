@@ -44,7 +44,7 @@ To work with a model, we need to load its simulator. A simulator in `macpan2` is
 This package includes several models whose simulators can quickly and easily be retrieved. Available models include:
 
 ```{r}
-EPACmodel::list_models()
+list_models()
 ```
 
 To get this model's simulator, we simply call:
@@ -111,40 +111,112 @@ as well as the inflow into each compartment at a given time (`value_type == 'tot
 We can plot the results using standard data manipulation and plotting tools:
 
 ```{r}
-plot_output <- function(output){
-  (output
- # parse state names
- |> dplyr::mutate(
-   epi_state = gsub("_(y|o)", "", state_name),
-   age = ifelse(grepl("_y", state_name),"young","old")
- )
- |> dplyr::filter(value_type == 'total_inflow', epi_state == 'I')
- |> ggplot2::ggplot()
- + ggplot2::geom_line(ggplot2::aes(x = time, y = value, colour = age),
-                      linewidth = 1.25)
- + ggplot2::scale_y_continuous(
-   labels = scales::label_number(scale_cut = scales::cut_short_scale())
- )
- + ggplot2::labs(
-   x = "day",
-   title = "Incidence over time by age group"
- )
- + ggplot2::theme_bw()
- + ggplot2::theme(
-   axis.title.y = ggplot2::element_blank(),
-   legend.position = c(1,1),
-   legend.justification = c(1,1),
-   legend.background = ggplot2::element_rect(fill = NA)
+tidy_output = function(output){
+   age.lookup = tibble::tibble(
+    age_label = c("y", "o"),
+    age = c("young", "old")
   )
-)
+   sep.state = "_"
+  
+  (output
+    # parse state names
+     |> tidyr::separate(
+       state_name,
+       into = c("epi_state", "age_label"),
+       sep = sep.state
+     )
+     |> dplyr::left_join(
+       age.lookup,
+       by = dplyr::join_by(age_label)
+     )
+     |> dplyr::select(-age_label)
+     |> dplyr::filter(value_type == 'total_inflow', epi_state == 'I')
+   )
+}
+
+plot_output <- function(df){
+  (df
+     |> ggplot2::ggplot()
+     + ggplot2::geom_line(ggplot2::aes(x = time, y = value, colour = age),
+                          linewidth = 1.25)
+     + ggplot2::scale_y_continuous(
+       labels = scales::label_number(scale_cut = scales::cut_short_scale())
+     )
+     + ggplot2::labs(
+       x = "Days since start of outbreak",
+       title = "Incidence over time by age group"
+     )
+     + ggplot2::theme_bw()
+     + ggplot2::theme(
+       axis.title.y = ggplot2::element_blank(),
+       legend.position = c(1,1),
+       legend.justification = c(1,1),
+       legend.background = ggplot2::element_rect(fill = NA)
+      )
+  )
 }
 ```
 
 ```{r sim-output-1}
-plot_output(sim_output)
+(sim_output
+ |> tidy_output()
+ |> plot_output()
+)
 ```
 
-## Available models
+### Scenarios
+
+By default, `make_simulator()` will initialize a base model. Some model definitions include optional scenarios on top of the base model, such as interventions modelled through time-varying model parameters. For instance, one could simulate a stay-at-home order by reducing the transmission rate on a given date by some amount. 
+
+One can specify the `scenario.name` argument in `make_simulator()` to attach the required model structure to simulate a given scenario type. Scenario options are catalogued in each model's README (appended below in the [Available models](#available-models) section.
+
+Here we demonstrate the `two-age-groups` model with the `transmission-intervention` scenario. By default, this scenario reduces the transmission rate in each age group to 50% then 10% of its original value on days 30 and 40, respectively:
+
+```{r}
+values = get_default_values("two-age-groups")
+
+values[
+  c("intervention.day", "trans.factor.young", "trans.factor.old")
+]
+```
+
+```{r sim-output-2}
+model_simulator <- make_simulator(
+  model.name = "two-age-groups",
+  scenario.name = "change-transmission"
+)
+
+sim_output = simulate(model_simulator)
+
+annotation = tibble::tibble(
+  x = values$intervention.day,
+  y = c(1.5e5, 7.5e4),
+  label = paste0("Change transmission to\n",
+                 values$trans.factor.young*100
+                 ,"% original value")
+)
+
+(sim_output
+ |> tidy_output()
+ |> plot_output()
+  # add annotations for interventions
+  + ggplot2::geom_vline(
+      data = annotation,
+      mapping = ggplot2::aes(xintercept = x),
+      linetype = "dashed",
+      alpha = 0.5
+    )
+  + ggplot2::geom_label(
+      data = annotation,
+      mapping = ggplot2::aes(x = x, y = y, label = label),
+      alpha = 0.5,
+      size = 2.5
+    )
+)
+```
+
+
+## Available models {#available-models}
 
 ```{r, echo = FALSE}
 model_readmes <- c()

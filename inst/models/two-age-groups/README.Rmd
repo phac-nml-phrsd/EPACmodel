@@ -14,3 +14,23 @@ The flows within each age group are as follows:
 ![](man/figures/README-two-age-groups_flow-diagram.png)
 
 The solid lines indicate flows between compartments and the dashed lines indicate when a compartment is involved in calculating a flow rate.
+
+The force of infection for age group $i$, $\lambda_i$, which is the per-capita rate of flow of age $i$ susceptibles into the exposed class, is modelled as
+
+$$
+\lambda_i = \sum_{j} c_{ij} \beta_j \frac{I_j}{N_j}
+$$
+
+where 
+
+- $c_{ij}$ is the contact rate of a susceptible in age group $i$ with an infected in age group $j$,
+- $\beta_j$ is the transmission rate for age group $j$,
+- $I_j$ is the number of infectious individuals in age group $j$,
+- $N_j$ is the population size of age group $j$.
+
+#### Available scenarios
+
+- `transmission-intervention`: 
+  - This scenario simulates two changes in the age-dependent transmission rates on specific days. 
+  - Intervention days are specified through the `intervention.day` value. The default values yield changes on days 40 and 50.
+  - Scalar multiples of the original transmission rates are specified via the `trans.factor.young` and `trans.factor.old` values, for the young and old, respectively. The default values reduce the transmission rate to 50% then 10% of the original value across both age groups.
