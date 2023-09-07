@@ -1,12 +1,14 @@
 #' Construct a simulator for a package model
 #'
 #' @template param_model.name
+#' @param scenario.name Optional. Name of scenario to simulate. See README for `model.name` for options. If NULL, use base model.
 #' @param updated.values Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.
 #'
 #' @return a [macpan2::TMBSimulator()] object
 #' @export
 make_simulator <- function(
   model.name,
+  scenario.name = NULL,
   updated.values = NULL
 ){
 
