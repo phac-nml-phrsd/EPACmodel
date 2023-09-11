@@ -11,7 +11,6 @@ This package implements the Early Pandemic Age-Structured Compartmental
 [@papsti](https://github.com/papsti) at
 [@phac-nml-phrsd](https://github.com/phac-nml-phrsd) using
 [`macpan2`](https://github.com/canmod/macpan2) modelling software.
-**This package is still in development.**
 
 The goal of this package is to document the iterations of this model, so
 that they can be pulled into project-specific pipelines to produce
