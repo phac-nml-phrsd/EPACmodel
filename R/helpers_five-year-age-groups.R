@@ -30,7 +30,7 @@ mk_contact_pars <- function(
   c.mat.list = lapply(setting.list, function(setting){
     c.mat = as.matrix(readr::read_csv(
       system.file(
-        file.path("data", "contact-matrices",
+        file.path("input-data", "contact-matrices",
                   paste0("Canada_country_level_F_", setting, "_setting_85.csv")),
         package = "EPACmodel"
       ),
@@ -131,7 +131,7 @@ Lower bounds requested were: ", age.group.lower))
   # get original population data
   population = readr::read_csv(
     system.file(
-      file.path("data", "population", "Canada_country_level_age_distribution_85.csv"),
+      file.path("input-data", "population", "Canada_country_level_age_distribution_85.csv"),
       package = "EPACmodel"
     ),
     col_names = c("age", "count"),
