@@ -37,9 +37,7 @@ where
 - $I_j$ is the number of infectious individuals in age group $j$ (at a given time),
 - $N_j$ is the population size of age group $j$.
 
-The transmissibility, `tau`, is specified with the `transmissibility` value. 
-
-The average contact rate vector ($\hat{c}$) and the contact proportion matrix ($\left[p_{ij}\right]$) are both generated using a weighted average of four setting-based component contact matrices, derived by [Mistry et al (2021)](https://www.nature.com/articles/s41467-020-20544-y), which reflect contacts in households, workplaces, schools, and community (all other contacts outside of the three previous settings). A vector of weights indicating the average overall contact rate per setting is specified by the `setting.weight` value. The weighted average generates an overall contact matrix. The row sums of this matrix give the average contact rate vector, $\left[\hat{c}_j\right]$, and the row-normalized version of this matrix is the contact proportion matrix ($\left[p_{ij}\right]$).
+The average contact rate vector ($\hat{c}$) and the contact proportion matrix ($\left[ p_{ij} \right]$) are both generated using a weighted average of four setting-based component contact matrices, derived by [Mistry et al (2021)](https://www.nature.com/articles/s41467-020-20544-y), which reflect contacts in households, workplaces, schools, and community (all other contacts outside of the three previous settings). The weights are the average overall contact rate per setting. This weighted average generates an overall contact matrix. The row sums of this matrix give the average contact rate vector, $\left[ \hat{c}_j \right]$, and the row-normalized version of this matrix is the contact proportion matrix ($\left[ p_{ij} \right]$).
 
 The current number of infectious individuals of each age group, $I_j$, is computed over the course of the simulation. The population size of each age group, $N_j$, is calculated internally from the initial state vector, specified by the `state` value. 
 
@@ -48,7 +46,7 @@ The current number of infectious individuals of each age group, $I_j$, is comput
 - `"change-contacts"`:
   - This scenario enables the simulation of an intervention that affects the age-based contact patterns starting on a specified day from the start of the simulation ("intervention day"). 
   - The intervention day is specified in the `intervention.day` value. The default value simulates a stay-at-home order starting on day 25. 
-  - In intervention involves using a new contact matrix starting on the intervention day, which is generated with new setting weights, specified in the `setting.weight.new` value. The default values reflect closing all schools, 50% of workplaces, and reducing community contacts by 75% from the default values for the `setting.weight`s.
+  - In intervention involves using a new contact matrix starting on the intervention day, which is generated with new setting weights, specified in the `setting.weight.new` value. The default values reflect closing all schools, 50% of workplaces, and reducing community contacts by 75% from the default `setting.weight` values.
   - The user can also change overall transmissibility of the pathogen starting on the intervention day to some scalar multiple of the original value via the `trans.factor` value. The default values include `trans.factor = 1`, so no change to underlying transmissibility.
 
 
