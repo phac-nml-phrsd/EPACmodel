@@ -1,10 +1,10 @@
 Package: EPACmodel
-Title: Use the Early Pandemic Age-structured Compartmental (EPAC) Model
+Title: Use the Early Pandemic Age-structured Compartmental (EPAC) model
 Version: 0.0.0.9000
 Authors@R: c( 
     person("Irena", "Papst", , "irena.papst@phac-aspc.gc.ca", role = c("aut", "cre")),
     person("Michael", "WZ Li", , role = c("aut"))) 
-Description: Simulate and calibrate the EPAC model, as well as visualise its outputs. 
+Description: Simulate versions of the EPAC model 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
