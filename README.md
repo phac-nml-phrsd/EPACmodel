@@ -47,13 +47,13 @@ easily be retrieved. Available models include:
 
 ``` r
 list_models()
-#> [1] "five-year-age-groups" "two-age-groups"
+#> [1] "five-year-age-groups" "old-and-young"
 ```
 
 To get this model’s simulator, we simply call:
 
 ``` r
-model.name <- "two-age-groups"
+model.name <- "old-and-young"
 model_simulator <- make_simulator(
   model.name = model.name
 )
@@ -122,10 +122,18 @@ sim_output = simulate(model_simulator)
 
 Since the model simulator already has all required values attached, all
 required calculations can be performed to produce the simulation
-results. Simulation outputs may include several items, such as the count
-of individuals in each state (`value_type == "state"`) or the total
-inflow into each compartment (`value_type == "total inflow"`) at each
-time.
+results.
+
+For all models, simulation outputs are stored in a data frame with
+columns
+
+    time | state_name | value_type | value
+
+The output `value_types` are
+
+- `state`: the number of individuals in given state at a given time,
+- `total_inflow`: the total inflow into a given compartment at a given
+  time.
 
 For instance, here is the number of individuals in each state,
 stratified by the two age groups `y` (young) and `o` (old), at time 10:
@@ -149,7 +157,8 @@ stratified by the two age groups `y` (young) and `o` (old), at time 10:
 #> 12   10        D_o      state 3.674943e-01
 ```
 
-The total inflow can be used to extract disease incidence over time:
+The total inflow into $I$ compartments can be used to extract disease
+incidence by age over time:
 
 ``` r
 (sim_output
@@ -167,9 +176,6 @@ The total inflow can be used to extract disease incidence over time:
 #> 5    3        I_y total_inflow 0.1455143
 #> 6    3        I_o total_inflow 0.1195285
 ```
-
-Simulation outputs are documented in each model’s README (appended below
-in the [Available models](#available-models) section).
 
 We can plot the results using standard data manipulation and plotting
 tools, like `dplyr` and `ggplot2`:
@@ -189,13 +195,13 @@ attach the required model structure to simulate a given scenario type.
 Scenario options and descriptions are catalogued in each model’s README
 (appended below in the [Available models](#available-models) section).
 
-Here we demonstrate the `two-age-groups` model with the
+Here we demonstrate the `old-and-young` model with the
 `transmission-intervention` scenario. By default, this scenario reduces
 the transmission rate in each age group to 50% then 10% of its original
 value on days 30 and 40, respectively:
 
 ``` r
-values = get_default_values("two-age-groups")
+values = get_default_values("old-and-young")
 
 values[
   c("intervention.day", "trans.factor.young", "trans.factor.old")
@@ -215,7 +221,7 @@ call to `make_simulator()`:
 
 ``` r
 model_simulator <- make_simulator(
-  model.name = "two-age-groups",
+  model.name = "old-and-young",
   scenario.name = "change-transmission"
 )
 
@@ -226,7 +232,7 @@ sim_output = simulate(model_simulator)
 
 ## Available models
 
-### “two-age-group” model
+### `old-and-young` model
 
 This version of the model features a basic epidemiological structure
 stratified with two age groups: young and old. The epidemiological
@@ -241,17 +247,19 @@ compartments are:
 
 The flows within each age group are as follows:
 
-![](man/figures/README-two-age-groups_flow-diagram.png)
+![](man/figures/README-epi-flow-diagram.png)
 
 The solid lines indicate flows between compartments and the dashed lines
 indicate when a compartment is involved in calculating a flow rate.
 
+#### Age-based transmission
+
 The force of infection for age group $i$, $\lambda_i$, which is the
-per-capita rate of flow of age $i$ susceptibles into the exposed class,
-is modelled as
+per-capita rate of flow of age $i$ susceptibles into the exposed class
+(of the same age), is modelled as
 
 $$
-\lambda_i = \sum_{j} c_{ij} \beta_j \frac{I_j}{N_j}
+\lambda_i = \sum_{j} c_{ij} \beta_j I_j/N_j
 $$
 
 where
@@ -262,31 +270,51 @@ where
 - $I_j$ is the number of infectious individuals in age group $j$,
 - $N_j$ is the population size of age group $j$.
 
+#### Input values
+
+There are several input values for the base model. Some inputs are
+stratified by age group (with suffix `_y` for young and `_o` for old).
+We use the generic suffix `_j` to denote inputs for age group `j` in the
+list below:
+
+- `state`: a named list of the initial state for the simulation, where
+  the name of each state follows the pattern `[epi-state]_j`
+- `params`: a named list of model parameters used to compute flow rates,
+  including
+  - `transmission_j`: transmission rate, denoted by $\beta_j$ in the
+    force of infection above,
+  - `c_ij`: contact rate, denoted by $c_{ij}$ in the force of infection
+    above,
+  - `progression_j`: rate of flow from exposed to infectious,
+  - `recovery_j`: rate of flow from infectious to recovered,
+  - `hospitalization_j`: rate of flow from infectious to hospitalized,
+  - `discharge_j`: rate of from from hospitalized to recovered,
+  - `deathH_j`: rate of flow from hospitalized to dead,
+  - `deathI_j`: rate of flow from infectious to dead.
+
+Optional (scenario-specific) input values are documented in the [next
+section](#available-scenarios-tagm).
+
 #### Available scenarios
 
-- `transmission-intervention`:
-  - This scenario simulates two changes in the age-dependent
-    transmission rates on specific days.
-  - Intervention days are specified through the `intervention.day`
-    value. The default values yield changes on days 40 and 50.
-  - Scalar multiples of the original transmission rates are specified
-    via the `trans.factor.young` and `trans.factor.old` values, for the
-    young and old, respectively. The default values reduce the
-    transmission rate to 50% then 30% of the original value across both
-    age groups.
+##### `change-transmission` scenario
 
-### “five-year-age-group” model
+This scenario simulates two changes in the age-dependent transmission
+rates on specific days.
+
+Intervention days are specified through the `intervention.day` input
+value. The default values yield changes on days 40 and 50.
+
+Scalar multiples of the original transmission rates are specified via
+the `trans.factor.young` and `trans.factor.old` input values, for the
+young and old, respectively. The default values reduce the transmission
+rate to 50% then 10% of the original value across both age groups.
+
+### `five-year-age-group` model
 
 This version of the model features a basic epidemiological structure
-stratified with five-year age groups up to age 80.
-
-The lower bound of each age group is captured in the `age.group.lower`
-value. This age-structure is currently hard-coded into the model
-definition, though future versions of the model will flexibly generate
-age groupings on request (once product models are fully implemented in
-[`macpan2`](https://github.com/canmod/macpan2)).
-
-The epidemiological compartments of this model are:
+stratified with five-year age groups up to age 80. The epidemiological
+compartments are:
 
 - $S$: susceptible
 - $E$: exposed
@@ -297,62 +325,96 @@ The epidemiological compartments of this model are:
 
 The flows within each age group are as follows:
 
-![](man/figures/README-two-age-groups_flow-diagram.png)
+![](man/figures/README-epi-flow-diagram.png)
 
 The solid lines indicate flows between compartments and the dashed lines
 indicate when a compartment is involved in calculating a flow rate.
 
 #### Age-based transmission
 
-Transmission occurs in an age-based way, as a proxy for population
-heterogeneity. The transmission rate for susceptibles of age `i` and
-infectious individuals of age `j` is calculated as
+The force of infection for age group $i$, $\lambda_i$, which is the
+per-capita rate of flow of age $i$ susceptibles into the exposed class
+(of the same age), is modelled as
+
+The force of infection for occurs in an age-based way, as a proxy for
+population heterogeneity. The transmission rate for susceptibles of age
+`i` and infectious individuals of age `j` is calculated as
 
 $$
-\tau \cdot \hat{c}_i \cdot p_{ij}
+\lambda_i = \tau \sum_{j} p_{ij} \hat{c}_j I_j/N_j 
 $$
 
 where
 
-- $\tau$ is the transmissibility of the pathogen, as quantified as the
+- $\tau$ is the transmissibility of the pathogen, quantified as the
   proportion of contacts between a susceptible and an infectious
   individual that yield transmission (independent of age),
-- $\hat{c}_i$ is the average contact rate for individuals of age $i$
-  (with all ages),
 - $p_{ij}$ is the proportion of age group $i$’s contacts that occur with
-  age group $j$.
+  age group $j$,
+- $\hat{c}_j$ is the average contact rate for individuals in age group
+  $j$ (across all ages),
+- $I_j$ is the number of infectious individuals in age group $j$ (at a
+  given time),
+- $N_j$ is the population size of age group $j$.
 
 The average contact rate vector ($\hat{c}$) and the contact proportion
-matrix ($\[p_{ij}\]$) are both generated using a weighted average of
-four setting-based component contact matrices, derived by [Mistry et al
+matrix ($\left[p_{ij}\right]$) are both generated using a weighted
+average of four setting-based component contact matrices, derived by
+[Mistry et al
 (2021)](https://www.nature.com/articles/s41467-020-20544-y), which
 reflect contacts in households, workplaces, schools, and community (all
-other contacts outside of the three previous settings). A vector of
-weights, indicating the average overall contact rate per setting is
-specified by the `setting.weight` value. The weighted average generates
-an overall contact matrix. The row sums of this matrix give the average
-contact rate vector, $\hat{c}$, and the row-normalized version of this
-matrix is the contact proportion matrix ($\[p_{ij}\]$).
+other contacts outside of the three previous settings). The weights are
+the average overall contact rate per setting. This weighted average
+generates an overall contact matrix. The row sums of this matrix give
+the average contact rate vector, $\left[\hat{c}_j\right]$, and the
+row-normalized version of this matrix is the contact proportion matrix
+($\left[p_{ij}\right]$).
 
-The transmissibility of the disease is specified with the
-`transmissibility` value.
+#### Input values
+
+There are several input values for the base model. Some inputs are
+stratified by age group (with suffix `.lb[digit]`, where `[digit]`
+denotes the lower bound of the age group. For example, `.lb50` denotes
+the `50-54` age group. We use the generic suffix `.j` to denote inputs
+for age group `j` in the list below:
+
+- `state`: a named list of the initial state for the simulation, where
+  the name of each state follows the pattern `[epi-state].j`
+- `flow`: a named list of flow rates, including
+  - `progression.j`: rate of flow from exposed to infectious,
+  - `recovery.j`: rate of flow from infectious to recovered,
+  - `hospitalization.j`: rate of flow from infectious to hospitalized,
+  - `discharge.j`: rate of from from hospitalized to recovered,
+  - `death_H.j`: rate of flow from hospitalized to dead,
+  - `death_I.j`: rate of flow from infectious to dead
+- `transmissibility`: transmissibility proportion, denoted by $\tau$ in
+  the force of infection above,
+- `setting.weight`: vector of weights for the setting-specific component
+  contact matrices, where each weight gives the average contact rate per
+  setting across all ages, as described above.
+
+Optional (scenario-specific) input values are documented in the [next
+section](#available-scenarios-fyagm).
 
 #### Available scenarios
 
-- `"contact-intervention"`:
-  - This scenario enables the simulation of an intervention that affects
-    the age-based contact patterns starting on a specified day from the
-    start of the simulation (“intervention day”).
-  - The intervention day is specified in the `intervention.day` value.
-    The default value simulates a stay-at-home order starting on day 25.
-  - In intervention involves using a new contact matrix starting on the
-    intervention day, which is generated with new setting weights,
-    specified in the `setting.weight.new` value. The default values
-    reflect closing all schools, 50% of workplaces, and reducing
-    community contacts by 75% from the default values for the
-    `setting.weight`s.
-  - The user can also change overall transmissibility of the pathogen
-    starting on the intervention day to some scalar multiple of the
-    original value via the `trans.factor` value. The default values
-    include `trans.factor = 1`, so no change to underlying
-    transmissibility.
+##### `change-contacts` scenario
+
+This scenario enables the simulation of an intervention that affects the
+age-based contact patterns starting on a specified day from the start of
+the simulation (the “intervention day”).
+
+The intervention day is specified with the `intervention.day` input
+value. The default value simulates a stay-at-home order starting on day
+25.
+
+An intervention involves using a new contact matrix starting on the
+intervention day, which is generated with new setting weights, specified
+in the `setting.weight.new` input value. The default values reflect
+closing all schools, 50% of workplaces, and reducing community contacts
+by 75% from the default `setting.weight` input value.
+
+The user can also change overall transmissibility of the pathogen
+starting on the intervention day to some scalar multiple of the original
+value via the `trans.factor` input value. The default values include
+`trans.factor = 1`, so no change to underlying transmissibility.

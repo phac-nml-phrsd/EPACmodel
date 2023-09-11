@@ -51,7 +51,7 @@ list_models()
 To get this model's simulator, we simply call:
 
 ```{r}
-model.name <- "two-age-groups"
+model.name <- "old-and-young"
 model_simulator <- make_simulator(
   model.name = model.name
 )
@@ -96,7 +96,18 @@ To simulate a model, just use the `simulate()` function:
 sim_output = simulate(model_simulator)
 ```
 
-Since the model simulator already has all required values attached, all required calculations can be performed to produce the simulation results. Simulation outputs may include several items, such as the count of individuals in each state (`value_type == "state"`) or the total inflow into each compartment (`value_type == "total inflow"`) at each time. 
+Since the model simulator already has all required values attached, all required calculations can be performed to produce the simulation results. 
+
+For all models, simulation outputs are stored in a data frame with columns
+
+```
+time | state_name | value_type | value
+```
+
+The output `value_types` are
+
+- `state`: the number of individuals in given state at a given time,
+- `total_inflow`: the total inflow into a given compartment at a given time.
 
 For instance, here is the number of individuals in each state, stratified by the two age groups `y` (young) and `o` (old), at time 10:
 
@@ -106,7 +117,7 @@ For instance, here is the number of individuals in each state, stratified by the
 )
 ```
 
-The total inflow can be used to extract disease incidence over time:
+The total inflow into $I$ compartments can be used to extract disease incidence by age over time:
 
 ```{r}
 (sim_output
@@ -117,8 +128,6 @@ The total inflow can be used to extract disease incidence over time:
  |> head()
 )
 ```
-
-Simulation outputs are documented in each model's README (appended below in the [Available models](#available-models) section). 
 
 We can plot the results using standard data manipulation and plotting tools, like `dplyr` and `ggplot2`:
 
@@ -185,10 +194,10 @@ By default, `make_simulator()` will initialize a base model. Some model definiti
 
 One can specify the `scenario.name` argument in `make_simulator()` to attach the required model structure to simulate a given scenario type. Scenario options and descriptions are catalogued in each model's README (appended below in the [Available models](#available-models) section).
 
-Here we demonstrate the `two-age-groups` model with the `transmission-intervention` scenario. By default, this scenario reduces the transmission rate in each age group to 50% then 10% of its original value on days 30 and 40, respectively:
+Here we demonstrate the `old-and-young` model with the `transmission-intervention` scenario. By default, this scenario reduces the transmission rate in each age group to 50% then 10% of its original value on days 30 and 40, respectively:
 
 ```{r}
-values = get_default_values("two-age-groups")
+values = get_default_values("old-and-young")
 
 values[
   c("intervention.day", "trans.factor.young", "trans.factor.old")
@@ -199,7 +208,7 @@ We specify that we want to use the `change-transmission` scenario in the call to
 
 ```{r}
 model_simulator <- make_simulator(
-  model.name = "two-age-groups",
+  model.name = "old-and-young",
   scenario.name = "change-transmission"
 )
 
