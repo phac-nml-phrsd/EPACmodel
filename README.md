@@ -48,13 +48,13 @@ easily be retrieved. Available models include:
 
 ``` r
 list_models()
-#> [1] "five-year-age-groups" "two-age-groups"
+#> [1] "five-year-age-groups" "old-and-young"
 ```
 
 To get this model’s simulator, we simply call:
 
 ``` r
-model.name <- "two-age-groups"
+model.name <- "old-and-young"
 model_simulator <- make_simulator(
   model.name = model.name
 )
@@ -196,13 +196,13 @@ attach the required model structure to simulate a given scenario type.
 Scenario options and descriptions are catalogued in each model’s README
 (appended below in the [Available models](#available-models) section).
 
-Here we demonstrate the `two-age-groups` model with the
+Here we demonstrate the `old-and-young` model with the
 `transmission-intervention` scenario. By default, this scenario reduces
 the transmission rate in each age group to 50% then 10% of its original
 value on days 30 and 40, respectively:
 
 ``` r
-values = get_default_values("two-age-groups")
+values = get_default_values("old-and-young")
 
 values[
   c("intervention.day", "trans.factor.young", "trans.factor.old")
@@ -222,7 +222,7 @@ call to `make_simulator()`:
 
 ``` r
 model_simulator <- make_simulator(
-  model.name = "two-age-groups",
+  model.name = "old-and-young",
   scenario.name = "change-transmission"
 )
 
@@ -233,7 +233,7 @@ sim_output = simulate(model_simulator)
 
 ## Available models
 
-### `two-age-group` model
+### `old-and-young` model
 
 This version of the model features a basic epidemiological structure
 stratified with two age groups: young and old. The epidemiological
@@ -248,7 +248,7 @@ compartments are:
 
 The flows within each age group are as follows:
 
-![](man/figures/README-two-age-groups_flow-diagram.png)
+![](man/figures/README-epi-flow-diagram.png)
 
 The solid lines indicate flows between compartments and the dashed lines
 indicate when a compartment is involved in calculating a flow rate.
@@ -326,7 +326,7 @@ compartments are:
 
 The flows within each age group are as follows:
 
-![](man/figures/README-two-age-groups_flow-diagram.png)
+![](man/figures/README-epi-flow-diagram.png)
 
 The solid lines indicate flows between compartments and the dashed lines
 indicate when a compartment is involved in calculating a flow rate.

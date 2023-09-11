@@ -51,7 +51,7 @@ list_models()
 To get this model's simulator, we simply call:
 
 ```{r}
-model.name <- "young-old"
+model.name <- "old-and-young"
 model_simulator <- make_simulator(
   model.name = model.name
 )
@@ -194,10 +194,10 @@ By default, `make_simulator()` will initialize a base model. Some model definiti
 
 One can specify the `scenario.name` argument in `make_simulator()` to attach the required model structure to simulate a given scenario type. Scenario options and descriptions are catalogued in each model's README (appended below in the [Available models](#available-models) section).
 
-Here we demonstrate the `young-old` model with the `transmission-intervention` scenario. By default, this scenario reduces the transmission rate in each age group to 50% then 10% of its original value on days 30 and 40, respectively:
+Here we demonstrate the `old-and-young` model with the `transmission-intervention` scenario. By default, this scenario reduces the transmission rate in each age group to 50% then 10% of its original value on days 30 and 40, respectively:
 
 ```{r}
-values = get_default_values("young-old")
+values = get_default_values("old-and-young")
 
 values[
   c("intervention.day", "trans.factor.young", "trans.factor.old")
@@ -208,7 +208,7 @@ We specify that we want to use the `change-transmission` scenario in the call to
 
 ```{r}
 model_simulator <- make_simulator(
-  model.name = "young-old",
+  model.name = "old-and-young",
   scenario.name = "change-transmission"
 )
 

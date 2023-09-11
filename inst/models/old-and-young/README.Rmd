@@ -1,4 +1,4 @@
-### `young-old` model
+### `old-and-young` model
 
 This version of the model features a basic epidemiological structure stratified with two age groups: young and old. The epidemiological compartments are:
 
