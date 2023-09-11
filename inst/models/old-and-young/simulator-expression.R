@@ -2,14 +2,14 @@ model$simulators$tmb(
   time_steps = values$time.steps,
   state = values$state,
   flow = c(
-    infection_y = values$params[["infection_y"]],
+    infection_y = macpan2::empty_matrix,
     progression_y = values$params[["progression_y"]],
     hospitalization_y = values$params[["hospitalization_y"]],
     discharge_y = values$params[["discharge_y"]],
     recovery_y = values$params[["recovery_y"]],
     deathH_y = values$params[["deathH_y"]],
     deathI_y = values$params[["deathI_y"]],
-    infection_o = values$params[["infection_o"]],
+    infection_o = macpan2::empty_matrix,
     progression_o = values$params[["progression_o"]],
     hospitalization_o = values$params[["hospitalization_o"]],
     discharge_o = values$params[["discharge_o"]],
@@ -22,8 +22,8 @@ model$simulators$tmb(
   c_yo = values$params[["c_yo"]],
   c_oy = values$params[["c_oy"]],
   c_oo = values$params[["c_oo"]],
-  N_y = sum(as.numeric(values$params[c("S_y","E_y","I_y","H_y","R_y","D_y")])),
-  N_o = sum(as.numeric(values$params[c("S_o","E_o","I_o","H_o","R_o","D_o")])),
+  N_y = macpan2::empty_matrix,
+  N_o = macpan2::empty_matrix,
   .mats_to_return = c("state", "total_inflow"),
   .dimnames = list(total_inflow = list(names(values$state), ""))
 )
