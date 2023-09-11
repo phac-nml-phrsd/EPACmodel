@@ -4,10 +4,12 @@
 \alias{make_simulator}
 \title{Construct a simulator for a package model}
 \usage{
-make_simulator(model.name, updated.values = NULL)
+make_simulator(model.name, scenario.name = NULL, updated.values = NULL)
 }
 \arguments{
 \item{model.name}{name of the model (see \code{\link[=list_models]{list_models()}} for options)}
+
+\item{scenario.name}{Optional. Name of scenario to simulate. See README for \code{model.name} for options. If NULL, use base model.}
 
 \item{updated.values}{Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.}
 }
