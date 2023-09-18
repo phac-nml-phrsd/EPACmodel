@@ -11,7 +11,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
     macpan2,
-    oor,
     fs,
     readr,
     dplyr (>= 1.1.0),
@@ -19,6 +18,5 @@ Imports:
     tibble
 Suggests: 
     testthat (>= 3.0.0)
-Remotes: canmod/macpan2@v0.0.3,
-    canmod/oor
+Remotes: canmod/macpan2@add-oor-dependency
 Config/testthat/edition: 3
