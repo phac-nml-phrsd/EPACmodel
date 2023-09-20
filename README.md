@@ -12,9 +12,9 @@ This package implements the Early Pandemic Age-Structured Compartmental
 [@phac-nml-phrsd](https://github.com/phac-nml-phrsd) using
 [`macpan2`](https://github.com/canmod/macpan2) modelling software.
 
-The goal of this package is to document the iterations of this model, and package them so 
-that they can easily be pulled into project-specific pipelines to produce
-modelling outputs.
+The goal of this package is to document the iterations of this model,
+and package them so that they can easily be pulled into project-specific
+pipelines to produce modelling outputs.
 
 ## Installation
 
@@ -57,6 +57,10 @@ model.name <- "old-and-young"
 model_simulator <- make_simulator(
   model.name = model.name
 )
+#> Warning in checkMatrixPackageVersion(): Package version inconsistency detected.
+#> TMB was built with Matrix version 1.6.1
+#> Current Matrix version is 1.5.1
+#> Please re-install 'TMB' from source using install.packages('TMB', type = 'source') or ask CRAN for a binary version of 'TMB' matching CRAN's 'Matrix' package
 ```
 
 By default, `make_simulator()` will attach a set of default values for
