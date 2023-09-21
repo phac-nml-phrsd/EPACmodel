@@ -18,5 +18,5 @@ Imports:
     tibble
 Suggests: 
     testthat (>= 3.0.0)
-Remotes: canmod/macpan2@add-oor-dependency
+Remotes: canmod/macpan2@f4089a6
 Config/testthat/edition: 3
