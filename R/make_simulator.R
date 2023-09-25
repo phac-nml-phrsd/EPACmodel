@@ -3,13 +3,15 @@
 #' @template param_model.name
 #' @param scenario.name Optional. Name of scenario to simulate. See README for `model.name` for options. If NULL, use base model.
 #' @param updated.values Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.
+#' @template param_local
 #'
 #' @return a [macpan2::TMBSimulator()] object
 #' @export
 make_simulator <- function(
   model.name,
   scenario.name = NULL,
-  updated.values = NULL
+  updated.values = NULL,
+  local = FALSE
 ){
 
   # convert NULL scenario.name to empty string to make
@@ -17,15 +19,18 @@ make_simulator <- function(
   if(is.null(scenario.name)) scenario.name = ""
 
   # load model
-  model = get_model(model.name)
+  model = get_model(model.name, local = local)
 
   # source helpers, if need be
-  helpers_filename = system.file(
-    file.path("models", model.name, "helpers.R"),
-    package = "EPACmodel")
-  if(file.exists(helpers_filename)){
+  helpers.file.name = get_model_path(
+    model.name = NULL,
+    file.name = paste0("helpers_", model.name, ".R"),
+    dir.name = "R",
+    local = local
+  )
+  if(!is.null(helpers.file.name)){
     eval(parse(text = readLines(
-      helpers_filename
+      helpers.file.name
     )))
   }
 
@@ -43,26 +48,36 @@ make_simulator <- function(
 
   # expressions to run before initializing the simulator,
   # if present
-  before_sim_filename = system.file(
-    file.path("models", model.name, "run-before-simulator.R"),
-    package = "EPACmodel")
-  if(file.exists(before_sim_filename)){
+  before.sim.file.name = get_model_path(
+    model.name = model.name,
+    file.name = "run-before-simulator.R",
+    local = local
+  )
+  if(!is.null(before.sim.file.name)){
     eval(parse(text = readLines(
-      before_sim_filename
+      before.sim.file.name
     )))
   }
 
   # load in simulator expression and evaluate
   model_simulator = eval(parse(text = readLines(
-    fs::path_package(file.path("models", model.name, "simulator-expression.R"), package = "EPACmodel")
+    get_model_path(
+      model.name = model.name,
+      file.name = "simulator-expression.R",
+      local = local
+    )
   )))
 
   # expressions to run after initializing simulator (model modifications),
   # if present
-  after_sim_filename = system.file(file.path("models", model.name, "run-after-simulator.R"), package = "EPACmodel")
-  if(file.exists(after_sim_filename)){
+  after.sim.file.name = get_model_path(
+    model.name = model.name,
+    file.name = "run-after-simulator.R",
+    local = local
+  )
+  if(!is.null(after.sim.file.name)){
     eval(parse(text = readLines(
-      after_sim_filename
+      after.sim.file.name
     )))
   }
 
