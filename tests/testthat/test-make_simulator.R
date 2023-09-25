@@ -1,4 +1,8 @@
-test_that("simulator is initialized", {
+test_that("simulator is initialized for model that doesn't have helper functions", {
+  expect_true("TMBSimulator" %in% class(make_simulator(model.name = "old-and-young")))
+})
+
+test_that("simulator is initialized for model that has functions", {
   expect_true("TMBSimulator" %in% class(make_simulator(model.name = "five-year-age-groups")))
 })
 

@@ -93,7 +93,7 @@ new_model_simulator = make_simulator(
 To simulate a model, just use the `simulate()` function:
 
 ```{r}
-sim_output = simulate(model_simulator)
+sim.output = simulate(model_simulator)
 ```
 
 Since the model simulator already has all required values attached, all required calculations can be performed to produce the simulation results. 
@@ -112,7 +112,7 @@ The output `value_types` are
 For instance, here is the number of individuals in each state, stratified by the two age groups `y` (young) and `o` (old), at time 10:
 
 ```{r}
-(sim_output
+(sim.output
  |> dplyr::filter(value_type == 'state', time == 10)
 )
 ```
@@ -120,7 +120,7 @@ For instance, here is the number of individuals in each state, stratified by the
 The total inflow into $I$ compartments can be used to extract disease incidence by age over time:
 
 ```{r}
-(sim_output
+(sim.output
  |> dplyr::filter(
    stringr::str_detect(state_name, "^I"),
    value_type == 'total_inflow'
@@ -181,7 +181,7 @@ plot_output <- function(df, ylim = NULL){
   )
 }
 
-(sim_output
+(sim.output
   # these are not package functions, defined just for this doc
  |> tidy_output()
  |> plot_output()
@@ -212,7 +212,7 @@ model_simulator <- make_simulator(
   scenario.name = "change-transmission"
 )
 
-sim_output = simulate(model_simulator)
+sim.output = simulate(model_simulator)
 ```
 
 ```{r sim-output-2, echo = FALSE}
@@ -224,7 +224,7 @@ annotation = tibble::tibble(
                  ,"% original value")
 )
 
-(sim_output
+(sim.output
  |> tidy_output()
  |> plot_output(
    ylim = c(0, 2.6e5)

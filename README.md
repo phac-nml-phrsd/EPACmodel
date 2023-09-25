@@ -57,10 +57,6 @@ model.name <- "old-and-young"
 model_simulator <- make_simulator(
   model.name = model.name
 )
-#> Warning in checkMatrixPackageVersion(): Package version inconsistency detected.
-#> TMB was built with Matrix version 1.6.1
-#> Current Matrix version is 1.5.1
-#> Please re-install 'TMB' from source using install.packages('TMB', type = 'source') or ask CRAN for a binary version of 'TMB' matching CRAN's 'Matrix' package
 ```
 
 By default, `make_simulator()` will attach a set of default values for
@@ -121,7 +117,7 @@ new_model_simulator = make_simulator(
 To simulate a model, just use the `simulate()` function:
 
 ``` r
-sim_output = simulate(model_simulator)
+sim.output = simulate(model_simulator)
 ```
 
 Since the model simulator already has all required values attached, all
@@ -143,7 +139,7 @@ For instance, here is the number of individuals in each state,
 stratified by the two age groups `y` (young) and `o` (old), at time 10:
 
 ``` r
-(sim_output
+(sim.output
  |> dplyr::filter(value_type == 'state', time == 10)
 )
 #>    time state_name value_type        value
@@ -165,7 +161,7 @@ The total inflow into $I$ compartments can be used to extract disease
 incidence by age over time:
 
 ``` r
-(sim_output
+(sim.output
  |> dplyr::filter(
    stringr::str_detect(state_name, "^I"),
    value_type == 'total_inflow'
@@ -229,7 +225,7 @@ model_simulator <- make_simulator(
   scenario.name = "change-transmission"
 )
 
-sim_output = simulate(model_simulator)
+sim.output = simulate(model_simulator)
 ```
 
 <img src="man/figures/README-sim-output-2-1.png" width="75%" style="display: block; margin: auto;" />
