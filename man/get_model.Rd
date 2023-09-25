@@ -4,10 +4,12 @@
 \alias{get_model}
 \title{Get a \link{macpan2} model from package models}
 \usage{
-get_model(model.name)
+get_model(model.name, local = FALSE)
 }
 \arguments{
 \item{model.name}{name of the model (see \code{\link[=list_models]{list_models()}} for options)}
+
+\item{local}{logical. if TRUE, use local model definition (in \code{models} subdirectory of main project repo). if FALSE, use package models.}
 }
 \value{
 a \code{\link[macpan2:Model]{macpan2::Model()}} object
