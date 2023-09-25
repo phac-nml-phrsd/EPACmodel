@@ -15,7 +15,8 @@ Imports:
     readr,
     dplyr (>= 1.1.0),
     tidyr,
-    tibble
+    tibble,
+    here
 Suggests: 
     testthat (>= 3.0.0)
 Remotes: canmod/macpan2@v0.0.3
