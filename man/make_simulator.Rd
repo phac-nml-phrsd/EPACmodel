@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_simulator.R
 \name{make_simulator}
 \alias{make_simulator}
-\title{Construct a simulator for a package model}
+\title{Construct a simulator for a model}
 \usage{
 make_simulator(
   model.name,
@@ -21,8 +21,8 @@ make_simulator(
 \item{local}{logical. if TRUE, use local model definition (in \code{models} subdirectory of main project repo). if FALSE, use package models.}
 }
 \value{
-a \code{\link[macpan2:TMBSimulator]{macpan2::TMBSimulator()}} object
+A \code{\link[macpan2:TMBSimulator]{macpan2::TMBSimulator()}} object
 }
 \description{
-Construct a simulator for a package model
+Construct a simulator for a model
 }

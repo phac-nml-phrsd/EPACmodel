@@ -7,10 +7,10 @@
 mk_pop_table(age.group.lower = NULL)
 }
 \arguments{
-\item{age.group.lower}{numeric vector. lower bounds for desired age groups}
+\item{age.group.lower}{Numeric vector. Lower bounds for desired age groups}
 }
 \value{
-a data frame with columns
+A data frame with columns
 \itemize{
 \item \code{age}: age group
 \item \code{count}: population count

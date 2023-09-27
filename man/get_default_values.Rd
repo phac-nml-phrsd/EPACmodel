@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_default_values.R
 \name{get_default_values}
 \alias{get_default_values}
-\title{Get named list of default values for a package model}
+\title{Get named list of default values for a model}
 \usage{
 get_default_values(model.name, local = FALSE)
 }
@@ -12,8 +12,8 @@ get_default_values(model.name, local = FALSE)
 \item{local}{logical. if TRUE, use local model definition (in \code{models} subdirectory of main project repo). if FALSE, use package models.}
 }
 \value{
-named list of default values used to initialize model
+Named list of default values used to initialize a model for simulation
 }
 \description{
-Get named list of default values for a package model
+Get named list of default values for a model
 }

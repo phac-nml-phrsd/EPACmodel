@@ -10,7 +10,13 @@ simulate(simulator)
 \item{simulator}{Simulator object, initialized using \code{\link[=make_simulator]{make_simulator()}}}
 }
 \value{
-A data frame with the simulation results
+A data frame containing simulation results with columns
+\itemize{
+\item \code{time}: time in days from simulation start
+\item \code{state_name}: compartment name
+\item \code{value_type}: type of values, such as \code{state} (count of individuals in a compartment) and \code{total_inflow} (total inflow into a compartment)
+\item \code{value}
+}
 }
 \description{
 Simulate from a simulator
