@@ -18,6 +18,9 @@ Imports:
     tibble,
     here
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Remotes: canmod/macpan2@98fb990
 Config/testthat/edition: 3
+VignetteBuilder: knitr

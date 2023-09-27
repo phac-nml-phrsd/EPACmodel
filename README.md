@@ -11,7 +11,7 @@ This package implements the Early Pandemic Age-Structured Compartmental
 ([@wzmli](https://github.com/wzmli)) and Irena Papst
 ([@papsti](https://github.com/papsti)) from the Public Health Risk
 Sciences Division of the Public Health Agency of Canada
-([@phac-nml-phrsd](https://github.com/phac-nml-phrsd)) using
+([@phac-nml-phrsd](https://github.com/phac-nml-phrsd))q using
 [`macpan2`](https://github.com/canmod/macpan2) modelling software.
 
 The goal of this package is to document the iterations of this model,
@@ -20,8 +20,9 @@ pipelines to produce modelling outputs.
 
 ## Installation
 
-The latest release of `EPACmodel` is version 1.1.0, and can be installed
-with:
+The latest release of `EPACmodel` is [version
+1.1.0](https://github.com/phac-nml-phrsd/EPACmodel/releases/tag/v1.1.0),
+and can be installed with:
 
 ``` r
 remotes::install_github("phac-nml-phrsd/EPACmodel@v1.1.0")
@@ -60,7 +61,7 @@ list_models()
 #> [1] "five-year-age-groups" "old-and-young"
 ```
 
-To get this model’s simulator, we simply call:
+To get a model’s simulator, we simply call:
 
 ``` r
 model.name <- "old-and-young"
