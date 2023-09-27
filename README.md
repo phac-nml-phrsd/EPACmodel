@@ -1,15 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# EPAC model
+# EPACmodel
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 This package implements the Early Pandemic Age-Structured Compartmental
-(EPAC) model developed by [@wzmli](https://github.com/wzmli) and
-[@papsti](https://github.com/papsti) at
-[@phac-nml-phrsd](https://github.com/phac-nml-phrsd) using
+(EPAC) model developed by Michael WZ Li
+([@wzmli](https://github.com/wzmli)) and Irena Papst
+([@papsti](https://github.com/papsti)) from the Public Health Risk
+Sciences Division of the Public Health Agency of Canada
+([@phac-nml-phrsd](https://github.com/phac-nml-phrsd)) using
 [`macpan2`](https://github.com/canmod/macpan2) modelling software.
 
 The goal of this package is to document the iterations of this model,
@@ -18,10 +20,17 @@ pipelines to produce modelling outputs.
 
 ## Installation
 
-You can install the development version of `EPACmodel` like so:
+The latest release of `EPACmodel` is version 1.1.0, and can be installed
+with:
 
 ``` r
-remotes::install_github("papsti/EPACmodel")
+remotes::install_github("phac-nml-phrsd/EPACmodel@v1.1.0")
+```
+
+You can install the development version of `EPACmodel` with:
+
+``` r
+remotes::install_github("phac-nml-phrsd/EPACmodel")
 ```
 
 ## Getting started guide
@@ -37,10 +46,11 @@ library(EPACmodel)
 
 ### Set up model simulator
 
-To work with a model, we need to load its simulator. A simulator in
+To work with a model, we need to set up its simulator. A simulator in
 `macpan2` is an object that includes model structure (state names, flow
 expressions, etc.) along with a set of variable values (such as
-components of flow rates, initial states).
+components of flow rates, initial states) that ensure it is ready to
+produce simulation results.
 
 This package includes several models whose simulators can quickly and
 easily be retrieved. Available models include:
