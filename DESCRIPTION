@@ -1,6 +1,6 @@
 Package: EPACmodel
 Title: Use the Early Pandemic Age-structured Compartmental (EPAC) model.
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: c( 
     person("Irena", "Papst", , "irena.papst@phac-aspc.gc.ca", role = c("aut", "cre")),
     person("Michael", "WZ Li", , role = c("aut"))) 
@@ -19,5 +19,5 @@ Imports:
     here
 Suggests: 
     testthat (>= 3.0.0)
-Remotes: canmod/macpan2@v0.0.3
+Remotes: canmod/macpan2@98fb990
 Config/testthat/edition: 3
