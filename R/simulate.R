@@ -13,12 +13,10 @@ simulate <- function(simulator) {
   sim = simulator$report()
 
   # reformat output
-  (sim
-    |> dplyr::transmute(
-      time,
-      state_name = row,
-      value_type = matrix,
-      value
-    )
+  out = data.frame(
+    time = sim$time,
+    state_name = sim$row,
+    value_type = sim$matrix,
+    value = sim$value
   )
 }

@@ -13,15 +13,18 @@ RoxygenNote: 7.2.3
 Imports: 
     macpan2,
     fs,
-    readr,
-    dplyr (>= 1.1.0),
-    tidyr,
-    tibble,
     here
 Suggests: 
+    dplyr (>= 1.1.0),
+    ggplot2,
     knitr,
+    readr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    scales,
+    stringr,
+    testthat (>= 3.0.0),
+    tibble,
+    tidyr
 Remotes: canmod/macpan2@98fb990
 Config/testthat/edition: 3
 VignetteBuilder: knitr
