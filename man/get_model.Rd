@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_model.R
 \name{get_model}
 \alias{get_model}
-\title{Get a \link{macpan2} model from package models}
+\title{Construct a model object from model definition files}
 \usage{
 get_model(model.name, local = FALSE)
 }
@@ -12,8 +12,8 @@ get_model(model.name, local = FALSE)
 \item{local}{logical. if TRUE, use local model definition (in \code{models} subdirectory of main project repo). if FALSE, use package models.}
 }
 \value{
-a \code{\link[macpan2:Model]{macpan2::Model()}} object
+A \code{\link[macpan2:Model]{macpan2::Model()}} object
 }
 \description{
-Get a \link{macpan2} model from package models
+Construct a model object from model definition files
 }

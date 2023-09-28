@@ -6,6 +6,7 @@ Authors@R: c(
     person("Michael", "WZ Li", , role = c("aut"))) 
 Description: Simulate versions of the EPAC model.
 License: MIT + file LICENSE
+URL: https://phac-nml-phrsd.github.io/EPACmodel, https://github.com/phac-nml-phrsd/EPACmodel
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
@@ -18,6 +19,9 @@ Imports:
     tibble,
     here
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Remotes: canmod/macpan2@98fb990
 Config/testthat/edition: 3
+VignetteBuilder: knitr

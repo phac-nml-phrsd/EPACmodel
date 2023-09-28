@@ -1,0 +1,29 @@
+---
+title: "Package models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pkg-models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, echo = FALSE, message = FALSE}
+library(EPACmodel)
+
+model_readmes <- c()
+for (mod in rev(list_models())){
+  model_readmes <- c(model_readmes,
+                     fs::path_package("models", mod, "README.Rmd",
+                                      package = "EPACmodel"))
+}
+```
+
+```{r, child = model_readmes, echo = FALSE}
+```

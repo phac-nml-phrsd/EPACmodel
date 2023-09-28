@@ -1,0 +1,28 @@
+url: ~
+
+home:
+  title: Use the Early Pandemic Age-structured Compartmental model
+  sidebar:
+    structure: [citation, license, authors]
+
+authors:
+  Irena Papst:
+    href: https://github.com/papsti
+  Michael WZ Li:
+    href: https://github.com/wzmli
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [intro, articles, reference]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: Package models
+        href: articles/pkg-models.html
+      - text: Locally-defined models
+        href: articles/local-models.html

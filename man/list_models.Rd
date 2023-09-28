@@ -2,7 +2,7 @@
 % Please edit documentation in R/list_models.R
 \name{list_models}
 \alias{list_models}
-\title{List models available either locally or in the \link{EPACmodel} package}
+\title{List available models}
 \usage{
 list_models(local = FALSE)
 }
@@ -10,7 +10,7 @@ list_models(local = FALSE)
 \item{local}{logical. if TRUE, use local model definition (in \code{models} subdirectory of main project repo). if FALSE, use package models.}
 }
 \value{
-character vector of model names
+Character vector of model names
 }
 \description{
 These are the names available for use in \code{\link[=get_model]{get_model()}}

@@ -7,15 +7,15 @@
 mk_contact_pars(age.group.lower, setting.weight)
 }
 \arguments{
-\item{age.group.lower}{numeric vector. lower bounds for desired age groups}
+\item{age.group.lower}{Numeric vector. Lower bounds for desired age groups}
 
 \item{setting.weight}{Named numeric vector of the average contact rate by setting to reflect closures.}
 }
 \value{
-a list with:
+A list with:
 \itemize{
 \item \code{p.mat}: the row-normalized matrix of contact probabilities
-\item \code{c.hat}: the vector of row sums from the contact rate matrix, giving the averge contact rate per age group; used to set up the transmission vector to maintain the contact balance condition
+\item \code{c.hat}: the vector of row sums from the contact rate matrix, giving the average contact rate per age group; used to set up the transmission vector to maintain the contact balance condition
 }
 }
 \description{

@@ -9,14 +9,14 @@ get_model_path(model.name, file.name, dir.name = "models", local = FALSE)
 \arguments{
 \item{model.name}{name of the model (see \code{\link[=list_models]{list_models()}} for options)}
 
-\item{file.name}{(optional) file name; if NULL, return path to model directory}
+\item{file.name}{Optional. File name; if NULL, return path to model directory}
 
-\item{dir.name}{directory name for files (for local files, must be in main project directory)}
+\item{dir.name}{Directory name for files (for local files, must be in main project directory)}
 
 \item{local}{logical. if TRUE, use local model definition (in \code{models} subdirectory of main project repo). if FALSE, use package models.}
 }
 \value{
-a file name complete with file path
+A file name complete with file path
 }
 \description{
 For internal use

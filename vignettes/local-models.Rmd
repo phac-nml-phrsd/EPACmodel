@@ -1,0 +1,41 @@
+---
+title: "Locally-defined model files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{local-models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+You can use the functions in this package with model files defined locally in your own projects, provided they fit the `EPACmodel` paradigm. It is easiest to start with files from a packaged model as a guide (like the [`five-year-age-groups` model files](https://github.com/phac-nml-phrsd/EPACmodel/tree/v1.1.0/inst/models/five-year-age-groups)). 
+
+Here is a list of requirements for locally-defined models:
+
+- Models are defined in a `models/[model-name]` subdirectory of the main project folder (`[model-name]` is a placeholder)
+- The following files must appear in `models/[model-name]` to define a model:
+    - The standard set of model definition files [required by `macpan2`](https://canmod.github.io/macpan2/articles/quickstart), including:
+        - `variables.csv`
+        - `derivations.json`
+        - `settings.json`
+        - `flows.csv`
+    - `default_values.rds`, containing a named `values` list that includes specific numeric values for all quantities that must be specified for a model simulator to run (_e.g._ parameter values, initial conditions, etc.)
+    - `simulator-expression.R`, containing an expression for the model simulator as specified by a `macpan2::TMBSimulator()` object
+- The following files may optionally appear in `models/[model-name]` to define a model:
+    - `run-before-model.R`, including any code that should be run before the simulator expression, to help initialize it
+    - `run-after-model.R`, including any code that should be run after the simulator expression, to modify it, including any scenario-based modifications
+    - `README.Rmd`, describing the model and any defined scenarios
+- Any helper functions required to generate a model simulator should appear in `R/helpers_[model-name].R`, where `R/` is a subdirectory of the main project folder.
+
+One can use package functions to work with locally-defined models by using the `local = TRUE` flag:
+
+```
+list_models(local = TRUE)
+make_simulator(model.name = "my-model", local = TRUE)
+```

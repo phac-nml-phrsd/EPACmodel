@@ -1,46 +1,46 @@
 # - - - - - - - - - - - - - - - - -
-# Helper functions to help run the five-year-age-groups model
+# Helper functions to help initialize the five-year-age-groups model
 # - - - - - - - - - - - - - - - - -
 
-# Utilities for using Mistry contact matrices with this model
+# Utilities for using Mistry contact matrices
 # - - - - - - - - - - - - - - - - -
 
 #' Make contact matrix from Mistry et al. data
 #'
-#' @param age.group.lower numeric vector. lower bounds for desired age groups
+#' @param age.group.lower Numeric vector. Lower bounds for desired age groups
 #' @template param_setting.weight
 #'
-#' @return a list with:
+#' @return A list with:
 #'  - `p.mat`: the row-normalized matrix of contact probabilities
-#'  - `c.hat`: the vector of row sums from the contact rate matrix, giving the averge contact rate per age group; used to set up the transmission vector to maintain the contact balance condition
+#'  - `c.hat`: the vector of row sums from the contact rate matrix, giving the average contact rate per age group; used to set up the transmission vector to maintain the contact balance condition
 #' @export
 mk_contact_pars <- function(
     age.group.lower,
     setting.weight
 ){
 
-  # pull population tables if we need to aggregate age groups
+  # Pull population tables if we need to aggregate age groups
   if(!is.null(age.group.lower)){
     pop.orig = mk_pop_table() # original population
     pop.new = mk_pop_table(age.group.lower)
   }
 
-  # load component matrices (default with age groups 0, 1, ..., 83, 84+)
+  # Load component matrices (default with age groups 0, 1, ..., 83, 84+)
   setting.list = c("school", "work", "household", "community")
   c.mat.list = lapply(setting.list, function(setting){
     c.mat = as.matrix(readr::read_csv(
       system.file(
         file.path("input-data", "contact-matrices",
-                  paste0("Canada_country_level_F_", setting, "_setting_85.csv")),
+                  paste0("Canada_country_level_F_", setting,
+                         "_setting_85.csv")),
         package = "EPACmodel"
       ),
       col_names = FALSE, show_col_types = FALSE))
     colnames(c.mat) = NULL
 
-    # aggregate age groups in contact matrix, if requested
+    # Aggregate age groups in contact matrix, if requested
     if(!is.null(age.group.lower)){
-      # multiply each row of each c.mat by corresponding
-      # age-specific population
+      # Multiply each row of each c.mat by corresponding age-specific population
       c.mat = c.mat * pop.orig$count # rowwise multiplication
 
       colnames(c.mat) = 0:84
@@ -48,7 +48,7 @@ mk_contact_pars <- function(
         age_susceptible = 0:84,
         c.mat
       ))
-      # pivot to long form to aggregate age groups
+      # Pivot to long form to aggregate age groups
       |> tidyr::pivot_longer(
         -age_susceptible,
         names_to = "age_infectious"
@@ -64,14 +64,14 @@ mk_contact_pars <- function(
       ))
       |> dplyr::group_by(age_susceptible, age_infectious)
       |> dplyr::summarise(value = sum(value), .groups = "drop")
-      # attach new aggregated population counts and row-normalise
+      # Attach new aggregated population counts and row-normalise
       |> dplyr::left_join(pop.new, by = dplyr::join_by(age_susceptible == age_group))
       |> dplyr::transmute(
         age_susceptible,
         age_infectious,
         value = value/count
       )
-      # reshape back into matrix
+      # Reshape back into matrix
       |> tidyr::pivot_wider(
         id_cols = age_susceptible,
         names_from = age_infectious
@@ -81,8 +81,8 @@ mk_contact_pars <- function(
       )
     }
 
-    # strip dimnames attribute, even though it's (basically) empty
-    # because it causes macpan to error
+    # Strip dimnames attribute, even though it's (basically) empty because it
+    # causes macpan to error
     attr(c.mat, "dimnames") = NULL
 
     return(c.mat)
@@ -90,12 +90,12 @@ mk_contact_pars <- function(
 
   names(c.mat.list) = setting.list
 
-  # sum from components weighted by setting weights
+  # Sum from components weighted by setting weights
   c.mat = Reduce("+", lapply(setting.list, function(setting){
     c.mat.list[[setting]] * setting.weight[setting]
   }))
 
-  # return row-normalized matrix, as well as original row sums (avg contacts
+  # Return row-normalized matrix, as well as original row sums (avg contacts
   # by age group)
   c.hat = rowSums(c.mat)
   return(list(
@@ -108,17 +108,16 @@ mk_contact_pars <- function(
 #'
 #' @inheritParams mk_contact_pars
 #'
-#' @return a data frame with columns
+#' @return A data frame with columns
 #'  - `age`: age group
 #'  - `count`: population count
 mk_pop_table = function(
     age.group.lower = NULL
 ){
-
-  # flag whether any aggregation needs to be done across ages
+  # Flag whether any aggregation needs to be done across ages
   aggregate <- !is.null(age.group.lower)
 
-  # check requested age groups for compatibility with original data source
+  # Check requested age groups for compatibility with original data source
   if(aggregate){
     if(max(age.group.lower) > 84){
       stop(paste0(
@@ -128,7 +127,7 @@ Lower bounds requested were: ", age.group.lower))
     }
   }
 
-  # get original population data
+  # Get original population data
   population = readr::read_csv(
     system.file(
       file.path("input-data", "population", "Canada_country_level_age_distribution_85.csv"),
@@ -139,7 +138,7 @@ Lower bounds requested were: ", age.group.lower))
       .default = readr::col_double()
     ), show_col_types = FALSE)
 
-  # aggregate into new age groups, if requested
+  # Aggregate into new age groups, if requested
   if (aggregate) {
     population <- (population
       |> dplyr::mutate(
