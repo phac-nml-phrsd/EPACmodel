@@ -14,6 +14,9 @@ authors:
 template:
   bootstrap: 5
 
+development:
+  mode: auto
+
 navbar:
   structure:
     left: [intro, articles, reference]
