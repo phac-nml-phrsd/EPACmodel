@@ -16,6 +16,12 @@ knitr::opts_chunk$set(
 
 ```{r setup, echo = FALSE, message = FALSE}
 library(EPACmodel)
+library(tibble)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(scales)
 ```
 
 The goal of this package is to catalogue, document, and version iterations of the Early Pandemic Age-structured Compartmental model so that they can be pulled easily into project-specific pipelines to produce modelling outputs. 
