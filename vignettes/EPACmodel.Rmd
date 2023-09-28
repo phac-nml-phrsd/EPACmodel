@@ -1,5 +1,5 @@
 ---
-title: "EPACmodel"
+title: "Introduction to EPACmodel"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{EPACmodel}
@@ -14,19 +14,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, echo = FALSE, message = FALSE}
 library(EPACmodel)
 ```
 
-# Introduction to EPACmodel
-
-The goal of `EPACmodel` is to package, document, and version different iterations of the Early Pandemic Age-structured Compartmental model so that it is easy to call a model iteration into a pipeline that produces a specific modelling output. 
+The goal of this package is to catalogue, document, and version iterations of the Early Pandemic Age-structured Compartmental model so that they can be pulled easily into project-specific pipelines to produce modelling outputs. 
 
 ## Set up model simulator
 
 To work with a model, we need to set up its simulator. A simulator in `macpan2` is an object that includes model structure (state names, flow expressions, etc.) along with a set of variable values (such as components of flow rates, initial states) that ensure it is ready to produce simulation results. 
 
-This package includes several models whose simulators can quickly and easily be retrieved. Package models include:
+This package includes several models whose simulators can quickly and easily be retrieved (see `vignette("pkg-models")`). It can also work with locally defined models (see `vignette("local-models")`). 
+
+Package model names can be listed with:
 
 ```{r}
 list_models()

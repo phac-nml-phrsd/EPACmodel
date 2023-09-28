@@ -20,9 +20,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package implements the Early Pandemic Age-Structured Compartmental (EPAC) model developed by Michael WZ Li ([@wzmli](https://github.com/wzmli)) and Irena Papst ([@papsti](https://github.com/papsti)) from the Public Health Risk Sciences Division of the Public Health Agency of Canada ([@phac-nml-phrsd](https://github.com/phac-nml-phrsd))q using  [`macpan2`](https://github.com/canmod/macpan2) modelling software. 
+This package implements the Early Pandemic Age-Structured Compartmental (EPAC) model developed by [Michael WZ Li](https://github.com/wzmli) and [Irena Papst](https://github.com/papsti) from the [Public Health Risk Sciences Division](https://github.com/phac-nml-phrsd) of the Public Health Agency of Canada using  [`macpan2`](https://github.com/canmod/macpan2) modelling software. 
 
-The goal of this package is to document the iterations of this model, and package them so that they can easily be pulled into project-specific pipelines to produce modelling outputs. 
+The goal of this package is to catalogue, document, and version iterations of the Early Pandemic Age-structured Compartmental model so that they can be pulled easily into project-specific pipelines to produce modelling outputs. 
 
 ## Installation
 
@@ -32,8 +32,11 @@ The latest release of `EPACmodel` is [version 1.1.0](https://github.com/phac-nml
 remotes::install_github("phac-nml-phrsd/EPACmodel@v1.1.0")
 ```
 
-You can install the development version of `EPACmodel` with:
+The development version of `EPACmodel` can be installed with:
 
 ```{r eval = FALSE}
 remotes::install_github("phac-nml-phrsd/EPACmodel")
 ```
+
+A getting started guide can be found in `vignette("EPACmodel")`.
+
