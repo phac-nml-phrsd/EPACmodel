@@ -54,11 +54,11 @@ mk_contact_pars <- function(
         names_to = "age_infectious"
       )
       |> dplyr::mutate(dplyr::across(
-        starts_with("age"),
+        dplyr::starts_with("age"),
         \(x) as.numeric(x)
       ))
       |> dplyr::mutate(dplyr::across(
-        starts_with("age"),
+        dplyr::starts_with("age"),
         \(x) cut(x, breaks = c(age.group.lower, Inf),
                  include.lowers = TRUE, right = FALSE)
       ))
