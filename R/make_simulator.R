@@ -34,7 +34,7 @@ make_simulator <- function(
 
   # Get default values required to initialize model simulator + make model
   # modifications
-  values = get_default_values(model.name)
+  values = get_default_values(model.name, local = local)
 
   # Update values from default, as requested
   if(!is.null(updated.values)){

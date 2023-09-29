@@ -20,12 +20,10 @@ produce modelling outputs.
 
 ## Installation
 
-The latest release of `EPACmodel` is [version
-1.1.0](https://github.com/phac-nml-phrsd/EPACmodel/releases/tag/v1.1.0),
-and can be installed with:
+The latest release of `EPACmodel` can be installed with:
 
 ``` r
-remotes::install_github("phac-nml-phrsd/EPACmodel@v1.1.0")
+remotes::install_github("phac-nml-phrsd/EPACmodel@v1.1.1")
 ```
 
 The development version of `EPACmodel` can be installed with:
@@ -33,5 +31,7 @@ The development version of `EPACmodel` can be installed with:
 ``` r
 remotes::install_github("phac-nml-phrsd/EPACmodel")
 ```
+
+## Getting started
 
 A getting started guide can be found in `vignette("EPACmodel")`.
