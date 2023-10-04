@@ -13,7 +13,7 @@ simulate <- function(simulator) {
   sim = simulator$report()
 
   # reformat output
-  out = data.frame(
+  data.frame(
     time = sim$time,
     state_name = sim$row,
     value_type = sim$matrix,
