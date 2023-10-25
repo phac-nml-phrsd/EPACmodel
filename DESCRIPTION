@@ -25,6 +25,6 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     tidyr
-Remotes: canmod/macpan2@98fb990
+Remotes: canmod/macpan2@bc97337
 Config/testthat/edition: 3
 VignetteBuilder: knitr
