@@ -20,6 +20,8 @@ produce modelling outputs.
 
 ## Installation
 
+If you're on a Windows system, please install `Rtools` matching your R version from [here](https://cran.r-project.org/bin/windows/Rtools/). This ensures you have a C++ compiler, which is required to install `macpan2`, a dependency of `EPACmodel`.
+
 Versioned releases of `EPACmodel` can be installed with
 
 ``` r
