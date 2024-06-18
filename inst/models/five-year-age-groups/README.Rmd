@@ -37,18 +37,19 @@ The average contact rate vector ($\hat{c}$) and the contact proportion matrix ($
 
 #### Input values
 
-There are several input values for the base model. Some inputs are stratified by age group (with suffix `.lb[digit]`, where `[digit]` denotes the lower bound of the age group. For example, `.lb50` denotes the `50-54` age group. We use the generic suffix `.j` to denote inputs for age group `j` in the list below:
+There are several input values for the model. Some inputs are stratified by age group (with suffix `.lb[digit]`, where `[digit]` denotes the lower bound of the age group. For example, `.lb50` denotes the `50-54` age group. We use the generic suffix `.j` to denote inputs for age group `j` in the following table:
 
-- `state`: a named list of the initial state for the simulation, where the name of each state follows the pattern `[epi-state].j`
-- `flow`: a named list of flow rates, including
-  - `progression.j`: rate of flow from exposed to infectious,
-  - `recovery.j`: rate of flow from infectious to recovered,
-  - `hospitalization.j`: rate of flow from infectious to hospitalized,
-  - `discharge.j`: rate of from from hospitalized to recovered,
-  - `death_H.j`: rate of flow from hospitalized to dead,
-  - `death_I.j`: rate of flow from infectious to dead
-- `transmissibility`: transmissibility proportion, denoted by $\tau$ in the force of infection above,
-- `setting.weight`: vector of weights for the setting-specific component contact matrices, where each weight gives the average contact rate per setting across all ages, as described above.
+|      Variable      |                                                                                   Description                                                                                  | Default value                                                        | Units                             |
+|:------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|--------------------------------------------------------------|-----------------------------------|
+|       `state`      |                             A named list of the initial state for the simulation,  where the name of each state follows the pattern `[epi-state].j`                            | See source                                                   | Number of individuals             |
+| `transmissibility` |                                          Transmissibility proportion, denoted by $\tau$ in the force of infection described previously                                         | 0.2                                                          | -                                 |
+|  `days_incubation` |                                                                     Average length of the incubation period                                                                    | 6                                                            | days                              |
+|  `days_infectious` |                                                                 Average length of the infectious period in days                                                                | 8                                                            | days                              |
+|     `prop_hosp`    |                                                                 Proportion of infections that are hospitalised                                                                 | 0.02                                                         | -                                 |
+|   `prop_IFR_all`   |                                                                 Infection Fatality Ratio across all infections                                                                 | 0.034                                                        | -                                 |
+|  `prop_IFR_hosp`   |                                                             Infection Fatality Ratio across hospitalised infections                                                            | 0.187                                                        | -                                 |
+|     `days_hosp`    |                                                                         Average length of hospital stay                                                                        | 15                                                           | days                              |
+|  `setting.weight`  | Vector of weights for the setting-specific component contact matrices,  where each weight gives the average contact rate per setting across all ages,  as described previously | school = 11.41 work = 8.07 household = 4.11 community = 2.79 | Number of contacts per individual |
 
 Optional (scenario-specific) input values are documented in the [next section](#available-scenarios-fyagm).
 
@@ -60,6 +61,6 @@ This scenario enables the simulation of an intervention that affects the age-bas
 
 The intervention day is specified with the `intervention.day` input value. The default value simulates a stay-at-home order starting on day 25. 
 
-An intervention involves using a new contact matrix starting on the intervention day, which is generated with new setting weights, specified in the `setting.weight.new` input value. The default values reflect closing all schools, 50% of workplaces, and reducing community contacts by 75% from the default `setting.weight` input value.
+An intervention involves using a new contact matrix starting on the intervention day, which is generated with new setting weights, specified in the `setting.weight.new` input value. The default values reflect closing all schools, 50% of workplaces, and reducing community contacts by 75% from the default `setting.weight` input value (see above).
 
 The user can also change overall transmissibility of the pathogen starting on the intervention day to some scalar multiple of the original value via the `trans.factor` input value. The default values include `trans.factor = 1`, so no change to underlying transmissibility.
