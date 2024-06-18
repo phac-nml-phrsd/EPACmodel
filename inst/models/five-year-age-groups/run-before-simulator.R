@@ -15,3 +15,40 @@ if(scenario.name == "change-contacts"){
     setting.weight = values$setting.weight.new
   )
 }
+
+# decode parameters into model flows
+flow <- init_flow_vec(
+  epi_names = c("progression", "recovery", "hospitalization", "discharge", "death_H", "death_I"),
+  age_groups = age.group.lower
+)
+
+values$flow <- (flow 
+  # outflow for E 
+  |> update_flow(
+    pattern = "^progression",
+    value = 1/values$days_incubation
+  )
+  # outflows for I
+  |> update_flow(
+    pattern = "^recovery",
+    value = (1-values$prop_hosp-1/(1/values$prop_IFR_all - 1/values$prop_IFR_hosp))*1/values$days_infectious
+  )
+  |> update_flow(
+    pattern = "^hospitalization",
+    value = values$prop_hosp*1/values$days_infectious
+  )
+  |> update_flow(
+    pattern = "^death_I",
+    value = 1/(1/values$prop_IFR_all - 1/values$prop_IFR_hosp)*1/values$days_infectious
+  )
+  # outflows for H
+  |> update_flow(
+    pattern = "^discharge",
+    value = (1-values$prop_IFR_hosp)*1/values$days_hosp
+  )
+  |> update_flow(
+    pattern = "^death_H",
+    value = values$prop_IFR_hosp*1/values$days_hosp
+  )
+)
+
