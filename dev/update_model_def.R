@@ -8,7 +8,8 @@
 # IN N.x CALCULATION
 
 # UPDATE derivations.json IF INSERTING ANY EXPRESSIONS
-# BE SURE TO UPDATE VALUE IN 
+# --> BE SURE TO ADD NEW DERIVED VARIABLES TO variables.csv
+# --> BE SURE TO UPDATE VALUE IN 
 # $insert$expressions(.at = 4L) IN simulator_expression.R
 # IN CASE ADDITION OF EXPRESSIONS TO derivations.json CHANGES
 # LOCATION OF THIS INSERTION (FROM 4L TO SOMETHING ELSE)
@@ -18,7 +19,7 @@ model.name <- "hosp"
 # atomic labels
 # - - - - - - - - - - - - - - -
 
-state <- c("S", "E", "IR", "IH", "ID", "R", "H", "D")
+state <- c("S", "E", "I_R", "I_H", "I_D", "R", "H", "D")
 age <- seq(0, 80, by = 5)
 flow <- c("infection", "progression_to_R", "progression_to_H", "progression_to_D", "recovery_from_R", "hospitalization", "death_from_I", "recovery_from_H", "death_from_H")
 
