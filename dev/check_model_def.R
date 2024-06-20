@@ -1,12 +1,12 @@
 # works for models with the same age-structure as "five-year-age-groups"
 
-devtools::load_all()
-
 # helper functions
 source(file.path("dev", "helpers.R"))
 
-# build model and simulate
+# re-load model files
+devtools::load_all()
 
+# build model and simulate
 model <- make_simulator(
   model.name = "hosp"
 )
