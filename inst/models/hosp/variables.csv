@@ -17,7 +17,6 @@ hospitalization,lb0
 death_from_I,lb0
 recovery_from_H,lb0
 death_from_H,lb0
-infection,lb0
 S,lb5
 E,lb5
 I_R,lb5
@@ -36,7 +35,6 @@ hospitalization,lb5
 death_from_I,lb5
 recovery_from_H,lb5
 death_from_H,lb5
-infection,lb5
 S,lb10
 E,lb10
 I_R,lb10
@@ -55,7 +53,6 @@ hospitalization,lb10
 death_from_I,lb10
 recovery_from_H,lb10
 death_from_H,lb10
-infection,lb10
 S,lb15
 E,lb15
 I_R,lb15
@@ -74,7 +71,6 @@ hospitalization,lb15
 death_from_I,lb15
 recovery_from_H,lb15
 death_from_H,lb15
-infection,lb15
 S,lb20
 E,lb20
 I_R,lb20
@@ -93,7 +89,6 @@ hospitalization,lb20
 death_from_I,lb20
 recovery_from_H,lb20
 death_from_H,lb20
-infection,lb20
 S,lb25
 E,lb25
 I_R,lb25
@@ -112,7 +107,6 @@ hospitalization,lb25
 death_from_I,lb25
 recovery_from_H,lb25
 death_from_H,lb25
-infection,lb25
 S,lb30
 E,lb30
 I_R,lb30
@@ -131,7 +125,6 @@ hospitalization,lb30
 death_from_I,lb30
 recovery_from_H,lb30
 death_from_H,lb30
-infection,lb30
 S,lb35
 E,lb35
 I_R,lb35
@@ -150,7 +143,6 @@ hospitalization,lb35
 death_from_I,lb35
 recovery_from_H,lb35
 death_from_H,lb35
-infection,lb35
 S,lb40
 E,lb40
 I_R,lb40
@@ -169,7 +161,6 @@ hospitalization,lb40
 death_from_I,lb40
 recovery_from_H,lb40
 death_from_H,lb40
-infection,lb40
 S,lb45
 E,lb45
 I_R,lb45
@@ -188,7 +179,6 @@ hospitalization,lb45
 death_from_I,lb45
 recovery_from_H,lb45
 death_from_H,lb45
-infection,lb45
 S,lb50
 E,lb50
 I_R,lb50
@@ -207,7 +197,6 @@ hospitalization,lb50
 death_from_I,lb50
 recovery_from_H,lb50
 death_from_H,lb50
-infection,lb50
 S,lb55
 E,lb55
 I_R,lb55
@@ -226,7 +215,6 @@ hospitalization,lb55
 death_from_I,lb55
 recovery_from_H,lb55
 death_from_H,lb55
-infection,lb55
 S,lb60
 E,lb60
 I_R,lb60
@@ -245,7 +233,6 @@ hospitalization,lb60
 death_from_I,lb60
 recovery_from_H,lb60
 death_from_H,lb60
-infection,lb60
 S,lb65
 E,lb65
 I_R,lb65
@@ -264,7 +251,6 @@ hospitalization,lb65
 death_from_I,lb65
 recovery_from_H,lb65
 death_from_H,lb65
-infection,lb65
 S,lb70
 E,lb70
 I_R,lb70
@@ -283,7 +269,6 @@ hospitalization,lb70
 death_from_I,lb70
 recovery_from_H,lb70
 death_from_H,lb70
-infection,lb70
 S,lb75
 E,lb75
 I_R,lb75
@@ -302,7 +287,6 @@ hospitalization,lb75
 death_from_I,lb75
 recovery_from_H,lb75
 death_from_H,lb75
-infection,lb75
 S,lb80
 E,lb80
 I_R,lb80
@@ -321,7 +305,6 @@ hospitalization,lb80
 death_from_I,lb80
 recovery_from_H,lb80
 death_from_H,lb80
-infection,lb80
 N,
 transmission,
 scaled_infected,
