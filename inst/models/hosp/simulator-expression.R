@@ -21,6 +21,23 @@ model$simulators$tmb(
   N.lb70 = macpan2::empty_matrix,
   N.lb75 = macpan2::empty_matrix,
   N.lb80 = macpan2::empty_matrix,
+  I.lb0 = macpan2::empty_matrix,
+  I.lb5 = macpan2::empty_matrix,
+  I.lb10 = macpan2::empty_matrix,
+  I.lb15 = macpan2::empty_matrix,
+  I.lb20 = macpan2::empty_matrix,
+  I.lb25 = macpan2::empty_matrix,
+  I.lb30 = macpan2::empty_matrix,
+  I.lb35 = macpan2::empty_matrix,
+  I.lb40 = macpan2::empty_matrix,
+  I.lb45 = macpan2::empty_matrix,
+  I.lb50 = macpan2::empty_matrix,
+  I.lb55 = macpan2::empty_matrix,
+  I.lb60 = macpan2::empty_matrix,
+  I.lb65 = macpan2::empty_matrix,
+  I.lb70 = macpan2::empty_matrix,
+  I.lb75 = macpan2::empty_matrix,
+  I.lb80 = macpan2::empty_matrix,
   N. = macpan2::empty_matrix,
   scaled_infected. = macpan2::empty_matrix,
   infection. = macpan2::empty_matrix,
@@ -40,7 +57,7 @@ model$simulators$tmb(
     infection.lb60, infection.lb65, infection.lb70, infection.lb75,
     infection.lb80
   ), 0, infection.)
-  , .at = 4L
+  , .at = 21L
   , .phase = "during"
   , .vec_by_flows = ""
 )

@@ -8,6 +8,7 @@ R,lb0
 H,lb0
 D,lb0
 N,lb0
+I,lb0
 infection,lb0
 progression_to_R,lb0
 progression_to_H,lb0
@@ -26,6 +27,7 @@ R,lb5
 H,lb5
 D,lb5
 N,lb5
+I,lb5
 infection,lb5
 progression_to_R,lb5
 progression_to_H,lb5
@@ -44,6 +46,7 @@ R,lb10
 H,lb10
 D,lb10
 N,lb10
+I,lb10
 infection,lb10
 progression_to_R,lb10
 progression_to_H,lb10
@@ -62,6 +65,7 @@ R,lb15
 H,lb15
 D,lb15
 N,lb15
+I,lb15
 infection,lb15
 progression_to_R,lb15
 progression_to_H,lb15
@@ -80,6 +84,7 @@ R,lb20
 H,lb20
 D,lb20
 N,lb20
+I,lb20
 infection,lb20
 progression_to_R,lb20
 progression_to_H,lb20
@@ -98,6 +103,7 @@ R,lb25
 H,lb25
 D,lb25
 N,lb25
+I,lb25
 infection,lb25
 progression_to_R,lb25
 progression_to_H,lb25
@@ -116,6 +122,7 @@ R,lb30
 H,lb30
 D,lb30
 N,lb30
+I,lb30
 infection,lb30
 progression_to_R,lb30
 progression_to_H,lb30
@@ -134,6 +141,7 @@ R,lb35
 H,lb35
 D,lb35
 N,lb35
+I,lb35
 infection,lb35
 progression_to_R,lb35
 progression_to_H,lb35
@@ -152,6 +160,7 @@ R,lb40
 H,lb40
 D,lb40
 N,lb40
+I,lb40
 infection,lb40
 progression_to_R,lb40
 progression_to_H,lb40
@@ -170,6 +179,7 @@ R,lb45
 H,lb45
 D,lb45
 N,lb45
+I,lb45
 infection,lb45
 progression_to_R,lb45
 progression_to_H,lb45
@@ -188,6 +198,7 @@ R,lb50
 H,lb50
 D,lb50
 N,lb50
+I,lb50
 infection,lb50
 progression_to_R,lb50
 progression_to_H,lb50
@@ -206,6 +217,7 @@ R,lb55
 H,lb55
 D,lb55
 N,lb55
+I,lb55
 infection,lb55
 progression_to_R,lb55
 progression_to_H,lb55
@@ -224,6 +236,7 @@ R,lb60
 H,lb60
 D,lb60
 N,lb60
+I,lb60
 infection,lb60
 progression_to_R,lb60
 progression_to_H,lb60
@@ -242,6 +255,7 @@ R,lb65
 H,lb65
 D,lb65
 N,lb65
+I,lb65
 infection,lb65
 progression_to_R,lb65
 progression_to_H,lb65
@@ -260,6 +274,7 @@ R,lb70
 H,lb70
 D,lb70
 N,lb70
+I,lb70
 infection,lb70
 progression_to_R,lb70
 progression_to_H,lb70
@@ -278,6 +293,7 @@ R,lb75
 H,lb75
 D,lb75
 N,lb75
+I,lb75
 infection,lb75
 progression_to_R,lb75
 progression_to_H,lb75
@@ -296,6 +312,7 @@ R,lb80
 H,lb80
 D,lb80
 N,lb80
+I,lb80
 infection,lb80
 progression_to_R,lb80
 progression_to_H,lb80

@@ -26,7 +26,7 @@ model.path <- file.path("inst", "models", model.name)
 # update to variables.csv
 # - - - - - - - - - - - - - - -
 
-epi_vec <- c(state, "N", flow)
+epi_vec <- c(state, "N", "I", flow)
 age_vec <- paste0("lb", age) 
 vars_agg <- c("N", "transmission", "scaled_infected", "contact", "infection", "infected", "dummy")
 variables <- rbind(
