@@ -20,6 +20,18 @@
   },
   {
     "simulation_phase" : "during_pre_update",
+    "group_partition" : "Age",
+    "group_names" : ["lb0", "lb5", "lb10", "lb15", "lb20", "lb25", "lb30", "lb35", "lb40",
+                    "lb45", "lb50", "lb55", "lb60", "lb65", "lb70", "lb75", "lb80"],
+    "output_partition" : "Epi.Age",
+    "output_names" : ["I.lb0", "I.lb5", "I.lb10", "I.lb15", "I.lb20", "I.lb25", "I.lb30", "I.lb35", "I.lb40",
+                      "I.lb45", "I.lb50", "I.lb55", "I.lb60", "I.lb65", "I.lb70", "I.lb75", "I.lb80"],
+    "input_partition" : "Epi",
+    "arguments" : ["I_R", "I_H", "I_D"],
+    "expression" : "sum(I_R, I_H, I_D)"
+  },
+  {
+    "simulation_phase" : "during_pre_update",
     "output_names" : "infected.",
     "argument_dots" : ["I.lb0", "I.lb5", "I.lb10", "I.lb15", "I.lb20", "I.lb25", "I.lb30", "I.lb35", "I.lb40",
                   "I.lb45", "I.lb50", "I.lb55", "I.lb60", "I.lb65", "I.lb70", "I.lb75", "I.lb80"],
