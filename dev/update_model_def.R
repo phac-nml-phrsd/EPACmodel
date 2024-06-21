@@ -4,6 +4,7 @@
 
 # IF UPDATING PARAMETRIZATION FOR FLOWS
 # --> UPDATE run-before-simulator.R and default_values.rds BY HAND WITH NEW PARAMS
+# SEE SOME HELPFUL CODE BELOW FOR UPDATING default_values.rds
 
 # IF INSERTING EXPRESSIONS FOR NEW DERIVED QUANTITIES
 # --> UPDATE derivations.json WITH NEW EXPRESSIONS
@@ -19,7 +20,7 @@ model.name <- "hosp"
 
 state <- c("S", "E", "I_R", "I_H", "I_D", "R", "H", "D")
 age <- seq(0, 80, by = 5)
-flow <- c("infection", "progression_to_R", "progression_to_H", "progression_to_D", "recovery_from_R", "hospitalization", "death_from_I", "recovery_from_H", "death_from_H")
+flow <- c("infection", "progression_to_I_R", "progression_to_I_H", "progression_to_I_D", "recovery_from_I_R", "hospitalization", "death_from_I_D", "recovery_from_H", "death_from_H")
 
 model.path <- file.path("inst", "models", model.name)
 
@@ -64,9 +65,9 @@ default_state[grepl("^E\\.", state_vec)] <- rep(1, length(age))
 default_state[grepl("^I", state_vec)] <- rep(1, length(age))
 
 default_flow <- rep(0, length(flow_vec))
-default_flow[grepl("^(infection|progression|recovery)", flow_vec)] <- 0.2
+default_flow[grepl("^(infection|progression|recovery)", flow_vec)] <- 0.1
 default_flow[grepl("^(hospitalization)", flow_vec)] <- 0.05
-default_flow[grepl("^(discharge)", flow_vec)] <- 0.1
+default_flow[grepl("^(discharge)", flow_vec)] <- 0.01
 default_flow[grepl("^(death)", flow_vec)] <- 0.001
 
 verbose_type <- c(
@@ -97,9 +98,16 @@ settings <- list(
 
 jsonlite::write_json(settings, file.path(model.path, "settings.json"))
 
-# update initial state in default_values.rds
+# update to default_values.rds
+# - - - - - - - - - - - - - - -
+
+# update initial state
 state_init <- values$Default[1:length(state_vec)]
 names(state_init) <- values$Variable[1:length(state_vec)]
 default_values <- readRDS(file.path(model.path, "default_values.rds"))
 default_values$state <- state_init
+
+# update parameterization
+values$prop_hosp <- 0.05
+values$prop_death_outside_hosp <- 0.1
 saveRDS(default_values, file.path(model.path, "default_values.rds"))

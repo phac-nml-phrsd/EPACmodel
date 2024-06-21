@@ -14,6 +14,7 @@ model <- make_simulator(
 sim = model$simulate()
 
 (sim
+    # |> dplyr::filter(time < 30)
     |> tidy_output() 
     |> aggregate_into_age_groups()
     |> plot_output()

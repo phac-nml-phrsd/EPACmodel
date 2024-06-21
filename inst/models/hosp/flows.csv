@@ -1,10 +1,10 @@
 from ,to   ,flow   ,type       ,from_partition ,to_partition ,flow_partition ,from_to_partition ,from_flow_partition ,to_flow_partition
 S,E,infection,per_capita,Epi,Epi,Epi,Age,Age,Null
-E,I_R,progression_to_R,per_capita,Epi,Epi,Epi,Age,Age,Null
-E,I_H,progression_to_H,per_capita,Epi,Epi,Epi,Age,Age,Null
-E,I_D,progression_to_D,per_capita,Epi,Epi,Epi,Age,Age,Null
-I_R,R,recovery_from_R,per_capita,Epi,Epi,Epi,Age,Age,Null
+E,I_R,progression_to_I_R,per_capita,Epi,Epi,Epi,Age,Age,Null
+E,I_H,progression_to_I_H,per_capita,Epi,Epi,Epi,Age,Age,Null
+E,I_D,progression_to_I_D,per_capita,Epi,Epi,Epi,Age,Age,Null
+I_R,R,recovery_from_I_R,per_capita,Epi,Epi,Epi,Age,Age,Null
 I_H,H,hospitalization,per_capita,Epi,Epi,Epi,Age,Age,Null
-I_D,D,death_from_I,per_capita,Epi,Epi,Epi,Age,Age,Null
+I_D,D,death_from_I_D,per_capita,Epi,Epi,Epi,Age,Age,Null
 H,R,recovery_from_H,per_capita,Epi,Epi,Epi,Age,Age,Null
 H,D,death_from_H,per_capita,Epi,Epi,Epi,Age,Age,Null
