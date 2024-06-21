@@ -101,13 +101,30 @@ jsonlite::write_json(settings, file.path(model.path, "settings.json"))
 # update to default_values.rds
 # - - - - - - - - - - - - - - -
 
+default_values <- readRDS(file.path(model.path, "default_values.rds"))
+
 # update initial state
 state_init <- values$Default[1:length(state_vec)]
 names(state_init) <- values$Variable[1:length(state_vec)]
-default_values <- readRDS(file.path(model.path, "default_values.rds"))
-default_values$state <- state_init
 
-# update parameterization
-values$prop_hosp <- 0.05
-values$prop_death_outside_hosp <- 0.1
+# construct new default values list with only what's needed for this model
+default_values <- list(
+    time.steps = default_values$time.steps,
+    state = state_init,
+    # update parameterization
+    transmissibility = 0.015, # final size 80%, which maps to R0 = 2 in the heterogeneous SEIR model
+    days_incubation = 6,
+    days_infectious_I_R = 10,
+    days_infectious_I_H = 6,
+    days_infectious_I_D = 10,
+    days_LOS_acute_care_to_recovery = 15,
+    days_LOS_acute_care_to_death = 15,
+    prop_hosp = 0.05,
+    prop_death_outside_hosp = 0.1,
+    setting.weight = default_values$setting.weight,
+    intervention.day = default_values$intervention.day,
+    setting.weight.new = default_values$setting.weight.new,
+    trans.factor = default_values$trans.factor
+)
+
 saveRDS(default_values, file.path(model.path, "default_values.rds"))

@@ -37,11 +37,8 @@ aggregate_into_age_groups = function(df, breaks = c(20, 60)){
   )
 }
 
-tidy_output = function(output){
-  (output
-   # keep only state
-    |> dplyr::filter(matrix == 'state')
-    |> dplyr::select(-matrix)
+tidy_output = function(output, filter.matrix = "state"){
+  output <- (output
     # parse state names
     |> tidyr::separate(
       row,
@@ -53,6 +50,15 @@ tidy_output = function(output){
      var = forcats::as_factor(var)
    )
   )
+
+  if(!is.null(filter.matrix)){
+    output <- (output 
+      |> dplyr::filter(matrix %in% filter.matrix)
+      |> dplyr::select(-matrix)
+    )
+  }
+
+  output
 }
 
 plot_output <- function(
@@ -94,4 +100,20 @@ plot_output <- function(
   }
 
   pp
+}
+
+get_total <- function(df, state, time){
+  dplyr::filter(df, var == state, time == !!time) |> dplyr::summarise(value = sum(value)) |> dplyr::pull(value)
+}
+
+final_size <- function(R0){
+  round((1 + 1/R0*LambertW::W(-R0*exp(-R0)))*100)
+}
+
+report_final_size <- function(df){
+  inf <- max(df$time)
+  S_0 <- df |> get_total("S", 0)
+  R_inf <- df |> get_total("R", inf)
+  D_inf <- df |> get_total("D", inf)
+print(paste0("final size: ", round((R_inf+D_inf)/S_0*100), "%"))
 }
