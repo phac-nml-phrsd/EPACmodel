@@ -2,7 +2,7 @@
 
 # 2: UPDATE derivations.json BY HAND WITH NEW FULL STATE VEC IN N.x CALCULATION
 
-# 3: IF UPDATING PARAMETRIZATION FOR FLOWS
+# 3: IF UPDATING FLOW NAMES AND/OR PARAMETRIZATION FOR FLOWS
 # --> UPDATE run-before-simulator.R and default_values.rds BY HAND WITH NEW PARAMS
 # SEE SOME HELPFUL CODE BELOW FOR UPDATING default_values.rds
 
@@ -18,9 +18,9 @@ model.name <- "hosp"
 # atomic labels
 # - - - - - - - - - - - - - - -
 
-state <- c("S", "E", "I_R", "I_H", "I_D", "R", "H", "D")
+state <- c("S", "E", "I_R", "I_A", "I_D", "R", "A", "D")
 age <- seq(0, 80, by = 5)
-flow <- c("infection", "progression_to_I_R", "progression_to_I_H", "progression_to_I_D", "recovery_from_I_R", "hospitalization", "death_from_I_D", "recovery_from_H", "death_from_H")
+flow <- c("infection", "progression_to_I_R", "progression_to_I_A", "progression_to_I_D", "recovery_from_I_R", "admission_to_A", "death_from_I_D", "discharge_from_A", "death_from_A")
 
 model.path <- file.path("inst", "models", model.name)
 
@@ -66,8 +66,8 @@ default_state[grepl("^I", state_vec)] <- rep(1, length(age))
 
 default_flow <- rep(0, length(flow_vec))
 default_flow[grepl("^(infection|progression|recovery)", flow_vec)] <- 0.1
-default_flow[grepl("^(hospitalization)", flow_vec)] <- 0.05
-default_flow[grepl("^(discharge)", flow_vec)] <- 0.01
+default_flow[grepl("^(admission_to_A)", flow_vec)] <- 0.05
+default_flow[grepl("^(discharge_from_A)", flow_vec)] <- 0.01
 default_flow[grepl("^(death)", flow_vec)] <- 0.001
 
 verbose_type <- c(
@@ -115,7 +115,7 @@ default_values <- list(
     transmissibility = 0.015, # final size 80%, which maps to R0 = 2 in the heterogeneous SEIR model
     days_incubation = 6,
     days_infectious_I_R = 10,
-    days_infectious_I_H = 6,
+    days_infectious_I_A = 6,
     days_infectious_I_D = 10,
     days_LOS_acute_care_to_recovery = 15,
     days_LOS_acute_care_to_death = 15,
