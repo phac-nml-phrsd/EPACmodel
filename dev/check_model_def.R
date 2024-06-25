@@ -21,7 +21,10 @@ sim1 = simulate(model)
 
 # update transmissibility
 values = get_default_values(model.name)
-values$transmissibility <- 0.03
+# values$transmissibility <- 0.03
+setting.weight <- values$setting.weight
+setting.weight[["school"]] <- 0 # school closure
+values$setting.weight <- setting.weight
 sim2 = simulate(model, values)
 
 df1 <- (sim1
