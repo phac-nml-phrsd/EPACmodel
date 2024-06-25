@@ -54,6 +54,13 @@ aggregate_across_epi_subcats <- function(df){
 }
 
 tidy_output = function(output, filter.matrix = "state"){
+
+    if(!is.null(filter.matrix)){
+    output <- (output 
+      |> dplyr::filter(matrix %in% filter.matrix)
+    )
+  }
+
   output <- (output
     # parse state names
     |> tidyr::separate(
@@ -66,13 +73,6 @@ tidy_output = function(output, filter.matrix = "state"){
      var = forcats::as_factor(var)
    )
   )
-
-  if(!is.null(filter.matrix)){
-    output <- (output 
-      |> dplyr::filter(matrix %in% filter.matrix)
-      |> dplyr::select(-matrix)
-    )
-  }
 
   output
 }

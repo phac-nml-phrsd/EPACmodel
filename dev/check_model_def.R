@@ -8,31 +8,38 @@ source(file.path("dev", "helpers.R"))
 # re-load model files
 devtools::load_all()
 
-
 # build model and simulate
-transmissibility <- 0.015 # corresponds to final size = 80%, which maps to R0 = 2 using the formula for SEIR
-transmissibility <- 0.03 # corresponds to final size = 98%, which maps to R0 = 4 using the formula for SEIR
 model <- make_simulator(
   model.name = model.name,
-  updated.values = list(
+  values = list(
     time.steps = 450
-    # , transmissibility = transmissibility
   )
 )
-sim = model$simulate()
 
+# simulate with default values
+sim1 = simulate(model)
+
+# update transmissibility
 values = get_default_values(model.name)
 values$transmissibility <- 0.03
-sim = simulate(model, values)
+sim2 = simulate(model, values)
 
-df <- (sim
-    |> tidy_output() 
-    |> aggregate_across_age_groups()
-    |> aggregate_across_epi_subcats()
+df1 <- (sim1
+  |> tidy_output() 
+  |> aggregate_across_age_groups()
+  |> aggregate_across_epi_subcats()
 )
+plot_output(df1)
 
-plot_output(df)
+df2 <- (sim2
+  |> tidy_output() 
+  |> aggregate_across_age_groups()
+  |> aggregate_across_epi_subcats()
+)
+plot_output(df2)
 
 # other inspection
+final_size(2)
+report_final_size(df1)
 final_size(4)
-report_final_size(df)
+report_final_size(df2)
