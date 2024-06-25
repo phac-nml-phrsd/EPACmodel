@@ -1,0 +1,494 @@
+Variable,Default,Verbose Type
+S.lb0,1881099,initial value of state variable
+E.lb0,1,initial value of state variable
+I_R.lb0,1,initial value of state variable
+I_A.lb0,1,initial value of state variable
+I_D.lb0,1,initial value of state variable
+A_R.lb0,0,initial value of state variable
+A_CR.lb0,0,initial value of state variable
+A_CD.lb0,0,initial value of state variable
+A_D.lb0,0,initial value of state variable
+C_R.lb0,0,initial value of state variable
+C_D.lb0,0,initial value of state variable
+R.lb0,0,initial value of state variable
+D.lb0,0,initial value of state variable
+S.lb5,2062572,initial value of state variable
+E.lb5,1,initial value of state variable
+I_R.lb5,1,initial value of state variable
+I_A.lb5,1,initial value of state variable
+I_D.lb5,1,initial value of state variable
+A_R.lb5,0,initial value of state variable
+A_CR.lb5,0,initial value of state variable
+A_CD.lb5,0,initial value of state variable
+A_D.lb5,0,initial value of state variable
+C_R.lb5,0,initial value of state variable
+C_D.lb5,0,initial value of state variable
+R.lb5,0,initial value of state variable
+D.lb5,0,initial value of state variable
+S.lb10,2126905,initial value of state variable
+E.lb10,1,initial value of state variable
+I_R.lb10,1,initial value of state variable
+I_A.lb10,1,initial value of state variable
+I_D.lb10,1,initial value of state variable
+A_R.lb10,0,initial value of state variable
+A_CR.lb10,0,initial value of state variable
+A_CD.lb10,0,initial value of state variable
+A_D.lb10,0,initial value of state variable
+C_R.lb10,0,initial value of state variable
+C_D.lb10,0,initial value of state variable
+R.lb10,0,initial value of state variable
+D.lb10,0,initial value of state variable
+S.lb15,2124972,initial value of state variable
+E.lb15,1,initial value of state variable
+I_R.lb15,1,initial value of state variable
+I_A.lb15,1,initial value of state variable
+I_D.lb15,1,initial value of state variable
+A_R.lb15,0,initial value of state variable
+A_CR.lb15,0,initial value of state variable
+A_CD.lb15,0,initial value of state variable
+A_D.lb15,0,initial value of state variable
+C_R.lb15,0,initial value of state variable
+C_D.lb15,0,initial value of state variable
+R.lb15,0,initial value of state variable
+D.lb15,0,initial value of state variable
+S.lb20,2520278,initial value of state variable
+E.lb20,1,initial value of state variable
+I_R.lb20,1,initial value of state variable
+I_A.lb20,1,initial value of state variable
+I_D.lb20,1,initial value of state variable
+A_R.lb20,0,initial value of state variable
+A_CR.lb20,0,initial value of state variable
+A_CD.lb20,0,initial value of state variable
+A_D.lb20,0,initial value of state variable
+C_R.lb20,0,initial value of state variable
+C_D.lb20,0,initial value of state variable
+R.lb20,0,initial value of state variable
+D.lb20,0,initial value of state variable
+S.lb25,2703647,initial value of state variable
+E.lb25,1,initial value of state variable
+I_R.lb25,1,initial value of state variable
+I_A.lb25,1,initial value of state variable
+I_D.lb25,1,initial value of state variable
+A_R.lb25,0,initial value of state variable
+A_CR.lb25,0,initial value of state variable
+A_CD.lb25,0,initial value of state variable
+A_D.lb25,0,initial value of state variable
+C_R.lb25,0,initial value of state variable
+C_D.lb25,0,initial value of state variable
+R.lb25,0,initial value of state variable
+D.lb25,0,initial value of state variable
+S.lb30,2782998,initial value of state variable
+E.lb30,1,initial value of state variable
+I_R.lb30,1,initial value of state variable
+I_A.lb30,1,initial value of state variable
+I_D.lb30,1,initial value of state variable
+A_R.lb30,0,initial value of state variable
+A_CR.lb30,0,initial value of state variable
+A_CD.lb30,0,initial value of state variable
+A_D.lb30,0,initial value of state variable
+C_R.lb30,0,initial value of state variable
+C_D.lb30,0,initial value of state variable
+R.lb30,0,initial value of state variable
+D.lb30,0,initial value of state variable
+S.lb35,2718849,initial value of state variable
+E.lb35,1,initial value of state variable
+I_R.lb35,1,initial value of state variable
+I_A.lb35,1,initial value of state variable
+I_D.lb35,1,initial value of state variable
+A_R.lb35,0,initial value of state variable
+A_CR.lb35,0,initial value of state variable
+A_CD.lb35,0,initial value of state variable
+A_D.lb35,0,initial value of state variable
+C_R.lb35,0,initial value of state variable
+C_D.lb35,0,initial value of state variable
+R.lb35,0,initial value of state variable
+D.lb35,0,initial value of state variable
+S.lb40,2573624,initial value of state variable
+E.lb40,1,initial value of state variable
+I_R.lb40,1,initial value of state variable
+I_A.lb40,1,initial value of state variable
+I_D.lb40,1,initial value of state variable
+A_R.lb40,0,initial value of state variable
+A_CR.lb40,0,initial value of state variable
+A_CD.lb40,0,initial value of state variable
+A_D.lb40,0,initial value of state variable
+C_R.lb40,0,initial value of state variable
+C_D.lb40,0,initial value of state variable
+R.lb40,0,initial value of state variable
+D.lb40,0,initial value of state variable
+S.lb45,2405593,initial value of state variable
+E.lb45,1,initial value of state variable
+I_R.lb45,1,initial value of state variable
+I_A.lb45,1,initial value of state variable
+I_D.lb45,1,initial value of state variable
+A_R.lb45,0,initial value of state variable
+A_CR.lb45,0,initial value of state variable
+A_CD.lb45,0,initial value of state variable
+A_D.lb45,0,initial value of state variable
+C_R.lb45,0,initial value of state variable
+C_D.lb45,0,initial value of state variable
+R.lb45,0,initial value of state variable
+D.lb45,0,initial value of state variable
+S.lb50,2423627,initial value of state variable
+E.lb50,1,initial value of state variable
+I_R.lb50,1,initial value of state variable
+I_A.lb50,1,initial value of state variable
+I_D.lb50,1,initial value of state variable
+A_R.lb50,0,initial value of state variable
+A_CR.lb50,0,initial value of state variable
+A_CD.lb50,0,initial value of state variable
+A_D.lb50,0,initial value of state variable
+C_R.lb50,0,initial value of state variable
+C_D.lb50,0,initial value of state variable
+R.lb50,0,initial value of state variable
+D.lb50,0,initial value of state variable
+S.lb55,2635125,initial value of state variable
+E.lb55,1,initial value of state variable
+I_R.lb55,1,initial value of state variable
+I_A.lb55,1,initial value of state variable
+I_D.lb55,1,initial value of state variable
+A_R.lb55,0,initial value of state variable
+A_CR.lb55,0,initial value of state variable
+A_CD.lb55,0,initial value of state variable
+A_D.lb55,0,initial value of state variable
+C_R.lb55,0,initial value of state variable
+C_D.lb55,0,initial value of state variable
+R.lb55,0,initial value of state variable
+D.lb55,0,initial value of state variable
+S.lb60,2640008,initial value of state variable
+E.lb60,1,initial value of state variable
+I_R.lb60,1,initial value of state variable
+I_A.lb60,1,initial value of state variable
+I_D.lb60,1,initial value of state variable
+A_R.lb60,0,initial value of state variable
+A_CR.lb60,0,initial value of state variable
+A_CD.lb60,0,initial value of state variable
+A_D.lb60,0,initial value of state variable
+C_R.lb60,0,initial value of state variable
+C_D.lb60,0,initial value of state variable
+R.lb60,0,initial value of state variable
+D.lb60,0,initial value of state variable
+S.lb65,2308096,initial value of state variable
+E.lb65,1,initial value of state variable
+I_R.lb65,1,initial value of state variable
+I_A.lb65,1,initial value of state variable
+I_D.lb65,1,initial value of state variable
+A_R.lb65,0,initial value of state variable
+A_CR.lb65,0,initial value of state variable
+A_CD.lb65,0,initial value of state variable
+A_D.lb65,0,initial value of state variable
+C_R.lb65,0,initial value of state variable
+C_D.lb65,0,initial value of state variable
+R.lb65,0,initial value of state variable
+D.lb65,0,initial value of state variable
+S.lb70,1879942,initial value of state variable
+E.lb70,1,initial value of state variable
+I_R.lb70,1,initial value of state variable
+I_A.lb70,1,initial value of state variable
+I_D.lb70,1,initial value of state variable
+A_R.lb70,0,initial value of state variable
+A_CR.lb70,0,initial value of state variable
+A_CD.lb70,0,initial value of state variable
+A_D.lb70,0,initial value of state variable
+C_R.lb70,0,initial value of state variable
+C_D.lb70,0,initial value of state variable
+R.lb70,0,initial value of state variable
+D.lb70,0,initial value of state variable
+S.lb75,1381797,initial value of state variable
+E.lb75,1,initial value of state variable
+I_R.lb75,1,initial value of state variable
+I_A.lb75,1,initial value of state variable
+I_D.lb75,1,initial value of state variable
+A_R.lb75,0,initial value of state variable
+A_CR.lb75,0,initial value of state variable
+A_CD.lb75,0,initial value of state variable
+A_D.lb75,0,initial value of state variable
+C_R.lb75,0,initial value of state variable
+C_D.lb75,0,initial value of state variable
+R.lb75,0,initial value of state variable
+D.lb75,0,initial value of state variable
+S.lb80,1760770,initial value of state variable
+E.lb80,1,initial value of state variable
+I_R.lb80,1,initial value of state variable
+I_A.lb80,1,initial value of state variable
+I_D.lb80,1,initial value of state variable
+A_R.lb80,0,initial value of state variable
+A_CR.lb80,0,initial value of state variable
+A_CD.lb80,0,initial value of state variable
+A_D.lb80,0,initial value of state variable
+C_R.lb80,0,initial value of state variable
+C_D.lb80,0,initial value of state variable
+R.lb80,0,initial value of state variable
+D.lb80,0,initial value of state variable
+infection.lb0,0.1,per-capita flow rate
+progression_to_I_R.lb0,0.1,per-capita flow rate
+progression_to_I_A.lb0,0.1,per-capita flow rate
+progression_to_I_D.lb0,0.1,per-capita flow rate
+recovery_from_I_R.lb0,0.1,per-capita flow rate
+death_from_I_D.lb0,0.001,per-capita flow rate
+admission_to_A_R.lb0,0.05,per-capita flow rate
+admission_to_A_CR.lb0,0.05,per-capita flow rate
+admission_to_A_CD.lb0,0.05,per-capita flow rate
+admission_to_A_D.lb0,0.05,per-capita flow rate
+discharge_from_A_R.lb0,0.01,per-capita flow rate
+admission_to_C_R.lb0,0,per-capita flow rate
+admission_to_C_D.lb0,0,per-capita flow rate
+death_from_A_D.lb0,0.001,per-capita flow rate
+discharge_from_C_R.lb0,0,per-capita flow rate
+death_from_C_D.lb0,0.001,per-capita flow rate
+infection.lb5,0.1,per-capita flow rate
+progression_to_I_R.lb5,0.1,per-capita flow rate
+progression_to_I_A.lb5,0.1,per-capita flow rate
+progression_to_I_D.lb5,0.1,per-capita flow rate
+recovery_from_I_R.lb5,0.1,per-capita flow rate
+death_from_I_D.lb5,0.001,per-capita flow rate
+admission_to_A_R.lb5,0.05,per-capita flow rate
+admission_to_A_CR.lb5,0.05,per-capita flow rate
+admission_to_A_CD.lb5,0.05,per-capita flow rate
+admission_to_A_D.lb5,0.05,per-capita flow rate
+discharge_from_A_R.lb5,0.01,per-capita flow rate
+admission_to_C_R.lb5,0,per-capita flow rate
+admission_to_C_D.lb5,0,per-capita flow rate
+death_from_A_D.lb5,0.001,per-capita flow rate
+discharge_from_C_R.lb5,0,per-capita flow rate
+death_from_C_D.lb5,0.001,per-capita flow rate
+infection.lb10,0.1,per-capita flow rate
+progression_to_I_R.lb10,0.1,per-capita flow rate
+progression_to_I_A.lb10,0.1,per-capita flow rate
+progression_to_I_D.lb10,0.1,per-capita flow rate
+recovery_from_I_R.lb10,0.1,per-capita flow rate
+death_from_I_D.lb10,0.001,per-capita flow rate
+admission_to_A_R.lb10,0.05,per-capita flow rate
+admission_to_A_CR.lb10,0.05,per-capita flow rate
+admission_to_A_CD.lb10,0.05,per-capita flow rate
+admission_to_A_D.lb10,0.05,per-capita flow rate
+discharge_from_A_R.lb10,0.01,per-capita flow rate
+admission_to_C_R.lb10,0,per-capita flow rate
+admission_to_C_D.lb10,0,per-capita flow rate
+death_from_A_D.lb10,0.001,per-capita flow rate
+discharge_from_C_R.lb10,0,per-capita flow rate
+death_from_C_D.lb10,0.001,per-capita flow rate
+infection.lb15,0.1,per-capita flow rate
+progression_to_I_R.lb15,0.1,per-capita flow rate
+progression_to_I_A.lb15,0.1,per-capita flow rate
+progression_to_I_D.lb15,0.1,per-capita flow rate
+recovery_from_I_R.lb15,0.1,per-capita flow rate
+death_from_I_D.lb15,0.001,per-capita flow rate
+admission_to_A_R.lb15,0.05,per-capita flow rate
+admission_to_A_CR.lb15,0.05,per-capita flow rate
+admission_to_A_CD.lb15,0.05,per-capita flow rate
+admission_to_A_D.lb15,0.05,per-capita flow rate
+discharge_from_A_R.lb15,0.01,per-capita flow rate
+admission_to_C_R.lb15,0,per-capita flow rate
+admission_to_C_D.lb15,0,per-capita flow rate
+death_from_A_D.lb15,0.001,per-capita flow rate
+discharge_from_C_R.lb15,0,per-capita flow rate
+death_from_C_D.lb15,0.001,per-capita flow rate
+infection.lb20,0.1,per-capita flow rate
+progression_to_I_R.lb20,0.1,per-capita flow rate
+progression_to_I_A.lb20,0.1,per-capita flow rate
+progression_to_I_D.lb20,0.1,per-capita flow rate
+recovery_from_I_R.lb20,0.1,per-capita flow rate
+death_from_I_D.lb20,0.001,per-capita flow rate
+admission_to_A_R.lb20,0.05,per-capita flow rate
+admission_to_A_CR.lb20,0.05,per-capita flow rate
+admission_to_A_CD.lb20,0.05,per-capita flow rate
+admission_to_A_D.lb20,0.05,per-capita flow rate
+discharge_from_A_R.lb20,0.01,per-capita flow rate
+admission_to_C_R.lb20,0,per-capita flow rate
+admission_to_C_D.lb20,0,per-capita flow rate
+death_from_A_D.lb20,0.001,per-capita flow rate
+discharge_from_C_R.lb20,0,per-capita flow rate
+death_from_C_D.lb20,0.001,per-capita flow rate
+infection.lb25,0.1,per-capita flow rate
+progression_to_I_R.lb25,0.1,per-capita flow rate
+progression_to_I_A.lb25,0.1,per-capita flow rate
+progression_to_I_D.lb25,0.1,per-capita flow rate
+recovery_from_I_R.lb25,0.1,per-capita flow rate
+death_from_I_D.lb25,0.001,per-capita flow rate
+admission_to_A_R.lb25,0.05,per-capita flow rate
+admission_to_A_CR.lb25,0.05,per-capita flow rate
+admission_to_A_CD.lb25,0.05,per-capita flow rate
+admission_to_A_D.lb25,0.05,per-capita flow rate
+discharge_from_A_R.lb25,0.01,per-capita flow rate
+admission_to_C_R.lb25,0,per-capita flow rate
+admission_to_C_D.lb25,0,per-capita flow rate
+death_from_A_D.lb25,0.001,per-capita flow rate
+discharge_from_C_R.lb25,0,per-capita flow rate
+death_from_C_D.lb25,0.001,per-capita flow rate
+infection.lb30,0.1,per-capita flow rate
+progression_to_I_R.lb30,0.1,per-capita flow rate
+progression_to_I_A.lb30,0.1,per-capita flow rate
+progression_to_I_D.lb30,0.1,per-capita flow rate
+recovery_from_I_R.lb30,0.1,per-capita flow rate
+death_from_I_D.lb30,0.001,per-capita flow rate
+admission_to_A_R.lb30,0.05,per-capita flow rate
+admission_to_A_CR.lb30,0.05,per-capita flow rate
+admission_to_A_CD.lb30,0.05,per-capita flow rate
+admission_to_A_D.lb30,0.05,per-capita flow rate
+discharge_from_A_R.lb30,0.01,per-capita flow rate
+admission_to_C_R.lb30,0,per-capita flow rate
+admission_to_C_D.lb30,0,per-capita flow rate
+death_from_A_D.lb30,0.001,per-capita flow rate
+discharge_from_C_R.lb30,0,per-capita flow rate
+death_from_C_D.lb30,0.001,per-capita flow rate
+infection.lb35,0.1,per-capita flow rate
+progression_to_I_R.lb35,0.1,per-capita flow rate
+progression_to_I_A.lb35,0.1,per-capita flow rate
+progression_to_I_D.lb35,0.1,per-capita flow rate
+recovery_from_I_R.lb35,0.1,per-capita flow rate
+death_from_I_D.lb35,0.001,per-capita flow rate
+admission_to_A_R.lb35,0.05,per-capita flow rate
+admission_to_A_CR.lb35,0.05,per-capita flow rate
+admission_to_A_CD.lb35,0.05,per-capita flow rate
+admission_to_A_D.lb35,0.05,per-capita flow rate
+discharge_from_A_R.lb35,0.01,per-capita flow rate
+admission_to_C_R.lb35,0,per-capita flow rate
+admission_to_C_D.lb35,0,per-capita flow rate
+death_from_A_D.lb35,0.001,per-capita flow rate
+discharge_from_C_R.lb35,0,per-capita flow rate
+death_from_C_D.lb35,0.001,per-capita flow rate
+infection.lb40,0.1,per-capita flow rate
+progression_to_I_R.lb40,0.1,per-capita flow rate
+progression_to_I_A.lb40,0.1,per-capita flow rate
+progression_to_I_D.lb40,0.1,per-capita flow rate
+recovery_from_I_R.lb40,0.1,per-capita flow rate
+death_from_I_D.lb40,0.001,per-capita flow rate
+admission_to_A_R.lb40,0.05,per-capita flow rate
+admission_to_A_CR.lb40,0.05,per-capita flow rate
+admission_to_A_CD.lb40,0.05,per-capita flow rate
+admission_to_A_D.lb40,0.05,per-capita flow rate
+discharge_from_A_R.lb40,0.01,per-capita flow rate
+admission_to_C_R.lb40,0,per-capita flow rate
+admission_to_C_D.lb40,0,per-capita flow rate
+death_from_A_D.lb40,0.001,per-capita flow rate
+discharge_from_C_R.lb40,0,per-capita flow rate
+death_from_C_D.lb40,0.001,per-capita flow rate
+infection.lb45,0.1,per-capita flow rate
+progression_to_I_R.lb45,0.1,per-capita flow rate
+progression_to_I_A.lb45,0.1,per-capita flow rate
+progression_to_I_D.lb45,0.1,per-capita flow rate
+recovery_from_I_R.lb45,0.1,per-capita flow rate
+death_from_I_D.lb45,0.001,per-capita flow rate
+admission_to_A_R.lb45,0.05,per-capita flow rate
+admission_to_A_CR.lb45,0.05,per-capita flow rate
+admission_to_A_CD.lb45,0.05,per-capita flow rate
+admission_to_A_D.lb45,0.05,per-capita flow rate
+discharge_from_A_R.lb45,0.01,per-capita flow rate
+admission_to_C_R.lb45,0,per-capita flow rate
+admission_to_C_D.lb45,0,per-capita flow rate
+death_from_A_D.lb45,0.001,per-capita flow rate
+discharge_from_C_R.lb45,0,per-capita flow rate
+death_from_C_D.lb45,0.001,per-capita flow rate
+infection.lb50,0.1,per-capita flow rate
+progression_to_I_R.lb50,0.1,per-capita flow rate
+progression_to_I_A.lb50,0.1,per-capita flow rate
+progression_to_I_D.lb50,0.1,per-capita flow rate
+recovery_from_I_R.lb50,0.1,per-capita flow rate
+death_from_I_D.lb50,0.001,per-capita flow rate
+admission_to_A_R.lb50,0.05,per-capita flow rate
+admission_to_A_CR.lb50,0.05,per-capita flow rate
+admission_to_A_CD.lb50,0.05,per-capita flow rate
+admission_to_A_D.lb50,0.05,per-capita flow rate
+discharge_from_A_R.lb50,0.01,per-capita flow rate
+admission_to_C_R.lb50,0,per-capita flow rate
+admission_to_C_D.lb50,0,per-capita flow rate
+death_from_A_D.lb50,0.001,per-capita flow rate
+discharge_from_C_R.lb50,0,per-capita flow rate
+death_from_C_D.lb50,0.001,per-capita flow rate
+infection.lb55,0.1,per-capita flow rate
+progression_to_I_R.lb55,0.1,per-capita flow rate
+progression_to_I_A.lb55,0.1,per-capita flow rate
+progression_to_I_D.lb55,0.1,per-capita flow rate
+recovery_from_I_R.lb55,0.1,per-capita flow rate
+death_from_I_D.lb55,0.001,per-capita flow rate
+admission_to_A_R.lb55,0.05,per-capita flow rate
+admission_to_A_CR.lb55,0.05,per-capita flow rate
+admission_to_A_CD.lb55,0.05,per-capita flow rate
+admission_to_A_D.lb55,0.05,per-capita flow rate
+discharge_from_A_R.lb55,0.01,per-capita flow rate
+admission_to_C_R.lb55,0,per-capita flow rate
+admission_to_C_D.lb55,0,per-capita flow rate
+death_from_A_D.lb55,0.001,per-capita flow rate
+discharge_from_C_R.lb55,0,per-capita flow rate
+death_from_C_D.lb55,0.001,per-capita flow rate
+infection.lb60,0.1,per-capita flow rate
+progression_to_I_R.lb60,0.1,per-capita flow rate
+progression_to_I_A.lb60,0.1,per-capita flow rate
+progression_to_I_D.lb60,0.1,per-capita flow rate
+recovery_from_I_R.lb60,0.1,per-capita flow rate
+death_from_I_D.lb60,0.001,per-capita flow rate
+admission_to_A_R.lb60,0.05,per-capita flow rate
+admission_to_A_CR.lb60,0.05,per-capita flow rate
+admission_to_A_CD.lb60,0.05,per-capita flow rate
+admission_to_A_D.lb60,0.05,per-capita flow rate
+discharge_from_A_R.lb60,0.01,per-capita flow rate
+admission_to_C_R.lb60,0,per-capita flow rate
+admission_to_C_D.lb60,0,per-capita flow rate
+death_from_A_D.lb60,0.001,per-capita flow rate
+discharge_from_C_R.lb60,0,per-capita flow rate
+death_from_C_D.lb60,0.001,per-capita flow rate
+infection.lb65,0.1,per-capita flow rate
+progression_to_I_R.lb65,0.1,per-capita flow rate
+progression_to_I_A.lb65,0.1,per-capita flow rate
+progression_to_I_D.lb65,0.1,per-capita flow rate
+recovery_from_I_R.lb65,0.1,per-capita flow rate
+death_from_I_D.lb65,0.001,per-capita flow rate
+admission_to_A_R.lb65,0.05,per-capita flow rate
+admission_to_A_CR.lb65,0.05,per-capita flow rate
+admission_to_A_CD.lb65,0.05,per-capita flow rate
+admission_to_A_D.lb65,0.05,per-capita flow rate
+discharge_from_A_R.lb65,0.01,per-capita flow rate
+admission_to_C_R.lb65,0,per-capita flow rate
+admission_to_C_D.lb65,0,per-capita flow rate
+death_from_A_D.lb65,0.001,per-capita flow rate
+discharge_from_C_R.lb65,0,per-capita flow rate
+death_from_C_D.lb65,0.001,per-capita flow rate
+infection.lb70,0.1,per-capita flow rate
+progression_to_I_R.lb70,0.1,per-capita flow rate
+progression_to_I_A.lb70,0.1,per-capita flow rate
+progression_to_I_D.lb70,0.1,per-capita flow rate
+recovery_from_I_R.lb70,0.1,per-capita flow rate
+death_from_I_D.lb70,0.001,per-capita flow rate
+admission_to_A_R.lb70,0.05,per-capita flow rate
+admission_to_A_CR.lb70,0.05,per-capita flow rate
+admission_to_A_CD.lb70,0.05,per-capita flow rate
+admission_to_A_D.lb70,0.05,per-capita flow rate
+discharge_from_A_R.lb70,0.01,per-capita flow rate
+admission_to_C_R.lb70,0,per-capita flow rate
+admission_to_C_D.lb70,0,per-capita flow rate
+death_from_A_D.lb70,0.001,per-capita flow rate
+discharge_from_C_R.lb70,0,per-capita flow rate
+death_from_C_D.lb70,0.001,per-capita flow rate
+infection.lb75,0.1,per-capita flow rate
+progression_to_I_R.lb75,0.1,per-capita flow rate
+progression_to_I_A.lb75,0.1,per-capita flow rate
+progression_to_I_D.lb75,0.1,per-capita flow rate
+recovery_from_I_R.lb75,0.1,per-capita flow rate
+death_from_I_D.lb75,0.001,per-capita flow rate
+admission_to_A_R.lb75,0.05,per-capita flow rate
+admission_to_A_CR.lb75,0.05,per-capita flow rate
+admission_to_A_CD.lb75,0.05,per-capita flow rate
+admission_to_A_D.lb75,0.05,per-capita flow rate
+discharge_from_A_R.lb75,0.01,per-capita flow rate
+admission_to_C_R.lb75,0,per-capita flow rate
+admission_to_C_D.lb75,0,per-capita flow rate
+death_from_A_D.lb75,0.001,per-capita flow rate
+discharge_from_C_R.lb75,0,per-capita flow rate
+death_from_C_D.lb75,0.001,per-capita flow rate
+infection.lb80,0.1,per-capita flow rate
+progression_to_I_R.lb80,0.1,per-capita flow rate
+progression_to_I_A.lb80,0.1,per-capita flow rate
+progression_to_I_D.lb80,0.1,per-capita flow rate
+recovery_from_I_R.lb80,0.1,per-capita flow rate
+death_from_I_D.lb80,0.001,per-capita flow rate
+admission_to_A_R.lb80,0.05,per-capita flow rate
+admission_to_A_CR.lb80,0.05,per-capita flow rate
+admission_to_A_CD.lb80,0.05,per-capita flow rate
+admission_to_A_D.lb80,0.05,per-capita flow rate
+discharge_from_A_R.lb80,0.01,per-capita flow rate
+admission_to_C_R.lb80,0,per-capita flow rate
+admission_to_C_D.lb80,0,per-capita flow rate
+death_from_A_D.lb80,0.001,per-capita flow rate
+discharge_from_C_R.lb80,0,per-capita flow rate
+death_from_C_D.lb80,0.001,per-capita flow rate
