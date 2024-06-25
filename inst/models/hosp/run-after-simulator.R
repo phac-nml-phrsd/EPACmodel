@@ -3,13 +3,13 @@ if(scenario.name == "change-contacts"){
     contact_changepoints = c(0, values$intervention.day)
     # need to have "changepoint" for initial set of pars at t = 0
     , contact_pointer = 0
-    , contact_values = rbind(contact.pars.initial$p.mat,
+    , contact_values = rbind(contact.pars$p.mat,
                              contact.pars.new$p.mat)
     , transmission_values = cbind(
-      values$transmissibility*contact.pars.initial$c.hat,
+      values$transmissibility*contact.pars$c.hat,
       values$trans.factor*values$transmissibility*contact.pars.new$c.hat
     )
-    , n.age.group = length(age.group.lower)
+    , n.age.group = length(seq(0, 80, by = 5))
     , .mats_to_save = c("contact.", "transmission.")
     , .mats_to_return = c("contact.", "transmission.")
   )$insert$expressions(

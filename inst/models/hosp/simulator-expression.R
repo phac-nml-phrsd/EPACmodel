@@ -1,9 +1,9 @@
 model$simulators$tmb(
   time_steps = values$time.steps,
   state = values$state,
-  flow = values$flow,
+  flow = flow,
   transmission. = transmission,
-  contact. = contact.pars.initial$p.mat,
+  contact. = contact,
   N.lb0 = macpan2::empty_matrix,
   N.lb5 = macpan2::empty_matrix,
   N.lb10 = macpan2::empty_matrix,
