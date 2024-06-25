@@ -2,6 +2,7 @@
 pf <- (data.frame()
   |> add_to_pf("flow", flow)
   |> add_to_pf("transmission.", transmission)
+  |> add_to_pf("contact.", contact)
 )
 
 if(scenario.name == "change-contacts"){

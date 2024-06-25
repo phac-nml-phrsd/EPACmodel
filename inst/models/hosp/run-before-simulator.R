@@ -3,14 +3,14 @@ contact.pars = mk_contact_pars(
   setting.weight = values$setting.weight
 )
 
-contact = contact.pars$p.mat
+flow <- calculate_flow(model.name, values)
 
 transmission = calculate_transmission(
   model.name, values, 
   contact.pars = contact.pars
 )
 
-flow <- calculate_flow(model.name, values)
+contact = contact.pars$p.mat
 
 if(scenario.name == "change-contacts"){
   contact.pars.new = mk_contact_pars(

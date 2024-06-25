@@ -108,31 +108,54 @@ calculate_flow_hosp <- function(values){
 # - - - - - - - - - - - - - -
 
 # to set the simulator up
-add_to_pf <- function(pf, vec.name, vec){
-    if(is.null(names(vec))){
-        row <- seq_along(vec)-1
+add_to_pf <- function(pf, matrix.name, matrix){
+
+    if("matrix" %in% class(matrix)){
+        # matrices
+        row <- 0:(nrow(matrix)-1)
+        col <- 0:(ncol(matrix)-1)
+        pf_new <- cbind(
+            expand.grid(
+                mat = matrix.name,
+                row = row,
+                col = col
+            ),
+            default = c(matrix) # unwraps column-wise, which matches how expand.grid expands out the row and column indices
+        )
     } else {
-        row <- names(vec)
+        # vectors
+        if(is.null(names(matrix))){
+            row <- seq_along(matrix)-1
+        } else {
+            row <- names(matrix)
+        }
+
+        pf_new <- data.frame(
+            mat = rep(matrix.name, length(matrix)),
+            row = row,
+            col = rep(0, length(matrix)),
+            default = unname(matrix)
+        )
     }
-    rbind(
-    pf,
-    data.frame(
-        mat = rep(vec.name, length(vec)),
-        row = row,
-        col = rep(0, length(vec)),
-        default = vec
-    )
-    )
+
+    rbind(pf, pf_new)
 }
 
 # to make the parameter vec to pass to the simulator
 make_pvec <- function(values){
     # must match order of params in 
     # `pf` initialized in run_after_simulator.R!
-    c(
-        unname(calculate_flow_hosp(values)),
-        calculate_transmission_hosp(values)
+    contact.pars <- mk_contact_pars(
+        age.group.lower = seq(0, 80, by = 5),
+        setting.weight = values$setting.weight
     )
-    
+    c(
+        # flows
+        unname(calculate_flow_hosp(values)),
+        # transmission. matrix
+        calculate_transmission_hosp(values, contact.pars = contact.pars),
+        # contact. matrix
+        c(contact.pars$p.mat)
+    )
 }
 
