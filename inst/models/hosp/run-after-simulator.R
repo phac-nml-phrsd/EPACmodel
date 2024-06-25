@@ -1,5 +1,6 @@
 # set up model simulator to accept updated parameter values
 pf <- (data.frame()
+  |> add_to_pf("state", values$state)
   |> add_to_pf("flow", flow)
   |> add_to_pf("transmission.", transmission)
   |> add_to_pf("contact.", contact)

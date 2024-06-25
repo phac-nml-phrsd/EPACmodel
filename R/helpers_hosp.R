@@ -143,13 +143,16 @@ add_to_pf <- function(pf, matrix.name, matrix){
 
 # to make the parameter vec to pass to the simulator
 make_pvec <- function(values){
-    # must match order of params in 
-    # `pf` initialized in run_after_simulator.R!
     contact.pars <- mk_contact_pars(
         age.group.lower = seq(0, 80, by = 5),
         setting.weight = values$setting.weight
     )
+    # the order of this output
+    # must match order of params in 
+    # `pf` initialized in run_after_simulator.R!
     c(
+        # state
+        values$state,
         # flows
         unname(calculate_flow_hosp(values)),
         # transmission. matrix

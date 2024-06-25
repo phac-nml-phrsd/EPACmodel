@@ -19,12 +19,22 @@ model <- make_simulator(
 # simulate with default values
 sim1 = simulate(model)
 
-# update transmissibility
+# play with updating values
 values = get_default_values(model.name)
+
+# update transmissibility
 # values$transmissibility <- 0.03
+
+# update contact matrix
 setting.weight <- values$setting.weight
 setting.weight[["school"]] <- 0 # school closure
 values$setting.weight <- setting.weight
+
+# update initial state
+state <- values$state
+susc.indx <- grepl("^S\\.",names(state))
+state[susc.indx] <- round(state[susc.indx]/2)
+values$state <- state
 sim2 = simulate(model, values)
 
 df1 <- (sim1
