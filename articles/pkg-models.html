@@ -198,6 +198,286 @@ across both age groups.</p>
 </div>
 </div>
 <div class="section level3">
+<h3 id="hosp-model">
+<code>hosp</code> model<a class="anchor" aria-label="anchor" href="#hosp-model"></a>
+</h3>
+<p>This version of the model features a basic epidemiological structure
+stratified with five-year age groups up to age 80. The epidemiological
+compartments are:</p>
+<ul>
+<li>
+<span class="math inline">\(S\)</span>: susceptible</li>
+<li>
+<span class="math inline">\(E\)</span>: exposed</li>
+<li>
+<span class="math inline">\(I_x\)</span>: infected, with fate <span class="math inline">\(x\)</span>, where <span class="math inline">\(x\)</span> is either:
+<ul>
+<li>
+<span class="math inline">\(R\)</span>, recovered without
+hospitalization,</li>
+<li>
+<span class="math inline">\(H\)</span>, hospitalized, or</li>
+<li>
+<span class="math inline">\(D\)</span>, dead</li>
+</ul>
+</li>
+<li>
+<span class="math inline">\(A_y\)</span>: hospitalized in acute
+care, with fate <span class="math inline">\(y\)</span>, where <span class="math inline">\(y\)</span> is either:
+<ul>
+<li>
+<span class="math inline">\(R\)</span>, recovered after acute care
+only</li>
+<li>
+<span class="math inline">\(CR\)</span>, critical care with a
+prognosis of recovery</li>
+<li>
+<span class="math inline">\(CD\)</span>, critical care with a
+prognosis of death</li>
+<li>
+<span class="math inline">\(D\)</span>, death after acute care
+only</li>
+</ul>
+</li>
+<li>
+<span class="math inline">\(R\)</span>: recovered</li>
+<li>
+<span class="math inline">\(D\)</span>: dead</li>
+</ul>
+<p>The flows within each age group are as follows:</p>
+<p><img src="figs/hosp.jpeg"></p>
+<p><strong>TODO: SHOW PARAMETRIZATION OF EACH FLOW RATE</strong></p>
+<p>The solid lines indicate flows between compartments and the dashed
+lines indicate when a compartment is involved in calculating a flow
+rate.</p>
+<div class="section level4">
+<h4 id="age-based-transmission-1">Age-based transmission<a class="anchor" aria-label="anchor" href="#age-based-transmission-1"></a>
+</h4>
+<p>The force of infection for age group <span class="math inline">\(i\)</span>, <span class="math inline">\(\lambda_i\)</span>, which is the per-capita rate
+of flow of age <span class="math inline">\(i\)</span> susceptibles into
+the exposed class (of the same age), is modelled as</p>
+<p>The force of infection for occurs in an age-based way, as a proxy for
+population heterogeneity. The transmission rate for susceptibles of age
+<code>i</code> and infectious individuals of age <code>j</code> is
+calculated as</p>
+<p><span class="math display">\[
+\lambda_i = \tau \sum_{j} p_{ij} \hat{c}_j I_j/N_j
+\]</span></p>
+<p>where</p>
+<ul>
+<li>
+<span class="math inline">\(\tau\)</span> is the transmissibility of
+the pathogen, quantified as the proportion of contacts between a
+susceptible and an infectious individual that yield transmission
+(independent of age),</li>
+<li>
+<span class="math inline">\(p_{ij}\)</span> is the proportion of age
+group <span class="math inline">\(i\)</span>’s contacts that occur with
+age group <span class="math inline">\(j\)</span>,</li>
+<li>
+<span class="math inline">\(\hat{c}_j\)</span> is the average
+contact rate for individuals in age group <span class="math inline">\(j\)</span> (across all ages),</li>
+<li>
+<span class="math inline">\(I_j\)</span> is the number of infectious
+individuals in age group <span class="math inline">\(j\)</span> (at a
+given time)—totalled across infectious subcategories <span class="math inline">\(I_R\)</span>, <span class="math inline">\(I_A\)</span>, <span class="math inline">\(I_D\)</span>,</li>
+<li>
+<span class="math inline">\(N_j\)</span> is the population size of
+age group <span class="math inline">\(j\)</span>.</li>
+</ul>
+<p>The average contact rate vector (<span class="math inline">\(\hat{c}\)</span>) and the contact proportion
+matrix (<span class="math inline">\(\left[p_{ij}\right]\)</span>) are
+both generated using a weighted average of four setting-based component
+contact matrices, derived by <a href="https://www.nature.com/articles/s41467-020-20544-y" class="external-link">Mistry et al
+(2021)</a>, which reflect contacts in households, workplaces, schools,
+and community (all other contacts outside of the three previous
+settings). The weights are the average overall contact rate per setting.
+This weighted average generates an overall contact matrix. The row sums
+of this matrix give the average contact rate vector, <span class="math inline">\(\left[\hat{c}_j\right]\)</span>, and the
+row-normalized version of this matrix is the contact proportion matrix
+(<span class="math inline">\(\left[p_{ij}\right]\)</span>).</p>
+</div>
+<div class="section level4">
+<h4 id="input-values-1">Input values<a class="anchor" aria-label="anchor" href="#input-values-1"></a>
+</h4>
+<p>There are several input values for the model, summarised by the
+following table:</p>
+<table class="table">
+<colgroup>
+<col width="11%">
+<col width="52%">
+<col width="7%">
+<col width="18%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Variable</th>
+<th align="center">Description</th>
+<th align="center">Stratified by age group?</th>
+<th>Value</th>
+<th>Units</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>state</code></td>
+<td align="center">The initial state for the simulation, stratified by
+epidemiological category and age group</td>
+<td align="center">Yes</td>
+<td>See source</td>
+<td>Number of individuals</td>
+</tr>
+<tr class="even">
+<td align="center"><code>transmissibility</code></td>
+<td align="center">Transmissibility proportion, denoted by <span class="math inline">\(\tau\)</span> in the force of infection described
+previously</td>
+<td align="center">No</td>
+<td>0.015</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>days_incubation</code></td>
+<td align="center">Average length of the incubation period (across all
+infection types)</td>
+<td align="center">Optional</td>
+<td>6</td>
+<td>days</td>
+</tr>
+<tr class="even">
+<td align="center"><code>days_infectious_I_R</code></td>
+<td align="center">Average length of the infectious period in days for
+individuals with a prognosis of recovery without hospitalization</td>
+<td align="center">Optional</td>
+<td>10</td>
+<td>days</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>days_infectious_I_A</code></td>
+<td align="center">Average length of the infectious period in days for
+individuals with a prognosis of hospitalization</td>
+<td align="center">Optional</td>
+<td>6</td>
+<td>days</td>
+</tr>
+<tr class="even">
+<td align="center"><code>days_infectious_I_D</code></td>
+<td align="center">Average length of the infectious period in days for
+individuals with a prognosis of death without hospitalization</td>
+<td align="center">Optional</td>
+<td>10</td>
+<td>days</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>days_LOS_acute_care_to_recovery</code></td>
+<td align="center">Average length of stay in acute care for individuals
+with a prognosis of recovery without critical care</td>
+<td align="center">Optional</td>
+<td>15</td>
+<td>days</td>
+</tr>
+<tr class="even">
+<td align="center"><code>days_LOS_acute_care_to_critical</code></td>
+<td align="center">Average length of stay in acute care for individuals
+with a prognosis of critical care admission</td>
+<td align="center">Optional</td>
+<td>10</td>
+<td>days</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>days_LOS_acute_care_to_death</code></td>
+<td align="center">Average length of stay in acute care for individuals
+with a prognosis of death without critical care</td>
+<td align="center">Optional</td>
+<td>15</td>
+<td>days</td>
+</tr>
+<tr class="even">
+<td align="center"><code>days_LOS_critical_care_to_recovery</code></td>
+<td align="center">Average length of stay in critical care for
+individuals with a prognosis of recovery</td>
+<td align="center">Optional</td>
+<td>15</td>
+<td>days</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>days_LOS_critical_care_to_death</code></td>
+<td align="center">Average length of stay in critical care for
+individuals with a prognosis of death</td>
+<td align="center">Optional</td>
+<td>10</td>
+<td>days</td>
+</tr>
+<tr class="even">
+<td align="center"><code>prop_hosp</code></td>
+<td align="center">Proportion of all infections that are
+hospitalized</td>
+<td align="center">Optional</td>
+<td>0.05</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>prop_nonhosp_death</code></td>
+<td align="center">Proportion of infections that end in death without
+hospital care</td>
+<td align="center">Optional</td>
+<td>0.1</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td align="center"><code>prop_hosp_crit</code></td>
+<td align="center">Proportion of hospitalizations that receive critical
+care</td>
+<td align="center">Optional</td>
+<td>0.05</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>prop_hosp_death</code></td>
+<td align="center">Proportion of hospitalizations that end in death</td>
+<td align="center">Optional</td>
+<td>0.01</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td align="center"><code>setting.weight</code></td>
+<td align="center">Vector of weights for the setting-specific component
+contact matrices, where each weight gives the average contact rate per
+setting across all ages, as described previously</td>
+<td align="center">No</td>
+<td>school = 11.41 work = 8.07 household = 4.11 community = 2.79</td>
+<td>Number of contacts per individual</td>
+</tr>
+</tbody>
+</table>
+<p>Optional (scenario-specific) input values are documented in the <a href="#available-scenarios-fyagm">next section</a>.</p>
+</div>
+<div class="section level4">
+<h4 id="available-scenarios-fyagm">Available scenarios<a class="anchor" aria-label="anchor" href="#available-scenarios-fyagm"></a>
+</h4>
+<div class="section level5">
+<h5 id="change-contacts-scenario">
+<code>change-contacts</code> scenario<a class="anchor" aria-label="anchor" href="#change-contacts-scenario"></a>
+</h5>
+<p>This scenario enables the simulation of an intervention that affects
+the age-based contact patterns starting on a specified day from the
+start of the simulation (the “intervention day”).</p>
+<p>The intervention day is specified with the
+<code>intervention.day</code> input value. The default value simulates a
+stay-at-home order starting on day 25.</p>
+<p>An intervention involves using a new contact matrix starting on the
+intervention day, which is generated with new setting weights, specified
+in the <code>setting.weight.new</code> input value. The default values
+reflect closing all schools, 50% of workplaces, and reducing community
+contacts by 75% from the default <code>setting.weight</code> input value
+(see above).</p>
+<p>The user can also change overall transmissibility of the pathogen
+starting on the intervention day to some scalar multiple of the original
+value via the <code>trans.factor</code> input value. The default values
+include <code>trans.factor = 1</code>, so no change to underlying
+transmissibility.</p>
+</div>
+</div>
+</div>
+<div class="section level3">
 <h3 id="five-year-age-group-model">
 <code>five-year-age-group</code> model<a class="anchor" aria-label="anchor" href="#five-year-age-group-model"></a>
 </h3>
@@ -224,7 +504,7 @@ compartments are:</p>
 lines indicate when a compartment is involved in calculating a flow
 rate.</p>
 <div class="section level4">
-<h4 id="age-based-transmission-1">Age-based transmission<a class="anchor" aria-label="anchor" href="#age-based-transmission-1"></a>
+<h4 id="age-based-transmission-2">Age-based transmission<a class="anchor" aria-label="anchor" href="#age-based-transmission-2"></a>
 </h4>
 <p>The force of infection for age group <span class="math inline">\(i\)</span>, <span class="math inline">\(\lambda_i\)</span>, which is the per-capita rate
 of flow of age <span class="math inline">\(i\)</span> susceptibles into
@@ -271,7 +551,7 @@ row-normalized version of this matrix is the contact proportion matrix
 (<span class="math inline">\(\left[p_{ij}\right]\)</span>).</p>
 </div>
 <div class="section level4">
-<h4 id="input-values-1">Input values<a class="anchor" aria-label="anchor" href="#input-values-1"></a>
+<h4 id="input-values-2">Input values<a class="anchor" aria-label="anchor" href="#input-values-2"></a>
 </h4>
 <p>There are several input values for the model. Some inputs are
 stratified by age group (with suffix <code>.lb[digit]</code>, where
@@ -359,11 +639,11 @@ setting across all ages, as described previously</td>
 <p>Optional (scenario-specific) input values are documented in the <a href="#available-scenarios-fyagm">next section</a>.</p>
 </div>
 <div class="section level4">
-<h4 id="available-scenarios-fyagm">Available scenarios<a class="anchor" aria-label="anchor" href="#available-scenarios-fyagm"></a>
+<h4 id="available-scenarios-fyagm-1">Available scenarios<a class="anchor" aria-label="anchor" href="#available-scenarios-fyagm-1"></a>
 </h4>
 <div class="section level5">
-<h5 id="change-contacts-scenario">
-<code>change-contacts</code> scenario<a class="anchor" aria-label="anchor" href="#change-contacts-scenario"></a>
+<h5 id="change-contacts-scenario-1">
+<code>change-contacts</code> scenario<a class="anchor" aria-label="anchor" href="#change-contacts-scenario-1"></a>
 </h5>
 <p>This scenario enables the simulation of an intervention that affects
 the age-based contact patterns starting on a specified day from the
