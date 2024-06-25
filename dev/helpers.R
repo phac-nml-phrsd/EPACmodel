@@ -4,7 +4,7 @@
 #' @param breaks lower bounds for new (aggregated) age groups
 #'
 #' @return data frame with new aggregated `age_group` column
-aggregate_into_age_groups = function(df, breaks = c(20, 60)){
+aggregate_across_age_groups = function(df, breaks = c(20, 60)){
   if(!all(breaks %in% seq(0, 80, by = 5))) stop("age breaks must be multiples of 5 between 0 and 80 (inclusive)")
 
   # pad if necessary
@@ -29,11 +29,27 @@ aggregate_into_age_groups = function(df, breaks = c(20, 60)){
       age_group = age_group_labels
     ),
     by = dplyr::join_by(age))})()
-    |> dplyr::mutate(age_group = forcats::as_factor(age_group))
+    |> dplyr::transmute(
+      time,
+      var,
+      age = age_group,
+      value
+    )
+    |> dplyr::mutate(age = forcats::as_factor(age))
     |> dplyr::group_by(
-      time, var, age_group
+      time, var, age
     )
     |> dplyr::summarise(value = sum(value), .groups = "drop")
+  )
+}
+
+aggregate_across_epi_subcats <- function(df){
+  (df
+    |> tidyr::separate(var, into = c("var", "var_subcat"),
+                       sep = "_", extra = "merge", fill = "right")
+    |> dplyr::mutate(var = forcats::as_factor(var))
+    |> dplyr::group_by(time, var, age)
+    |> dplyr::summarise(value = sum(value), .groups = 'drop')
   )
 }
 
@@ -63,7 +79,7 @@ tidy_output = function(output, filter.matrix = "state"){
 
 plot_output <- function(
   df, 
-  var_colour = "age_group",
+  var_colour = "age",
   var_facet_row = "var",
   var_facet_col = "",
   ylim = NULL,

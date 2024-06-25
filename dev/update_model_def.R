@@ -3,8 +3,8 @@
 # 2: UPDATE derivations.json BY HAND WITH NEW FULL STATE VEC IN N.x CALCULATION
 
 # 3: IF UPDATING FLOW NAMES AND/OR PARAMETRIZATION FOR FLOWS
-# --> UPDATE run-before-simulator.R and default_values.rds BY HAND WITH NEW PARAMS
-# SEE SOME HELPFUL CODE BELOW FOR UPDATING default_values.rds
+# --> UPDATE run-before-simulator.R BY HAND WITH NEW PARAMS (REFERRING TO ATOMIC VECS BELOW)
+# --> UPDATE CODE TO REGENERATE default_values.rds BELOW
 
 # 4: IF INSERTING EXPRESSIONS FOR NEW DERIVED QUANTITIES
 # --> UPDATE derivations.json WITH NEW EXPRESSIONS
@@ -13,14 +13,33 @@
 # --> UPDATE INTEGER VALUE IN 
 # $insert$expressions(.at = 4L) IN simulator_expression.R IN CASE ADDITION OF EXPRESSIONS TO derivations.json CHANGES LOCATION OF THIS INSERTION (FROM 4L TO SOMETHING ELSE)
 
+# 5: RUN THIS SCRIPT TO UPDATE ALL OTHER MODEL DEFINITION FILES
+
 model.name <- "hosp"
 
 # atomic labels
 # - - - - - - - - - - - - - - -
 
-state <- c("S", "E", "I_R", "I_A", "I_D", "R", "A", "D")
+state <- c("S", "E", "I_R", "I_A", "I_D", "A_R", "A_CR", "A_CD", "A_D", "C_R", "C_D", "R", "D")
 age <- seq(0, 80, by = 5)
-flow <- c("infection", "progression_to_I_R", "progression_to_I_A", "progression_to_I_D", "recovery_from_I_R", "admission_to_A", "death_from_I_D", "discharge_from_A", "death_from_A")
+flow <- c(
+    "infection", 
+    # progression of illness
+    "progression_to_I_R", "progression_to_I_A", "progression_to_I_D",
+    # leaving I_x states
+    "recovery_from_I_R", 
+    "death_from_I_D", 
+    # entering acute care states
+    "admission_to_A_R", "admission_to_A_CR",
+    "admission_to_A_CD", "admission_to_A_D",
+    # leaving acute care states
+    "discharge_from_A_R",
+    "admission_to_C_R", "admission_to_C_D", 
+    "death_from_A_D",
+    # leaving critical care states
+    "discharge_from_C_R",
+    "death_from_C_D"
+)
 
 model.path <- file.path("inst", "models", model.name)
 
@@ -118,9 +137,14 @@ default_values <- list(
     days_infectious_I_A = 6,
     days_infectious_I_D = 10,
     days_LOS_acute_care_to_recovery = 15,
+    days_LOS_acute_care_to_critical = 10,
     days_LOS_acute_care_to_death = 15,
-    prop_hosp = 0.05,
-    prop_death_outside_hosp = 0.1,
+    days_LOS_critical_care_to_recovery = 15,
+    days_LOS_critical_care_to_death = 10,
+    prop_hosp = 0.05, # proportion of infections that are hospitalised
+    prop_nonhosp_death = 0.1, # proportion of non-hospitalized infections that end in death
+    prop_hosp_crit = 0.05, # proportion of hospitalizations that receive critical care
+    prop_hosp_death = 0.01, # proportion of hospitalizations that end in death
     setting.weight = default_values$setting.weight,
     intervention.day = default_values$intervention.day,
     setting.weight.new = default_values$setting.weight.new,
