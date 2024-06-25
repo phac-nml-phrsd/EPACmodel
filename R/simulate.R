@@ -15,14 +15,14 @@ simulate <- function(simulator, values = NULL) {
   } else{
     # calculate new input values
     pvec = make_pvec(values)
-    sim = simulator$report(pvec, .phases = "during")
+    sim = simulator$report(pvec)
   }
 
   # reformat output
-  data.frame(
-    time = sim$time,
-    state_name = sim$row,
-    value_type = sim$matrix,
-    value = sim$value
-  )
+#   data.frame(
+#     time = sim$time,
+#     state_name = sim$row,
+#     value_type = sim$matrix,
+#     value = sim$value
+#   )
 }

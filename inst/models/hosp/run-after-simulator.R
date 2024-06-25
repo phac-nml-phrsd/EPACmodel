@@ -1,9 +1,7 @@
 # set up model simulator to accept updated parameter values
-pf <- data.frame(
-  mat =   rep("transmission.", length(transmission)),
-  row = seq_along(transmission)-1,
-  col = rep(0, length(transmission)),
-  default = transmission
+pf <- (data.frame()
+  |> add_to_pf("flow", flow)
+  |> add_to_pf("transmission.", transmission)
 )
 
 if(scenario.name == "change-contacts"){

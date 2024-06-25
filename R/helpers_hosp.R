@@ -1,6 +1,11 @@
+# For calculating macpan matrices from
+# epi parameters
+# - - - - - - - - - - - - - -
+
 # mats to make/update
 # - state (leave for last?)
 # - contact
+# - time steps?
 
 calculate_transmission_hosp <- function(values, contact.pars = NULL){
     if(is.null(contact.pars)){
@@ -99,6 +104,35 @@ calculate_flow_hosp <- function(values){
     )
 }
 
-make_pvec <- function(values){
-    calculate_transmission_hosp(values)
+# For updating values in a simulator
+# - - - - - - - - - - - - - -
+
+# to set the simulator up
+add_to_pf <- function(pf, vec.name, vec){
+    if(is.null(names(vec))){
+        row <- seq_along(vec)-1
+    } else {
+        row <- names(vec)
+    }
+    rbind(
+    pf,
+    data.frame(
+        mat = rep(vec.name, length(vec)),
+        row = row,
+        col = rep(0, length(vec)),
+        default = vec
+    )
+    )
 }
+
+# to make the parameter vec to pass to the simulator
+make_pvec <- function(values){
+    # must match order of params in 
+    # `pf` initialized in run_after_simulator.R!
+    c(
+        unname(calculate_flow_hosp(values)),
+        calculate_transmission_hosp(values)
+    )
+    
+}
+
