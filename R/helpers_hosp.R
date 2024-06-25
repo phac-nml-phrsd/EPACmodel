@@ -98,3 +98,7 @@ calculate_flow_hosp <- function(values){
         )
     )
 }
+
+make_pvec <- function(values){
+    calculate_transmission_hosp(values)
+}

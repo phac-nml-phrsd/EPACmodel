@@ -8,9 +8,15 @@
 #'  - `value_type`: type of values, such as `state` (count of individuals in a compartment) and `total_inflow` (total inflow into a compartment)
 #'  - `value`
 #' @export
-simulate <- function(simulator) {
-  # run simulation
-  sim = simulator$report()
+simulate <- function(simulator, values = NULL) {
+
+  if(is.null(values)){
+    sim = simulator$report()
+  } else{
+    # calculate new input values
+    pvec = make_pvec(values)
+    sim = simulator$report(pvec, .phases = "during")
+  }
 
   # reformat output
   data.frame(

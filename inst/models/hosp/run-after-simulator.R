@@ -1,3 +1,11 @@
+# set up model simulator to accept updated parameter values
+pf <- data.frame(
+  mat =   rep("transmission.", length(transmission)),
+  row = seq_along(transmission)-1,
+  col = rep(0, length(transmission)),
+  default = transmission
+)
+
 if(scenario.name == "change-contacts"){
   model_simulator$add$matrices(
     contact_changepoints = c(0, values$intervention.day)
@@ -22,3 +30,5 @@ if(scenario.name == "change-contacts"){
     , .phase = "during"
   )
 }
+
+model_simulator$replace$params_frame(pf)

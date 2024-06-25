@@ -2,7 +2,7 @@
 #'
 #' @template param_model.name
 #' @param scenario.name Optional. Name of scenario to simulate. See README for `model.name` for options. If NULL, use base model.
-#' @param updated.values Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.
+#' @param values Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.
 #' @template param_local
 #'
 #' @return A [macpan2::TMBSimulator()] object
@@ -10,7 +10,7 @@
 make_simulator <- function(
   model.name,
   scenario.name = NULL,
-  updated.values = NULL,
+  values = NULL,
   local = FALSE
 ){
   # Convert NULL scenario.name to empty string to make if statements cleaner
@@ -34,6 +34,7 @@ make_simulator <- function(
 
   # Get default values required to initialize model simulator + make model
   # modifications
+  updated.values = values
   values = get_default_values(model.name, local = local)
 
   # Update values from default, as requested
