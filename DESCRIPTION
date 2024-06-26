@@ -13,7 +13,8 @@ RoxygenNote: 7.2.3
 Imports: 
     macpan2,
     fs,
-    here
+    here,
+    Matrix (>= 1.6.3)
 Suggests: 
     dplyr (>= 1.1.0),
     ggplot2,
@@ -24,7 +25,8 @@ Suggests:
     stringr,
     testthat (>= 3.0.0),
     tibble,
-    tidyr
+    tidyr,
+    DT
 Remotes: canmod/macpan2@98fb990
 Config/testthat/edition: 3
 VignetteBuilder: knitr
