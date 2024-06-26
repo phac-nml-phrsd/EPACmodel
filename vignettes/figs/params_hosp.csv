@@ -1,0 +1,44 @@
+﻿Variable,Description,Stratified by age group?,Default value,Units
+`state`,"The initial state for the simulation,
+ stratified by epidemiological category and age group",Yes,See source,Number of individuals
+`transmissibility`,"Transmissibility proportion,
+denoted by $\tau$ in the force of infection described previously",No,0.015,-
+`days_incubation`,Average length of the incubation period (across all infection types),Optional,6,days
+`days_infectious_I_R`,"Average length of the infectious period in days 
+for individuals with a prognosis of 
+recovery without hospitalization",Optional,10,days
+`days_infectious_I_A`,"Average length of the infectious period in days 
+for individuals with a prognosis of 
+hospitalization",Optional,6,days
+`days_infectious_I_D`,"Average length of the infectious period in days 
+for individuals with a prognosis of 
+death without hospitalization",Optional,10,days
+`days_LOS_acute_care_to_recovery`,"Average length of stay in acute care 
+for individuals with a prognosis of 
+recovery without critical care",Optional,15,days
+`days_LOS_acute_care_to_critical`,"Average length of stay in acute care 
+for individuals with a prognosis of 
+critical care admission",Optional,10,days
+`days_LOS_acute_care_to_death`,"Average length of stay in acute care 
+for individuals with a prognosis of 
+death without critical care",Optional,15,days
+`days_LOS_critical_care_to_recovery`,"Average length of stay in critical care 
+for individuals with a prognosis of 
+recovery",Optional,15,days
+`days_LOS_critical_care_to_death`,"Average length of stay in critical care 
+for individuals with a prognosis of 
+death",Optional,10,days
+`prop_hosp`,"Proportion of all infections that 
+are hospitalized",Optional,0.05,-
+`prop_nonhosp_death` ,"Proportion of infections that 
+end in death without hospital care ",Optional,0.1,-
+`prop_hosp_crit` ,"Proportion of hospitalizations that 
+receive critical care",Optional,0.05,-
+`prop_hosp_death` ,"Proportion of hospitalizations that 
+end in death",Optional,0.01,-
+`setting.weight` ,"Vector of weights for the setting-specific component contact matrices, 
+where each weight gives the average contact rate per setting across all ages,
+ as described previously",No,"school = 11.41
+work = 8.07
+household = 4.11
+community = 2.79",Number of contacts per individual
