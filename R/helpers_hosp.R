@@ -147,6 +147,16 @@ make_pvec <- function(values){
         age.group.lower = seq(0, 80, by = 5),
         setting.weight = values$setting.weight
     )
+    
+    # allow user to pass flow directly and avoid recalculation from
+    # epi parameters (_e.g._ if tailoring certain params by age)
+    if("flow" %in% names(values)){
+        warning("ignoring epi parameters for flows in `values` and using `values$flow` directly")
+        flow <- values$flow
+    } else {
+        flow <- unname(calculate_flow_hosp(values))
+    }
+
     # the order of this output
     # must match order of params in 
     # `pf` initialized in run_after_simulator.R!
@@ -154,7 +164,7 @@ make_pvec <- function(values){
         # state
         values$state,
         # flows
-        unname(calculate_flow_hosp(values)),
+        flow,
         # transmission. matrix
         calculate_transmission_hosp(values, contact.pars = contact.pars),
         # contact. matrix

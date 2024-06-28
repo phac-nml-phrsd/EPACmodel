@@ -10,19 +10,17 @@
 #' @export
 simulate <- function(simulator, values = NULL) {
 
-  if(is.null(values)){
-    sim = simulator$report()
-  } else{
-    # calculate new input values
-    pvec = make_pvec(values)
-    sim = simulator$report(pvec)
-  }
+  if(is.null(values)) return(simulator$report())
+ 
+  # calculate new input values
+  pvec = make_pvec(values)
+  sim = simulator$report(pvec)
 
   # reformat output
-#   data.frame(
-#     time = sim$time,
-#     state_name = sim$row,
-#     value_type = sim$matrix,
-#     value = sim$value
-#   )
+  data.frame(
+    time = sim$time,
+    state_name = sim$row,
+    value_type = sim$matrix,
+    value = sim$value
+  )
 }
