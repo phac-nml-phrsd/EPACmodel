@@ -1,9 +1,8 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   EPACmodel: EPACmodel.html
   local-models: local-models.html
   pkg-models: pkg-models.html
-last_built: 2024-06-25T16:05Z
-
+last_built: 2024-09-03T22:37Z
