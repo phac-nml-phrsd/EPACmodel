@@ -26,7 +26,8 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     tidyr,
-    DT
+    DT,
+    forcats
 Remotes: canmod/macpan2@98fb990
 Config/testthat/edition: 3
 VignetteBuilder: knitr
