@@ -1,19 +1,19 @@
-contact.pars = mk_contact_pars(
-  age.group.lower = seq(0, 80, by = 5),
-  setting.weight = values$setting.weight
-)
+# make contact data, if not provided
+if(is.null(values$contact.pars)){
+  values$contact.pars = mk_contact_pars(
+    age.group.lower = seq(0, 80, by = 5),
+    setting.weight = values$setting.weight
+  )
+}
 
 flow <- calculate_flow(model.name, values)
+transmission <- calculate_transmission(model.name, values)
 
-transmission = calculate_transmission(
-  model.name, values, 
-  contact.pars = contact.pars
-)
+contact <- values$contact.pars$p.mat
 
-contact = contact.pars$p.mat
-
-if(scenario.name == "change-contacts"){
-  contact.pars.new = mk_contact_pars(
+# make contact data for scenario, if not provided
+if(scenario.name == "change-contacts" & is.null(values$contact.pars.new)){
+  values$contact.pars.new = mk_contact_pars(
     age.group.lower = seq(0, 80, by = 5),
     setting.weight = values$setting.weight.new
   )

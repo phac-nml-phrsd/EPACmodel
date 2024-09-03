@@ -9,15 +9,15 @@ License: MIT + file LICENSE
 URL: https://phac-nml-phrsd.github.io/EPACmodel, https://github.com/phac-nml-phrsd/EPACmodel
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Imports: 
     macpan2,
     fs,
     here,
-    Matrix (>= 1.6.3)
+    Matrix (>= 1.6.3),
+    ggplot2 (>= 3.5.0)
 Suggests: 
     dplyr (>= 1.1.0),
-    ggplot2,
     knitr,
     readr,
     rmarkdown,

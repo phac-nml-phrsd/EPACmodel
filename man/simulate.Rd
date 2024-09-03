@@ -4,10 +4,12 @@
 \alias{simulate}
 \title{Simulate from a simulator}
 \usage{
-simulate(simulator)
+simulate(simulator, values = NULL)
 }
 \arguments{
 \item{simulator}{Simulator object, initialized using \code{\link[=make_simulator]{make_simulator()}}}
+
+\item{values}{Complete list of model values to update the model simulator before generating the simulation. Must match format of \code{params} list from default (output of \code{\link[=get_default_values]{get_default_values()}} for desired model). If \code{NULL}, use values as currently attached to the model simulator.}
 }
 \value{
 A data frame containing simulation results with columns

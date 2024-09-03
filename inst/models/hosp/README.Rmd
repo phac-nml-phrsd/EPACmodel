@@ -18,9 +18,7 @@ This version of the model features a basic epidemiological structure stratified 
 
 The flows within each age group are as follows:
 
-![](figs/hosp.jpeg)
-
-**TODO: SHOW PARAMETRIZATION OF EACH FLOW RATE**
+![](figs/hosp.png)
 
 The solid lines indicate flows between compartments and the dashed lines indicate when a compartment is involved in calculating a flow rate.
 

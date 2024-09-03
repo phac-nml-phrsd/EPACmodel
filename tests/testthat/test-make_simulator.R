@@ -7,15 +7,14 @@ test_that("simulator is initialized for model that has functions", {
 })
 
 test_that("value gets updated from default", {
-  updated.values = list(
-    transmissibility = 0
-  )
+  values = get_default_values("five-year-age-groups")
+  values$transmissibility = 0
 
   expect_true(
     all(
     make_simulator(
       model.name = "five-year-age-groups",
-      updated.values = updated.values)$tmb_model$data_arg()$mats[[3]] == 0
+      values = values)$tmb_model$data_arg()$mats[[3]] == 0
     )
   )
 })

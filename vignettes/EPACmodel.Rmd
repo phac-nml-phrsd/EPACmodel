@@ -2,7 +2,7 @@
 title: "Introduction to EPACmodel"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{EPACmodel}
+  %\VignetteIndexEntry{Introduction to EPACmodel}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo = FALSE, message = FALSE}
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 library(EPACmodel)
 library(tibble)
 library(dplyr)
@@ -56,7 +56,7 @@ default.values = get_default_values(model.name)
 
 The definition of each default value is documented in `vignette("pkg-models")`.
 
-Any of these values can be changed by passing the optional `update.values` argument to `make_simulator()`. We recommend first loading the entire list of default values and extracting the specific value (list element) that you want to update, editing the numeric quantity as desired, and then passing the modified list element to `make_simulator()` via the `update.values` argument, to ensure that format of value is preserved to remain compatible with the model definition and `macpan2`:
+Any of these values can be changed by passing the optional `values` argument to `make_simulator()`. We recommend first loading the entire list of default values and extracting the specific value (list element) that you want to update, editing the numeric quantity as desired, and then passing the modified list element to `make_simulator()` via the `values` argument, to ensure that format of value is preserved to remain compatible with the model definition and `macpan2`:
 
 ```{r}
 # get default initial state
@@ -74,9 +74,11 @@ print(new.state)
 # use updated state to make a new simulator 
 new_model_simulator = make_simulator(
   model.name = model.name,
-  updated.values = list(state = new.state)
+  values = list(state = new.state)
 )
 ```
+
+(This approach works well if you want to update a parameter just once. However, if you want to repeatedly update some (or all) model parameters and re-run the simulator each time, this method would be costly as initializing a simulator takes a few seconds. Below, we discuss updating parameters after a model simulator is built, which is relatively fast.)
 
 ## Simulate a model
 
@@ -165,7 +167,10 @@ plot_output <- function(df, ylim = NULL){
      + ggplot2::theme(
        axis.title.y = ggplot2::element_blank(),
        legend.position = "inside",
-       legend.background = ggplot2::element_rect(fill = NA)
+       legend.position.inside = c(0.95, 0.95),
+       legend.justification = c("right", "top"),
+       legend.background = ggplot2::element_rect(fill = NA),
+       legend.key = ggplot2::element_rect(fill = NA)
       )
   )
 }
@@ -174,6 +179,41 @@ plot_output <- function(df, ylim = NULL){
   # these are not package functions, defined just for this doc
  |> tidy_output()
  |> plot_output()
+)
+```
+
+We could also update model parameters before the simulation using the `values` argument.[^1] Here, it's important to pass the **complete** list of model values (with any desired updates).[^2] As a result, we suggest starting by loading a complete list of the model's values with `get_default_values()`, updating the desired values, and then passing this list to `simulate()` as below. Note that the `time.steps` parameter cannot be updated after the model simulator is built and must instead be modified using the `values` argument of `make_simulator()`.
+
+[^1]: Currently only supported for the `hosp` model.
+[^2]: As opposed to with `make_simulator()` where we could pass only a partial parameter list and use defaults for the remaining parameters. This requirement could be relaxed in future versions.
+
+```{r}
+model.name2 <- "hosp"
+model_simulator2 <- make_simulator(model.name2, values = list(time.steps = 365))
+```
+
+```{r echo=FALSE}
+(simulate(model_simulator2)
+  # these are (non-exported) package functions
+ |> EPACmodel:::tidy_output()
+ |> EPACmodel:::aggregate_across_age_groups()
+ |> EPACmodel:::aggregate_across_epi_subcats()
+ |> EPACmodel:::plot_output()
+)
+```
+
+```{r}
+values2 = get_default_values(model.name2)
+values2$transmissibility <- values2$transmissibility*(1-0.2) # reduce transmissibility by 20%
+```
+
+```{r echo=FALSE}
+(simulate(model_simulator2, values2)
+  # these are (non-exported) package functions
+ |> EPACmodel:::tidy_output()
+ |> EPACmodel:::aggregate_across_age_groups()
+ |> EPACmodel:::aggregate_across_epi_subcats()
+ |> EPACmodel:::plot_output()
 )
 ```
 

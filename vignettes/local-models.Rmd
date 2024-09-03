@@ -2,7 +2,7 @@
 title: "Locally-defined model files"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{local-models}
+  %\VignetteIndexEntry{Locally-defined model files}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
