@@ -1,9 +1,9 @@
 model$simulators$tmb(
   time_steps = values$time.steps,
   state = values$state,
-  flow = values$flow,
+  flow = flow,
   transmission. = transmission,
-  contact. = contact.pars.initial$p.mat,
+  contact. = contact,
   N.lb0 = macpan2::empty_matrix,
   N.lb5 = macpan2::empty_matrix,
   N.lb10 = macpan2::empty_matrix,
@@ -43,7 +43,7 @@ model$simulators$tmb(
   infection. = macpan2::empty_matrix,
   infected. = macpan2::empty_matrix,
   dummy. = macpan2::empty_matrix
-  , .mats_to_return = c("state", "total_inflow")
+  , .mats_to_return = c("state", "total_inflow", "transmission.", "contact.", "flow")
   , .dimnames = list(total_inflow = list(names(values$state), ""))
 
   ## This is a hack. It is only necessary because I have not moved the

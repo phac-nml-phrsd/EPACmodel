@@ -153,27 +153,3 @@ Lower bounds requested were: ", age.group.lower))
 
   return(population)
 }
-
-# Utilities for decoding parameters into rates
-# - - - - - - - - - - - - - - - - -
-
-# initialize flow vector with expanded names
-init_flow_vec <- function(
-  epi_names, age_groups
-){
-
-  name_combos <- expand.grid(epi_names, age_groups)
-  flow_names <- sprintf('%s.lb%s', name_combos[,1], name_combos[,2])
-
-  flow_vec <- rep(0, length(flow_names))
-  names(flow_vec) <- flow_names
-
-  flow_vec
-}
-
-# update flow vector using pattern based on names
-update_flow <- function(flow, pattern, value){
-  indx <- grepl(pattern, names(flow))
-  flow[indx] <- value
-  return(flow)
-}

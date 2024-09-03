@@ -4,19 +4,14 @@
 \alias{make_simulator}
 \title{Construct a simulator for a model}
 \usage{
-make_simulator(
-  model.name,
-  scenario.name = NULL,
-  updated.values = NULL,
-  local = FALSE
-)
+make_simulator(model.name, scenario.name = NULL, values = NULL, local = FALSE)
 }
 \arguments{
 \item{model.name}{name of the model (see \code{\link[=list_models]{list_models()}} for options)}
 
 \item{scenario.name}{Optional. Name of scenario to simulate. See README for \code{model.name} for options. If NULL, use base model.}
 
-\item{updated.values}{Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.}
+\item{values}{Optional. List containing updates to variables + values used to initialize the model simulator. If NULL, use default list is read from disk and used as is.}
 
 \item{local}{logical. if TRUE, use local model definition (in \code{models} subdirectory of main project repo). if FALSE, use package models.}
 }

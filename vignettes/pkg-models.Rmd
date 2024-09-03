@@ -2,7 +2,7 @@
 title: "Package models"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{pkg-models}
+  %\VignetteIndexEntry{Package models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
