@@ -1,0 +1,23 @@
+---
+title: "For developers"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(EPACmodel)
+```
+
+# `{renv}`
+
+This package uses [`{renv}`](https://rstudio.github.io/renv/index.html) to manage dependencies.
+
+In order to ensure the development environment is properly tracked, please use the `dev=TRUE` option in `renv` functions. For instance, to check the status of your environment, use `renv::status(dev=TRUE)`. To log packages, use `renv::snapshot(dev=TRUE)`. (`renv::restore()` does not use this flag.)
+
+Note that at project startup, `renv::status(dev=FALSE)` will execute first, reporting that the project is
+out-of-sync. After, the project is set up to automatically run `renv::status(dev=TRUE)`, so consult this second output to check the true status of the project.

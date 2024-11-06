@@ -27,7 +27,8 @@ Suggests:
     tibble,
     tidyr,
     DT,
-    forcats
+    forcats,
+    devtools
 Remotes: canmod/macpan2@98fb990
 Config/testthat/edition: 3
 VignetteBuilder: knitr
