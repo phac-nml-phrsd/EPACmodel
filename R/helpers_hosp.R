@@ -237,7 +237,8 @@ make_pvec <- function(values, mats){
     # recalculate contact parameters
     values$contact.pars <- mk_contact_pars(
         age.group.lower = seq(0, 80, by = 5),
-        setting.weight = values$setting.weight
+        setting.weight = values$setting.weight,
+        pop.new = values$pop
     )
     
     # allow user to pass flow directly and avoid recalculation from
@@ -275,7 +276,8 @@ make_pvec <- function(values, mats){
         # recalculate new contact parameters
         values$contact.pars.new <- mk_contact_pars(
             age.group.lower = seq(0, 80, by = 5),
-            setting.weight = values$setting.weight.new
+            setting.weight = values$setting.weight.new,
+            pop.new = values$pop
         )
 
         out <- c(

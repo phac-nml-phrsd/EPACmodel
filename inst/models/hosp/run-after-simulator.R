@@ -1,6 +1,6 @@
 # set up model simulator to accept updated parameter values
 pf <- (data.frame()
-|> add_to_pf("state", values$state)
+  |> add_to_pf("state", values$state)
   |> add_to_pf("flow", flow)
   |> add_to_pf("transmission.", transmission)
   |> add_to_pf("contact.", contact)
@@ -36,7 +36,7 @@ if (scenario.name == "change-contacts") {
 
   # set up to accept updated scenario parameters
   pf <- (pf
-  |> add_to_pf("contact_changepoints", contact_changepoints_to_fill)
+    |> add_to_pf("contact_changepoints", contact_changepoints_to_fill)
     |> add_to_pf("contact_values", contact_values_to_fill)
     |> add_to_pf("transmission_values", transmission_values_to_fill)
   )
