@@ -44,3 +44,7 @@ remotes::install_github("phac-nml-phrsd/EPACmodel")
 
 A getting started guide can be found in `vignette("EPACmodel")`.
 
+## For developers
+
+Please start by reading the [developer notes](https://phac-nml-phrsd.github.io/EPACmodel/articles/dev).
+
